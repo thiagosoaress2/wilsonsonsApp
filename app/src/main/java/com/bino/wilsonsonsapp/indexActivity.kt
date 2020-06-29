@@ -33,8 +33,6 @@ class indexActivity : AppCompatActivity() {
 
         loadComponents()
 
-        indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layoutPrincipal), findViewById(R.id.playerAvatar))
-
         val situacao = intent.getStringExtra("email")
         if (indexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
             openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
@@ -53,7 +51,10 @@ class indexActivity : AppCompatActivity() {
             indexModels.posicaoUser++
             indexModels.moveThePlayer(findViewById(R.id.playerAvatar))
 
-            indexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this)
+        }
+
+        val btnTesteProblema: Button = findViewById(R.id.btnTesteProblema)
+        btnTesteProblema.setOnClickListener {
             openIntroQuest()
         }
 
@@ -64,6 +65,7 @@ class indexActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layoutPrincipal), findViewById(R.id.playerAvatar))
     }
 
     fun loadComponents(){
@@ -176,6 +178,7 @@ class indexActivity : AppCompatActivity() {
 
     fun openIntroQuest(){
 
+        indexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this)
         val btnAbrePergunta: Button = findViewById(R.id.questionIntro_btn)
         btnAbrePergunta.setOnClickListener {
             openProblema()

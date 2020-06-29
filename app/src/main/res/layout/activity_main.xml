@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
-                        android:text="Ou"
+                        android:text="@string/main_layInicial_txt2"
                         android:textColor="#ffffff"
                         android:textSize="20sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -84,7 +84,7 @@
                         android:layout_marginTop="16dp"
                         android:paddingStart="14dp"
                         android:paddingEnd="14dp"
-                        android:text="Entrar com Google"
+                        android:text="@string/main_layInicial_btn2"
                         android:textAllCaps="false"
                         android:textColor="#ffffff"
                         android:textSize="18sp"
@@ -97,7 +97,7 @@
                         android:id="@+id/textView5"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Bem vindo"
+                        android:text="@string/main_layInicial_txt1"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
                         android:textSize="25sp"
@@ -114,7 +114,7 @@
                         android:layout_marginTop="16dp"
                         android:layout_weight="1"
                         android:elevation="15dp"
-                        android:text="Acessar"
+                        android:text="@string/main_layInicial_btn1"
                         android:textAllCaps="false"
                         android:textColor="#000000"
                         android:textSize="14sp"
@@ -173,7 +173,7 @@
 
                         android:paddingStart="14dp"
                         android:paddingEnd="14dp"
-                        android:text="Entrar com Facebook"
+                        android:text="@string/main_layInicial_btn3"
                         android:textAllCaps="false"
                         android:textColor="#ffffff"
                         android:textSize="18sp"
@@ -201,7 +201,7 @@
                         android:layout_marginTop="16dp"
                         android:paddingStart="14dp"
                         android:paddingEnd="14dp"
-                        android:text="Entrar sem login"
+                        android:text="@string/main_layInicial_btn4"
                         android:textAllCaps="false"
                         android:textColor="#ffffff"
                         android:textSize="18sp"
@@ -250,8 +250,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Esqueceu a senha?"
-                        app:layout_constraintStart_toStartOf="@+id/view2"
-                        app:layout_constraintTop_toBottomOf="@+id/emailSignInButton" />
+                        app:layout_constraintEnd_toEndOf="@+id/fieldPassword"
+                        app:layout_constraintTop_toBottomOf="@+id/fieldPassword" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

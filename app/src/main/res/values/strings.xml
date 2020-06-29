@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">wilsonsonsApp</string>
+
+
+
+    <!-- MainActivity -->
+    <string name="main_layInicial_txt1">Vamos começar!</string>
+    <string name="main_layInicial_btn1">Começar</string>
+    <string name="main_layInicial_txt2">Você também pode</string>
+    <string name="main_layInicial_btn2">Entrar com Google</string>
+    <string name="main_layInicial_btn3">Entrar com Facebook</string>
+    <string name="main_layInicial_btn4">Entrar sem login</string>
 </resources>

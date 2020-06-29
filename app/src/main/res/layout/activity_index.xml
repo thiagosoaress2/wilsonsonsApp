@@ -19,16 +19,6 @@
         tools:visibility="visible">
 
 
-        <ImageView
-            android:id="@+id/playerAvatar"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:elevation="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/cavalo" />
-
         <Button
             android:id="@+id/btnteste"
             android:layout_width="wrap_content"
@@ -38,6 +28,14 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnTesteProblema"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TesteProblema"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnteste" />
 
         <ImageView
             android:id="@+id/backgroundPlaceHolder"
@@ -56,6 +54,15 @@
             android:text="btnTeste2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnteste" />
+
+        <ImageView
+            android:id="@+id/playerAvatar"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:elevation="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/cavalo"
+            tools:layout_editor_absoluteY="0dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
