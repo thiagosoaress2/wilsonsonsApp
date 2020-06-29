@@ -16,8 +16,12 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat.getSystemService
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.R
+import com.bino.wilsonsonsapp.Utils.introQuestAdapter
+import com.bino.wilsonsonsapp.indexActivity
 import com.bumptech.glide.Glide
 
 
@@ -27,6 +31,8 @@ object indexModels {
     val arrayPosicoesY: MutableList<Int> = ArrayList()
 
     var posicaoUser=0
+
+    var userBd = "nao"
 
     fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layoutPrincipal: ConstraintLayout, playerAvatar: ImageView){
 
@@ -106,5 +112,57 @@ object indexModels {
         }
 
     }
+
+    fun openIntroQuest(layIntroQuest: ConstraintLayout, recyclerView: RecyclerView, activity: Activity){
+
+        //layInicial.visibility = View.GONE
+        layIntroQuest.visibility = View.VISIBLE
+
+        val arrayTitulo: MutableList<String> = ArrayList()
+        arrayTitulo.add("Olaaaa")
+        arrayTitulo.add("Este é o titulo 2")
+        val arrayTexto: MutableList<String> = ArrayList()
+        arrayTexto.add("Este é o texto 1")
+        arrayTexto.add("Este é o texto 2, um texto maior para podermos testar")
+        val arrayImage: MutableList<String> = ArrayList()
+        arrayImage.add("https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho.jpg?alt=media&token=c27bd083-fe07-4a37-8557-14125a99ebf4")
+        arrayImage.add("https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho2.jpg?alt=media&token=843e406c-cca5-4fa8-9ad5-5a9f1adce458")
+
+        val adapter: introQuestAdapter = introQuestAdapter(activity, arrayTitulo, arrayTexto, arrayImage)
+
+        //chame a recyclerview
+        //val recyclerView: RecyclerView = findViewById(R.id.question_intro_recyclerView)
+
+        //define o tipo de layout (linerr, grid)
+        val linearLayoutManager: LinearLayoutManager = LinearLayoutManager(activity)
+
+        //coloca o adapter na recycleview
+        recyclerView.adapter = adapter
+
+        recyclerView.layoutManager = linearLayoutManager
+
+        // Notify the adapter for data change.
+        adapter.notifyDataSetChanged()
+
+        recyclerView.addOnItemTouchListener(
+            indexActivity.RecyclerTouchListener(
+                activity,
+                recyclerView!!,
+                object : indexActivity.ClickListener {
+
+                    override fun onClick(view: View, position: Int) {
+                        Log.d("teste", arrayTitulo.get(position))
+                        //Toast.makeText(this@MainActivity, !! aNome.get(position).toString(), Toast.LENGTH_SHORT).show()
+                    }
+
+                    override fun onLongClick(view: View?, position: Int) {
+
+                    }
+                })
+        )
+
+
+    }
+
 
 }

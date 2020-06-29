@@ -14,6 +14,8 @@ import android.view.View
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 object indexControllers {
 
@@ -58,6 +60,24 @@ object indexControllers {
         return width
 
     }
+
+    fun getDate () : String {
+
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val currentDate = sdf.format(Date())
+
+        return currentDate
+    }
+
+    //pega a hora
+    fun getHour () : String {
+
+        val sdf = SimpleDateFormat("hh:mm:ss")
+        val currentDate = sdf.format(Date())
+
+        return currentDate
+    }
+
 
 
 }

@@ -1,33 +1,39 @@
 package com.bino.wilsonsonsapp
 
 import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.animation.Animation
-import android.view.animation.Animation.AnimationListener
-import android.view.animation.TranslateAnimation
+import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.Models.indexModels
+import com.bino.wilsonsonsapp.Utils.introQuestAdapter
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_main.*
 
 
 class indexActivity : AppCompatActivity() {
 
     val LOGD : String = "teste"
 
+    lateinit var layInicial: ConstraintLayout
+    lateinit var layIntroQuest: ConstraintLayout
+    lateinit var lay_problema: ConstraintLayout
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
+
+        loadComponents()
+
+        indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layoutPrincipal), findViewById(R.id.playerAvatar))
 
         val situacao = intent.getStringExtra("email")
         if (indexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
@@ -39,7 +45,7 @@ class indexActivity : AppCompatActivity() {
         }
 
         //placeBackGroundAsMap()
-        indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layoutPrincipal), findViewById(R.id.playerAvatar))
+
 
         val btnteste: Button = findViewById(R.id.btnteste)
         btnteste.setOnClickListener {
@@ -47,9 +53,23 @@ class indexActivity : AppCompatActivity() {
             indexModels.posicaoUser++
             indexModels.moveThePlayer(findViewById(R.id.playerAvatar))
 
+            indexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this)
+            openIntroQuest()
         }
 
+        val btnTestePerfil: Button = findViewById(R.id.btnTeste2)
+        btnTestePerfil.setOnClickListener {
+            val intent = Intent(this, perfilActivity::class.java)
+            //intent.putExtra("email", "semLogin")
+            startActivity(intent)
+        }
 
+    }
+
+    fun loadComponents(){
+        layInicial = findViewById(R.id.layoutPrincipal)
+        layIntroQuest = findViewById(R.id.LayQuestion_intro)
+        lay_problema = findViewById(R.id.lay_problema)
     }
 
     fun openPopUp (titulo: String, texto:String, exibeBtnOpcoes:Boolean, btnSim: String, btnNao: String, call: String) {
@@ -136,7 +156,7 @@ class indexActivity : AppCompatActivity() {
         }
 
         //lay_root é o layout parent que vou colocar a popup
-        val lay_root: ConstraintLayout = findViewById(R.id.LayPai)
+        val lay_root: ConstraintLayout = findViewById(R.id.layoutPrincipal)
 
         // Finally, show the popup window on app
         TransitionManager.beginDelayedTransition(lay_root)
@@ -153,5 +173,70 @@ class indexActivity : AppCompatActivity() {
 
 
     }
+
+    fun openIntroQuest(){
+
+        val btnAbrePergunta: Button = findViewById(R.id.questionIntro_btn)
+        btnAbrePergunta.setOnClickListener {
+            openProblema()
+        }
+    }
+
+    fun openProblema(){
+
+        layIntroQuest.visibility = View.GONE
+       // layInicial.visibility = View.GONE
+        lay_problema.visibility = View.VISIBLE
+
+        val arrayProblema: MutableList<String> = ArrayList()
+        arrayProblema.add("https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho2.jpg?alt=media&token=843e406c-cca5-4fa8-9ad5-5a9f1adce458")
+
+        Glide.with(this).load(arrayProblema.get(0)).into(findViewById(R.id.problema_image))
+    }
+
+    //click listener da primeira recycleview
+    interface ClickListener {
+        fun onClick(view: View, position: Int)
+
+        fun onLongClick(view: View?, position: Int)
+    }
+
+    internal class RecyclerTouchListener(context: Context, recyclerView: RecyclerView, private val clickListener: ClickListener?) : RecyclerView.OnItemTouchListener {
+
+        private val gestureDetector: GestureDetector
+
+        init {
+            gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+                override fun onSingleTapUp(e: MotionEvent): Boolean {
+                    return true
+                }
+
+                override fun onLongPress(e: MotionEvent) {
+                    val child = recyclerView.findChildViewUnder(e.x, e.y)
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildPosition(child))
+                    }
+                }
+            })
+        }
+
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+
+            val child = rv.findChildViewUnder(e.x, e.y)
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildPosition(child))
+            }
+            return false
+        }
+
+        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+
+        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+
+        }
+    }
+
+
+
 
 }
