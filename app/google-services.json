@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "515423042647",
+    "firebase_url": "https://wilsonsonshack.firebaseio.com",
+    "project_id": "wilsonsonshack",
+    "storage_bucket": "wilsonsonshack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515423042647:android:7c6de40e56b60a7aea3712",
+        "android_client_info": {
+          "package_name": "com.bino.wilsonsonsapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515423042647-2omie5m6fo0sciv2leqmsh676k8vi4kg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDarLalgRkTBvYa8FXchDLmOVph42UfUsQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515423042647-2omie5m6fo0sciv2leqmsh676k8vi4kg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
