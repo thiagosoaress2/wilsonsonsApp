@@ -1,30 +1,54 @@
 package com.bino.wilsonsonsapp
 
 import android.content.Context
-import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.Animation.AnimationListener
+import android.view.animation.TranslateAnimation
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.firebase.auth.FirebaseAuth
+import com.bino.wilsonsonsapp.Controllers.indexControllers
+import com.bino.wilsonsonsapp.Models.indexModels
+import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.activity_main.*
+
 
 class indexActivity : AppCompatActivity() {
+
+    val LOGD : String = "teste"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_index)
 
         val situacao = intent.getStringExtra("email")
-        if (isNetworkAvailable(this) && situacao.equals("semLogin")){
+        if (indexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
             openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
+        } else if (indexControllers.isNetworkAvailable(this)){
+            //verificar se tem novos mundos para baixar
+            //chamar um método para baixar os conteudos e em seguida informar ao usuário que existem atualizações e novas fases
+
         }
+
+        //placeBackGroundAsMap()
+        indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layoutPrincipal), findViewById(R.id.playerAvatar))
+
+        val btnteste: Button = findViewById(R.id.btnteste)
+        btnteste.setOnClickListener {
+
+            indexModels.posicaoUser++
+            indexModels.moveThePlayer(findViewById(R.id.playerAvatar))
+
+        }
+
 
     }
 
@@ -130,10 +154,4 @@ class indexActivity : AppCompatActivity() {
 
     }
 
-    fun isNetworkAvailable(context: Context): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        var activeNetworkInfo: NetworkInfo? = null
-        activeNetworkInfo = cm.activeNetworkInfo
-        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
-    }
 }
