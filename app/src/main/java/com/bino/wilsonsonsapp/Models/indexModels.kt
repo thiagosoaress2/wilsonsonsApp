@@ -14,6 +14,9 @@ import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.introQuestAdapter
 import com.bino.wilsonsonsapp.indexActivity
 import com.bumptech.glide.Glide
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 object indexModels {
@@ -25,6 +28,8 @@ object indexModels {
 
     var userBd = "nao"
     var userImg= "nao"
+
+    var limitCertificate = "nao"
 
     fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layout: ConstraintLayout, playerAvatar: ImageView){
 
@@ -182,4 +187,22 @@ object indexModels {
         }
 
     }
+
+    fun checkCertificate() : Boolean {
+
+        val today = indexControllers.getDate()
+        //val limiteDate = GetfutureDate(30)
+
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        val date1 = format.parse(limitCertificate)
+        val date2 = format.parse(today)
+
+        if (date1.compareTo(date2) >= 0) {  //se for hoje ou no futuro
+            return true //maior precisa avisar
+        } else {
+            return false  //menor nao precisa
+        }
+    }
+
+
 }

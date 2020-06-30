@@ -41,11 +41,17 @@ class indexActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
+
+    }
+
+    override fun onStart() {
+        super.onStart()
+
         loadComponents()
 
         val situacao = intent.getStringExtra("email")
         if (indexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
-         //   openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
+            //   openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
         } else if (indexControllers.isNetworkAvailable(this)){
             //verificar se tem novos mundos para baixar
             //chamar um método para baixar os conteudos e em seguida informar ao usuário que existem atualizações e novas fases
@@ -69,7 +75,13 @@ class indexActivity : AppCompatActivity() {
 
         indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
 
+        if (indexModels.checkCertificate()){
+            //avisa o user
+            openPopUp("Atenção", "Seu certificado vai vencer dentro de 30 dias.", false, "n", "n", "n")
+        }
+
         setupMenu()
+
     }
 
     fun loadComponents(){

@@ -95,30 +95,6 @@ class perfilActivity : AppCompatActivity() {
 
     fun mountChart(){
 
-        /*  GRAFICO RADAR
-        val arrayList: ArrayList<RadarEntry>
-        val dataValues: MutableList<RadarEntry> =  ArrayList()
-
-        dataValues.add(RadarEntry(4f))
-        dataValues.add(RadarEntry(8f))
-        dataValues.add(RadarEntry(10f))
-
-
-        val dataset: RadarDataSet = RadarDataSet(dataValues, "sei la")
-
-        dataset.setColor(Color.BLUE)
-
-        val data: RadarData = RadarData()
-        data.addDataSet(dataset)
-
-        val xAxis : XAxis = radarChart.xAxis
-        xAxis.valueFormatter.)
-
-        radarChart.data = data
-        radarChart.invalidate()
-
-         */
-
         val pieChart = findViewById<PieChart>(R.id.pieChart)
 
         val NoOfEmp = ArrayList<PieEntry>()

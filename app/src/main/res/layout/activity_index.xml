@@ -146,7 +146,7 @@
             app:layout_constraintStart_toStartOf="parent"
             tools:visibility="visible">
 
-            <ImageButton
+            <ImageView
                 android:id="@+id/perguntaAB_img"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
