@@ -21,6 +21,7 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.indexControllers
+import com.bino.wilsonsonsapp.Models.ConsultsModel
 import com.bino.wilsonsonsapp.Models.indexModels
 import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.cameraPermissions
@@ -157,6 +158,7 @@ class perfilActivity : AppCompatActivity() {
          */
 
         //NoOfEmp.add(PieEntry((arrayDesempenhoEmCadaDisciplina.get(0) + "F").toFloat(),"Português"))
+
         NoOfEmp.add(PieEntry((50f), "Segurança"))
         NoOfEmp.add(PieEntry((25f), "Relacionamento"))
         NoOfEmp.add(PieEntry((30f), "Técnica"))

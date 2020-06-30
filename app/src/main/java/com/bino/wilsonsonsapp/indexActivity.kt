@@ -16,6 +16,8 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.indexControllers
+import com.bino.wilsonsonsapp.Models.ConsultsModel
+import com.bino.wilsonsonsapp.Models.ObjectQuestions
 import com.bino.wilsonsonsapp.Models.indexModels
 import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bumptech.glide.Glide
@@ -248,9 +250,10 @@ class indexActivity : AppCompatActivity() {
        // layInicial.visibility = View.GONE
         lay_problema.visibility = View.VISIBLE
 
-        val id: String = "identificacaoDaTabela"
-        val colunId: String = "identificacaoID"
-        val skill = "seguranca"
+        //var objectQuestions: ObjectQuestions = ObjectQuestions()
+
+        val id: Int = 0
+        val skill = "fazer"
         val tipo = "AB"   //clicavel  multipla  AB
         val bdDaIntro = "idDaIntro"
         val opcaoA = "opcaoA"
@@ -274,6 +277,8 @@ class indexActivity : AppCompatActivity() {
         val layRespostas: ConstraintLayout = findViewById(R.id.lay_respostaMultipla)
 
         Glide.with(this).load(imagem).into(findViewById(R.id.problema_image))//imagem principal
+
+        //1 - multipla  //2 - clicavel //3 - AB
 
         if (tipo.equals("multipla")){
 
