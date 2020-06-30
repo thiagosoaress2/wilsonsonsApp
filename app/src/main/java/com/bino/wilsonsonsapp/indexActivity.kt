@@ -44,7 +44,6 @@ class indexActivity : AppCompatActivity() {
 
         //placeBackGroundAsMap()
 
-
         val btnteste: Button = findViewById(R.id.btnteste)
         btnteste.setOnClickListener {
 
@@ -65,7 +64,7 @@ class indexActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layoutPrincipal), findViewById(R.id.playerAvatar))
+        indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
     }
 
     fun loadComponents(){

@@ -1,21 +1,11 @@
 package com.bino.wilsonsonsapp.Models
 
 import android.app.Activity
-import android.content.Context
-import android.os.Build
-import android.transition.Slide
-import android.transition.TransitionManager
 import android.util.Log
-import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.PopupWindow
-import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.indexControllers
@@ -34,7 +24,7 @@ object indexModels {
 
     var userBd = "nao"
 
-    fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layoutPrincipal: ConstraintLayout, playerAvatar: ImageView){
+    fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layout: ConstraintLayout, playerAvatar: ImageView){
 
         placeMapOnScreen(activity, R.drawable.map, backgroundPlaceHolder)
 
@@ -79,12 +69,11 @@ object indexModels {
 
             }
 
-            layoutPrincipal?.addView(imageView) //adding image to the layout
+            layout?.addView(imageView) //adding image to the layout
 
             Glide.with(activity).load(R.drawable.navio).into(imageView)
             cont++
         }
-
 
         placeThePlayerInitial(playerAvatar)
 
