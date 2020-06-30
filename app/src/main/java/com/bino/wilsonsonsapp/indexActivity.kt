@@ -9,33 +9,45 @@ import android.transition.TransitionManager
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.Models.indexModels
 import com.bino.wilsonsonsapp.Utils.introQuestAdapter
 import com.bumptech.glide.Glide
+import com.google.android.material.navigation.NavigationView
 
 
 class indexActivity : AppCompatActivity() {
 
     val LOGD : String = "teste"
 
+    lateinit var toolbar: Toolbar
+    lateinit var drawer: DrawerLayout
+    lateinit var navigationView: NavigationView
     lateinit var layInicial: ConstraintLayout
     lateinit var layIntroQuest: ConstraintLayout
     lateinit var lay_problema: ConstraintLayout
+    lateinit var btnteste: Button
+    lateinit var btnTesteProblema: Button
+    lateinit var btnTestePerfil: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_index)
+        setContentView(R.layout.activity_menu)
 
         loadComponents()
-
+        setupMenu();
         val situacao = intent.getStringExtra("email")
         if (indexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
-            openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
+         //   openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
         } else if (indexControllers.isNetworkAvailable(this)){
             //verificar se tem novos mundos para baixar
             //chamar um método para baixar os conteudos e em seguida informar ao usuário que existem atualizações e novas fases
@@ -44,33 +56,71 @@ class indexActivity : AppCompatActivity() {
 
         //placeBackGroundAsMap()
 
-        val btnteste: Button = findViewById(R.id.btnteste)
         btnteste.setOnClickListener {
-
             indexModels.posicaoUser++
             indexModels.moveThePlayer(findViewById(R.id.playerAvatar))
-
         }
 
-        val btnTesteProblema: Button = findViewById(R.id.btnTesteProblema)
         btnTesteProblema.setOnClickListener {
             openIntroQuest()
         }
 
-        val btnTestePerfil: Button = findViewById(R.id.btnTeste2)
+
         btnTestePerfil.setOnClickListener {
             val intent = Intent(this, perfilActivity::class.java)
             //intent.putExtra("email", "semLogin")
             startActivity(intent)
         }
 
-        indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
+        indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layoutPrincipal), findViewById(R.id.playerAvatar))
+
     }
 
     fun loadComponents(){
+
+        drawer = findViewById(R.id.drawer_layout)
+        toolbar = findViewById(R.id.toolbar)
+        navigationView = findViewById(R.id.nav_view)
         layInicial = findViewById(R.id.layoutPrincipal)
         layIntroQuest = findViewById(R.id.LayQuestion_intro)
         lay_problema = findViewById(R.id.lay_problema)
+        btnteste = findViewById(R.id.btnteste)
+        btnTesteProblema = findViewById(R.id.btnTesteProblema)
+        btnTestePerfil = findViewById(R.id.btnTeste2)
+    }
+
+    fun setupMenu(){
+
+        val toggle =
+            ActionBarDrawerToggle(
+                this,
+                drawer,
+                toolbar,
+                R.string.navigation_drawer_open,
+                R.string.navigation_drawer_close
+            )
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
+
+        navigationView.setNavigationItemSelectedListener {
+            if (drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.closeDrawer(GravityCompat.START)
+            } else {
+                drawer.openDrawer(GravityCompat.START);
+            }
+
+            when (it.itemId) {
+                R.id.nav_user -> {
+
+                    true
+                }
+                R.id.nav_perfil -> {
+
+                    true
+                }
+                else -> false
+            }
+        }
     }
 
     fun openPopUp (titulo: String, texto:String, exibeBtnOpcoes:Boolean, btnSim: String, btnNao: String, call: String) {

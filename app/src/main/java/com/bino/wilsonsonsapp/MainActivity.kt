@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextUtils
@@ -20,7 +19,9 @@ import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bino.wilsonsonsapp.Controllers.SetupDatabase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -39,14 +40,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        SetupDatabase(this)
         auth = FirebaseAuth.getInstance()
         loadComponents()
         metodosIniciais()
 
     }
 
-    fun loadComponents(){
+    fun loadComponents() {
 
         telainicial = findViewById<ConstraintLayout>(R.id.layInicial)
         telaDeVerificacao = findViewById<ConstraintLayout>(R.id.layLoginWithMail_VerificationMail)
@@ -54,22 +55,22 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun metodosIniciais (){
+    fun metodosIniciais() {
 
         telaDeVerificacao.visibility = View.GONE
 
         //fazer login depos
-        val btnLoginDepois : Button = findViewById(R.id.btnLoginDepois)
+        val btnLoginDepois: Button = findViewById(R.id.btnLoginDepois)
         btnLoginDepois.setOnClickListener {
 
-                telainicial.visibility = View.GONE
-                telaDeVerificacao.visibility= View.GONE
-                telaLoginMailNew.visibility= View.GONE
-                telainicial.visibility= View.VISIBLE
+            telainicial.visibility = View.GONE
+            telaDeVerificacao.visibility = View.GONE
+            telaLoginMailNew.visibility = View.GONE
+            telainicial.visibility = View.VISIBLE
 
-                val intent = Intent(this, indexActivity::class.java)
-                intent.putExtra("email", "semLogin")
-                startActivity(intent)
+            val intent = Intent(this, indexActivity::class.java)
+            intent.putExtra("email", "semLogin")
+            startActivity(intent)
 
         }
 
@@ -82,7 +83,8 @@ class MainActivity : AppCompatActivity() {
             if (isNetworkAvailable(this)) {
                 LoginWithEmail()
             } else {
-                Toast.makeText(this, "Você está sem conexão com a internet.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Você está sem conexão com a internet.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
@@ -105,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
 
         val currentUser = auth.currentUser
-        if (currentUser == null){
+        if (currentUser == null) {
             auth.signOut()
             updateUI(currentUser, "null")
         } else {
@@ -136,8 +138,10 @@ class MainActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("teste", "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "A autenticação falhou",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        baseContext, "A autenticação falhou",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     updateUI(null, "null")
                 }
 
@@ -160,13 +164,17 @@ class MainActivity : AppCompatActivity() {
                 verifyEmailButton.isEnabled = true
 
                 if (task.isSuccessful) {
-                    Toast.makeText(baseContext,
+                    Toast.makeText(
+                        baseContext,
                         "E-mail enviado para ${user.email} ",
-                        Toast.LENGTH_SHORT).show()
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
-                    Toast.makeText(baseContext,
+                    Toast.makeText(
+                        baseContext,
                         "Falha no envio do e-mail de verificação.",
-                        Toast.LENGTH_SHORT).show()
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
                 // [END_EXCLUDE]
             }
@@ -190,14 +198,14 @@ class MainActivity : AppCompatActivity() {
                 //fieldEmail.error = null
             }
 
-            if (!fieldEmail.text.toString().contains("@")){
+            if (!fieldEmail.text.toString().contains("@")) {
                 fieldEmail.error = "E-mail inválido"
                 valid = false
             } else {
                 //fieldEmail.error = null
             }
 
-            if (!fieldEmail.text.toString().contains(".")){
+            if (!fieldEmail.text.toString().contains(".")) {
                 fieldEmail.error = "E-mail inválido"
                 valid = false
             } else {
@@ -211,7 +219,7 @@ class MainActivity : AppCompatActivity() {
                 //fieldPassword.error = null
             }
 
-            if (password.length<6){
+            if (password.length < 6) {
                 fieldPassword.error = "A senha deve conter pelo menos 6 dígitos"
                 valid = false
             } else {
@@ -219,7 +227,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        if (tipo.equals("MailNew")){
+        if (tipo.equals("MailNew")) {
 
             val fieldEmail = findViewById<EditText>(R.id.fieldEmail_newUser)
             val fieldPassword = findViewById<EditText>(R.id.fieldPassword_newUser)
@@ -233,14 +241,14 @@ class MainActivity : AppCompatActivity() {
                 //fieldEmail.error = null
             }
 
-            if (!fieldEmail.text.toString().contains("@")){
+            if (!fieldEmail.text.toString().contains("@")) {
                 fieldEmail.error = "E-mail inválido"
                 valid = false
             } else {
                 //fieldEmail.error = null
             }
 
-            if (!fieldEmail.text.toString().contains(".")){
+            if (!fieldEmail.text.toString().contains(".")) {
                 fieldEmail.error = "E-mail inválido"
                 valid = false
             } else {
@@ -254,7 +262,7 @@ class MainActivity : AppCompatActivity() {
                 //fieldPassword.error = null
             }
 
-            if (password.length<6){
+            if (password.length < 6) {
                 fieldPassword.error = "A senha deve ter pelo menos 6 dígitos"
                 valid = false
             } else {
@@ -303,7 +311,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    private fun updateUI(user: FirebaseUser?, tipoLogin:String) {
+    private fun updateUI(user: FirebaseUser?, tipoLogin: String) {
 
         EncerraDialog()
 
@@ -414,39 +422,47 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun getLoginType (user: FirebaseUser?, n: Int): String {
+    fun getLoginType(user: FirebaseUser?, n: Int): String {
 
-        var valor:Int =0
+        var valor: Int = 0
         var provedor: String;
 
         if (user != null) {
             for (userInfo in user.getProviderData()) {
                 if (userInfo.getProviderId().equals("facebook.com")) {
-                    valor=1
+                    valor = 1
                 }
             }
         } else {
-            valor=2
+            valor = 2
         }
 
-        if (valor==1){ //se entrar neste if é pq é facebook e ai não precisa verificar e-mail
-            provedor="facebook"
+        if (valor == 1) { //se entrar neste if é pq é facebook e ai não precisa verificar e-mail
+            provedor = "facebook"
         } else {
-            provedor="mail"
+            provedor = "mail"
         }
 
         return provedor
     }
 
-    fun openPopUp (titulo: String, texto:String, exibeBtnOpcoes:Boolean, btnSim: String, btnNao: String, call: String) {
+    fun openPopUp(
+        titulo: String,
+        texto: String,
+        exibeBtnOpcoes: Boolean,
+        btnSim: String,
+        btnNao: String,
+        call: String
+    ) {
         //exibeBtnOpcoes - se for não, vai exibir apenas o botão com OK, sem opção. Senão, exibe dois botões e pega os textos deles de btnSim e btnNao
 
         //EXIBIR POPUP
         // Initialize a new layout inflater instance
-        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater: LayoutInflater =
+            getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         // Inflate a custom view using layout inflater
-        val view = inflater.inflate(R.layout.popup_model,null)
+        val view = inflater.inflate(R.layout.popup_model, null)
 
         // Initialize a new instance of popup window
         val popupWindow = PopupWindow(
@@ -462,7 +478,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // If API level 23 or higher then execute the code
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // Create a new slide animation for popup window enter transition
             val slideIn = Slide()
             slideIn.slideEdge = Gravity.TOP
@@ -485,7 +501,7 @@ class MainActivity : AppCompatActivity() {
         val progressbar = view.findViewById<ProgressBar>(R.id.progressBar)
         val txBarra = view.findViewById<TextView>(R.id.popupMsg)
 
-        if (exibeBtnOpcoes){
+        if (exibeBtnOpcoes) {
             //vai exibir os botões com textos e esconder o btn ok
             buttonPopupOk.visibility = View.GONE
             //exibe e ajusta os textos dos botões
@@ -493,7 +509,7 @@ class MainActivity : AppCompatActivity() {
             buttonPopupS.text = btnSim
 
             // Set a click listener for popup's button widget
-            buttonPopupN.setOnClickListener{
+            buttonPopupN.setOnClickListener {
                 // Dismiss the popup window
                 popupWindow.dismiss()
             }
@@ -507,7 +523,7 @@ class MainActivity : AppCompatActivity() {
             buttonPopupS.visibility = View.GONE
 
 
-            buttonPopupOk.setOnClickListener{
+            buttonPopupOk.setOnClickListener {
                 // Dismiss the popup window
                 popupWindow.dismiss()
             }
@@ -536,7 +552,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         //aqui colocamos os ifs com cada call de cada vez que a popup for chamada
-        if (call.equals("confirmaNovaSenha")){
+        if (call.equals("confirmaNovaSenha")) {
 
             buttonPopupS.setOnClickListener {
                 //faz aqui o que quiser
@@ -552,7 +568,14 @@ class MainActivity : AppCompatActivity() {
                 telaLoginMailNew.visibility = View.GONE
                 telaDeVerificacao.visibility = View.GONE
 
-                openPopUp("E-mail enviado.", "Foi enviado um e-mail para "+emailField.text.toString()+" com sua nova senha.", false, "Ok", "OK", "confirmaNovaSenha")
+                openPopUp(
+                    "E-mail enviado.",
+                    "Foi enviado um e-mail para " + emailField.text.toString() + " com sua nova senha.",
+                    false,
+                    "Ok",
+                    "OK",
+                    "confirmaNovaSenha"
+                )
                 popupWindow.dismiss()
             }
         }
@@ -564,14 +587,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun LoginWithEmail (){
+    fun LoginWithEmail() {
 
         val btnNovoUser = findViewById<TextView>(R.id.layInicial_tvNovoUsuario)
         btnNovoUser.setOnClickListener {
 
             trocaTela(telaLoginMailNew, telainicial)
 
-            val fieldEmail_newUser: EditText =findViewById(R.id.fieldEmail_newUser)
+            val fieldEmail_newUser: EditText = findViewById(R.id.fieldEmail_newUser)
             fieldEmail_newUser.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     //TODO("Not yet implemented")
@@ -593,17 +616,27 @@ class MainActivity : AppCompatActivity() {
                     count: Int
                 ) {
 
-                    if (fieldEmail_newUser.text.contains("@")){
-                        fieldEmail_newUser.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_icon_cadeado, 0);
+                    if (fieldEmail_newUser.text.contains("@")) {
+                        fieldEmail_newUser.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_icon_cadeado,
+                            0
+                        );
                     } else {
-                        fieldEmail_newUser.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_icon_cadeado_vermelho, 0);
+                        fieldEmail_newUser.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_icon_cadeado_vermelho,
+                            0
+                        );
                     }
                 }
 
             }
             )
 
-            val fieldPassword_newUser : EditText = findViewById(R.id.fieldPassword_newUser)
+            val fieldPassword_newUser: EditText = findViewById(R.id.fieldPassword_newUser)
             fieldPassword_newUser.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     //TODO("Not yet implemented")
@@ -625,17 +658,28 @@ class MainActivity : AppCompatActivity() {
                     count: Int
                 ) {
 
-                    if (fieldPassword_newUser.text.length==6){
-                        fieldPassword_newUser.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_icon_cadeado, 0);
+                    if (fieldPassword_newUser.text.length == 6) {
+                        fieldPassword_newUser.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_icon_cadeado,
+                            0
+                        );
                     } else {
-                        fieldPassword_newUser.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_icon_cadeado_vermelho, 0);
+                        fieldPassword_newUser.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_icon_cadeado_vermelho,
+                            0
+                        );
                     }
                 }
 
             }
             )
 
-            val fieldPasswordConfirmation_newUser: EditText = findViewById(R.id.fieldPasswordConfirmation_newUser)
+            val fieldPasswordConfirmation_newUser: EditText =
+                findViewById(R.id.fieldPasswordConfirmation_newUser)
             fieldPasswordConfirmation_newUser.addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     //TODO("Not yet implemented")
@@ -657,10 +701,22 @@ class MainActivity : AppCompatActivity() {
                     count: Int
                 ) {
 
-                    if (fieldPasswordConfirmation_newUser.text.toString().equals(fieldPassword_newUser.text.toString())){
-                        fieldPasswordConfirmation_newUser.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_icon_cadeado, 0);
+                    if (fieldPasswordConfirmation_newUser.text.toString()
+                            .equals(fieldPassword_newUser.text.toString())
+                    ) {
+                        fieldPasswordConfirmation_newUser.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_icon_cadeado,
+                            0
+                        );
                     } else {
-                        fieldPasswordConfirmation_newUser.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_icon_cadeado_vermelho, 0);
+                        fieldPasswordConfirmation_newUser.setCompoundDrawablesWithIntrinsicBounds(
+                            0,
+                            0,
+                            R.drawable.ic_icon_cadeado_vermelho,
+                            0
+                        );
                     }
                 }
 
@@ -695,23 +751,35 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        val emailCreateAccountBtn = findViewById<Button>(R.id.emailCreateAccountButton) //cria usuario
+        val emailCreateAccountBtn =
+            findViewById<Button>(R.id.emailCreateAccountButton) //cria usuario
         emailCreateAccountBtn.setOnClickListener {
             hideKeyboard()
-            val  etEmail = findViewById<EditText>(R.id.fieldEmail_newUser)
+            val etEmail = findViewById<EditText>(R.id.fieldEmail_newUser)
             val etPassword = findViewById<EditText>(R.id.fieldPassword_newUser);
 
-            createAccount(etEmail.text.toString(), etPassword.text.toString()) //a verificação é feita dentro de validateForm
+            createAccount(
+                etEmail.text.toString(),
+                etPassword.text.toString()
+            ) //a verificação é feita dentro de validateForm
 
         }
 
-        val emailVerifyCheck = findViewById<Button>(R.id.verifyEmailButtonCheck) //botao que o user aperta quando ja vericou o email
+        val emailVerifyCheck =
+            findViewById<Button>(R.id.verifyEmailButtonCheck) //botao que o user aperta quando ja vericou o email
         val verifyEmailButton = findViewById<Button>(R.id.verifyEmailButton) //botão para reenviar
         val verifyHelp = findViewById<Button>(R.id.verification_btnHelp)
         val verifyVoltar = findViewById<Button>(R.id.verification_btnVoltar)
 
         verifyHelp.setOnClickListener {
-            openPopUp("Ajuda", "Por que você precisa verificar seu e-mail?\n\nCom a verificação de e-mail garantimos que é o dono do e-mail que está acessando. Assim impedimos terceiros de se aproveitarem de dados de outras pessoas. É para a segurança de toda comunidade.\n\nO que eu devo fazer?\n\nVocê precisa esperar chegar o e-mail de confirmação e clicar no link confirmando.\n\nNão chegou nenhum e-mail. O que eu faço?\n\nVocê pode procurar na pasta de spam ou lixo do seu e-mail. Ou clicar no botão abaixo para reenviar.", false, "n", "n", "n")
+            openPopUp(
+                "Ajuda",
+                "Por que você precisa verificar seu e-mail?\n\nCom a verificação de e-mail garantimos que é o dono do e-mail que está acessando. Assim impedimos terceiros de se aproveitarem de dados de outras pessoas. É para a segurança de toda comunidade.\n\nO que eu devo fazer?\n\nVocê precisa esperar chegar o e-mail de confirmação e clicar no link confirmando.\n\nNão chegou nenhum e-mail. O que eu faço?\n\nVocê pode procurar na pasta de spam ou lixo do seu e-mail. Ou clicar no botão abaixo para reenviar.",
+                false,
+                "n",
+                "n",
+                "n"
+            )
         }
 
         verifyVoltar.setOnClickListener {
@@ -730,7 +798,7 @@ class MainActivity : AppCompatActivity() {
             if (user != null) {
                 user!!.reload()
 
-                if (!user.isEmailVerified){
+                if (!user.isEmailVerified) {
                     Toast.makeText(this, "O e-mail ainda não foi verificado.", Toast.LENGTH_SHORT)
                 } else {
                     updateUI(user, "mail")
@@ -748,28 +816,36 @@ class MainActivity : AppCompatActivity() {
         novaSenha.setOnClickListener {
 
             val emailField = findViewById<EditText>(R.id.fieldEmail)
-            if (emailField.text.toString().isEmpty()){
+            if (emailField.text.toString().isEmpty()) {
                 emailField.requestFocus()
                 emailField.setError("Informe o e-mail para enviar o reset da senha.")
-            } else if (!emailField.text.toString().contains("@")){
+            } else if (!emailField.text.toString().contains("@")) {
                 emailField.requestFocus()
                 emailField.setError("Informe um e-mail válido")
             } else {
-                openPopUp("ATENÇÃO", "Você deseja receber uma nova senha por e-mail?", true, "Sim, quero", "Não", "confirmaNovaSenha")
+                openPopUp(
+                    "ATENÇÃO",
+                    "Você deseja receber uma nova senha por e-mail?",
+                    true,
+                    "Sim, quero",
+                    "Não",
+                    "confirmaNovaSenha"
+                )
             }
         }
 
     }
 
-    fun emailVerificationCheckMeth () {
+    fun emailVerificationCheckMeth() {
 
-        val emailVerifyCheck = findViewById<Button>(R.id.verifyEmailButtonCheck) //botao que o user aperta quando ja vericou o email
+        val emailVerifyCheck =
+            findViewById<Button>(R.id.verifyEmailButtonCheck) //botao que o user aperta quando ja vericou o email
         emailVerifyCheck.setOnClickListener {
             val user = auth.currentUser
             if (user != null) {
                 user!!.reload()
 
-                if (!user.isEmailVerified){
+                if (!user.isEmailVerified) {
                     Toast.makeText(this, "O e-mail ainda não foi verificado.", Toast.LENGTH_SHORT)
                 } else {
                     updateUI(user, "mail")
@@ -783,7 +859,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun createNewUser (){
+    fun createNewUser() {
 
         databaseReference = FirebaseDatabase.getInstance().reference
         val user: FirebaseUser? = auth.currentUser
@@ -832,7 +908,8 @@ class MainActivity : AppCompatActivity() {
     /* To hide Keyboard */
     fun hideKeyboard() {
         try {
-            val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            val inputMethodManager =
+                getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
         } catch (e: Exception) {
             e.printStackTrace()
@@ -840,7 +917,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun trocaTela (layoutSai: ConstraintLayout, layoutEntra: ConstraintLayout){
+    fun trocaTela(layoutSai: ConstraintLayout, layoutEntra: ConstraintLayout) {
 
         val saindo = AnimationUtils.loadAnimation(this, R.anim.layout_slideout)
         val entrando = AnimationUtils.loadAnimation(this, R.anim.layout_slidein)

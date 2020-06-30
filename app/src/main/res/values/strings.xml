@@ -2,7 +2,6 @@
     <string name="app_name">wilsonsonsApp</string>
 
 
-
     <!-- MainActivity -->
     <string name="main_layInicial_txt1">Vamos começar!</string>
     <string name="main_layInicial_btn1">Começar</string>
@@ -10,4 +9,8 @@
     <string name="main_layInicial_btn2">Entrar com Google</string>
     <string name="main_layInicial_btn3">Entrar com Facebook</string>
     <string name="main_layInicial_btn4">Entrar sem login</string>
+    <string name="title_activity_main2">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
 </resources>
