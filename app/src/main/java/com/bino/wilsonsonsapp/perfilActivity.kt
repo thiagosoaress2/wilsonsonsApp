@@ -89,6 +89,8 @@ class perfilActivity : AppCompatActivity() {
             }
 
         }
+
+        indexModels.placeImage(findViewById(R.id.perfil_iv), this)
     }
 
     fun mountChart(){

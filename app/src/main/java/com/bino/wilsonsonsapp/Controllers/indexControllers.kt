@@ -78,6 +78,14 @@ object indexControllers {
         return currentDate
     }
 
+    fun isCorrectAnswer(answer: String, correct: String):Boolean{
+
+        if (answer.equals(correct)){
+            return true
+        } else {
+            return false
+        }
+    }
 
 
 }

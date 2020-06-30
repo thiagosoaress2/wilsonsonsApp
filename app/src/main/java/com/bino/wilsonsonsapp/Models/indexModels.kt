@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.R
+import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.introQuestAdapter
 import com.bino.wilsonsonsapp.indexActivity
 import com.bumptech.glide.Glide
@@ -23,6 +24,7 @@ object indexModels {
     var posicaoUser=0
 
     var userBd = "nao"
+    var userImg= "nao"
 
     fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layout: ConstraintLayout, playerAvatar: ImageView){
 
@@ -153,5 +155,31 @@ object indexModels {
 
     }
 
+    fun placeImage(imageView: ImageView, activity: Activity){
 
+        if (userImg.equals("nao")){
+            try {
+                Glide.with(activity)
+                    .load(R.drawable.avatar)
+                    .thumbnail(0.2f)
+                    .skipMemoryCache(true)
+                    .transform(CircleTransform(activity))
+                    .into(imageView)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        } else {
+            try {
+                Glide.with(activity)
+                    .load(R.drawable.avatar)
+                    .thumbnail(0.2f)
+                    .skipMemoryCache(true)
+                    .transform(CircleTransform(activity))
+                    .into(imageView)
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+    }
 }
