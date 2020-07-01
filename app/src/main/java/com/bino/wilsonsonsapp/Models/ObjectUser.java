@@ -6,6 +6,8 @@ public class ObjectUser {
     private String name;
     private String cargo;
     private String datenascimento;
+    private String ultimo_curso;
+    private String date_certificado;
     private String photo;
 
     public String getKey() {
@@ -38,6 +40,22 @@ public class ObjectUser {
 
     public void setDatenascimento(String datenascimento) {
         this.datenascimento = datenascimento;
+    }
+
+    public String getUltimo_curso() {
+        return ultimo_curso;
+    }
+
+    public void setUltimo_curso(String ultimo_curso) {
+        this.ultimo_curso = ultimo_curso;
+    }
+
+    public String getDate_certificado() {
+        return date_certificado;
+    }
+
+    public void setDate_certificado(String date_certificado) {
+        this.date_certificado = date_certificado;
     }
 
     public String getPhoto() {

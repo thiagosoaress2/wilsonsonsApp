@@ -1,22 +1,41 @@
 package com.bino.wilsonsonsapp.Models;
 
+import com.bino.wilsonsonsapp.Controllers.Constants;
 import com.bino.wilsonsonsapp.Controllers.Consults;
 
 import java.util.List;
 
 public class ConsultsModel {
 
-    public ObjectQuestions SelectQuestionPerId(int id) {
+    public static ObjectQuestions SelectQuestionPerId(int id) {
         ObjectQuestions objectQuestions = Consults.ConsultQuestions("Select * from questions where id = " + id + ";").get(0);
         return objectQuestions;
     }
 
-    public ObjectUser SelectUser() {
+    public static void SomaQuestions1(boolean situation, int id) {
+        ObjectQuestions objectQuestions = SelectQuestionPerId(id);
+
+        int error = objectQuestions.getErros();
+        if(error == 0){ error = 1;}
+
+        if(situation){
+            Consults.ExecSql("UPDATE INTO questions SET acertos = "+ objectQuestions.getAcertos()+1+ ", points = "+100/error +" WHERE id = "+id+";");
+        }else{
+            Consults.ExecSql("UPDATE INTO questions SET erros = "+ objectQuestions.getErros()+1 +", points = "+100/(error+1) +" WHERE id = "+id+";");
+        }
+    }
+
+    public static ObjectUser SelectUser() {
         ObjectUser objectUser = Consults.ConsultUser("Select * from user;");
         return objectUser;
     }
 
-    public ObjectStatusUser SelectPoints() {
+    public static List<ObjectIntro> SelectIntro(int id_intro){
+       return Consults.ConsultIntro("Select * from intro order by ordem where id = "+id_intro+";");
+    }
+
+
+    public static ObjectStatusUser SelectPoints() {
 
         ObjectStatusUser objectStatusUser = null;
         List<ObjectQuestions> objectQuestionsList = Consults.ConsultQuestions("Select * from questions where respondida = " + true + ";");
