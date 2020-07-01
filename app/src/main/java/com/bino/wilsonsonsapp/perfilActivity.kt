@@ -13,7 +13,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.transition.Slide
 import android.transition.TransitionManager
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,6 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.indexControllers
-import com.bino.wilsonsonsapp.Models.ConsultsModel
 import com.bino.wilsonsonsapp.Models.indexModels
 import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.cameraPermissions
@@ -29,10 +27,7 @@ import com.bino.wilsonsonsapp.Utils.readFilesPermissions
 import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.charts.RadarChart
-import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.utils.ColorTemplate
 import com.github.mikephil.charting.utils.MPPointF
 import com.google.android.gms.tasks.Continuation

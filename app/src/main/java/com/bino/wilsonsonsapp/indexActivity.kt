@@ -14,7 +14,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.indexControllers
-import com.bino.wilsonsonsapp.Models.ConsultsModel
+import com.bino.wilsonsonsapp.Models.ConsultsQuestionsModel
 import com.bino.wilsonsonsapp.Models.ObjectQuestions
 import com.bino.wilsonsonsapp.Models.indexModels
 import com.bumptech.glide.Glide
@@ -157,7 +157,7 @@ class indexActivity : AppCompatActivity() {
         lay_problema.visibility = View.VISIBLE
 
         var objectQuestions: ObjectQuestions = ObjectQuestions()
-        objectQuestions = ConsultsModel.selectQuestionPerId(id);
+        objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(id);
 
         val layRespostas: ConstraintLayout = findViewById(R.id.lay_respostaMultipla)
 
@@ -331,10 +331,10 @@ class indexActivity : AppCompatActivity() {
 
         if (correct){
             txt.setText("Acertou!")
-            ConsultsModel.somaQuestions1(true, id)
+            ConsultsQuestionsModel.somaQuestions1(true, id)
         } else {
             txt.setText("Errou")
-            ConsultsModel.somaQuestions1(false, id)
+            ConsultsQuestionsModel.somaQuestions1(false, id)
         }
     }
 
