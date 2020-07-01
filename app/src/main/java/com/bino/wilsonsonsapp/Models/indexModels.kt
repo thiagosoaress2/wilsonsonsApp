@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -29,8 +30,10 @@ object indexModels {
     var userBd = "nao"
     var userImg= "nao"
 
-    var limitCertificate = "nao"
+    var limitCertificate = "11/10/2023"
 
+
+    /*
     fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layout: ConstraintLayout, playerAvatar: ImageView){
 
         placeMapOnScreen(activity, R.drawable.map, backgroundPlaceHolder)
@@ -79,6 +82,72 @@ object indexModels {
             layout?.addView(imageView) //adding image to the layout
 
             Glide.with(activity).load(R.drawable.navio).into(imageView)
+            cont++
+        }
+
+        placeThePlayerInitial(playerAvatar)
+
+    }
+     */
+
+    fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layout: ConstraintLayout, playerAvatar: ImageView){
+
+        placeMapOnScreen(activity, R.drawable.gamebackground1, backgroundPlaceHolder)
+
+        val screenHeight = indexControllers.calculateTheScreenSizeH(activity, backgroundPlaceHolder)
+        var screenWidth = indexControllers.calculateTheScreenSizeW(activity, backgroundPlaceHolder)-100
+
+        val intervalX = screenWidth/(fases/2)  //pega a quantidade de fases e divide por 2. Digamos, se for 6 fases, vai dividir por 3. Assim teremos uma variação pequena
+        var startPointX = 100 //para começar no cantinho
+
+        val intervalY = (screenHeight)/fases
+        var startPointY = screenHeight-300
+
+        val variation = 40
+
+        var cont=0
+        while (cont<fases){
+            val imageView = ImageView(activity)
+            // setting height and width of imageview
+            imageView.layoutParams = LinearLayout.LayoutParams(80, 80)
+
+            if (cont==0){
+                imageView.x = startPointX.toFloat() //setting margin from left
+                imageView.y = startPointY.toFloat() //setting margin from top
+                arrayPosicoesX.add(startPointX)
+                arrayPosicoesY.add(startPointY)
+            } else if (cont+1==fases){
+                imageView.x = screenWidth.toFloat()//-100 //setting margin from left
+                imageView.y = 0f //setting margin from top
+                arrayPosicoesX.add(screenWidth)
+                arrayPosicoesY.add(0)
+            }
+            else {
+
+                if ((cont % 2) == 0) {
+                    // par
+
+                    startPointY = startPointY-intervalY
+                    imageView.x = startPointX.toFloat()+10
+                    imageView.y = startPointY.toFloat()
+
+                    arrayPosicoesX.add(startPointX+10)
+                    arrayPosicoesY.add(startPointY)
+                } else {
+                    // impar este é o segundo ponto
+
+                    startPointY = startPointY-intervalY
+                    imageView.x = startPointX.toFloat()+300
+                    imageView.y = startPointY.toFloat()
+                    arrayPosicoesX.add(startPointX+300)
+                    arrayPosicoesY.add(startPointY)
+                }
+
+            }
+
+            layout?.addView(imageView) //adding image to the layout
+
+            Glide.with(activity).load(R.drawable.pontovermelho).into(imageView)
             cont++
         }
 
@@ -198,9 +267,9 @@ object indexModels {
         val date2 = format.parse(today)
 
         if (date1.compareTo(date2) >= 0) {  //se for hoje ou no futuro
-            return true //maior precisa avisar
+            return false //menor nao precisa avisar
         } else {
-            return false  //menor nao precisa
+            return true  //maior  precisa
         }
     }
 

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.transition.Slide
 import android.transition.TransitionManager
 import android.view.*
+import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -75,14 +76,29 @@ class indexActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        findViewById<Button>(R.id.btnAdminTeste).setOnClickListener {
+            val intent = Intent(this, adminActivity::class.java)
+            startActivity(intent)
+        }
+
         indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
 
         if (indexModels.checkCertificate()){
             //avisa o user
-            openPopUp("Atenção", "Seu certificado vai vencer dentro de 30 dias.", false, "n", "n", "n")
+            //openPopUp("Atenção", "Seu certificado vai vencer dentro de 30 dias.", false, "n", "n", "n")
+            Toast.makeText(this, "Seu certificado vai vencer dentro de 30 dias.", Toast.LENGTH_SHORT).show()
         }
 
         setupMenu()
+
+        //anima nuvem
+        //Carregue o objeto que vai receber a animação
+        val nuvem: ImageView = findViewById(R.id.imgnuvem)
+        //carregue a animação
+        val movenuvem = AnimationUtils.loadAnimation(this, R.anim.movenuvem)
+        //utilize assim
+        nuvem.startAnimation(movenuvem)
+
 
     }
 
@@ -131,108 +147,6 @@ class indexActivity : AppCompatActivity() {
                 else -> false
             }
         }
-    }
-
-    fun openPopUp (titulo: String, texto:String, exibeBtnOpcoes:Boolean, btnSim: String, btnNao: String, call: String) {
-        //exibeBtnOpcoes - se for não, vai exibir apenas o botão com OK, sem opção. Senão, exibe dois botões e pega os textos deles de btnSim e btnNao
-
-        //EXIBIR POPUP
-        // Initialize a new layout inflater instance
-        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-        // Inflate a custom view using layout inflater
-        val view = inflater.inflate(R.layout.popup_model,null)
-
-        // Initialize a new instance of popup window
-        val popupWindow = PopupWindow(
-            view, // Custom view to show in popup window
-            LinearLayout.LayoutParams.MATCH_PARENT, // Width of popup window
-            LinearLayout.LayoutParams.WRAP_CONTENT // Window height
-        )
-
-        // Set an elevation for the popup window
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            popupWindow.elevation = 10.0F
-        }
-
-
-        // If API level 23 or higher then execute the code
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            // Create a new slide animation for popup window enter transition
-            val slideIn = Slide()
-            slideIn.slideEdge = Gravity.TOP
-            popupWindow.enterTransition = slideIn
-
-            // Slide animation for popup window exit transition
-            val slideOut = Slide()
-            slideOut.slideEdge = Gravity.RIGHT
-            popupWindow.exitTransition = slideOut
-
-        }
-
-
-        // Get the widgets reference from custom view
-        val buttonPopupN = view.findViewById<Button>(R.id.btnReclamar)
-        val buttonPopupS = view.findViewById<Button>(R.id.BtnRecebimento)
-        val buttonPopupOk = view.findViewById<Button>(R.id.popupBtnOk)
-        val txtTitulo = view.findViewById<TextView>(R.id.popupTitulo)
-        val txtTexto = view.findViewById<TextView>(R.id.popupTexto)
-
-        if (exibeBtnOpcoes){
-            //vai exibir os botões com textos e esconder o btn ok
-            buttonPopupOk.visibility = View.GONE
-            //exibe e ajusta os textos dos botões
-            buttonPopupN.text = btnNao
-            buttonPopupS.text = btnSim
-
-            // Set a click listener for popup's button widget
-            buttonPopupN.setOnClickListener{
-                // Dismiss the popup window
-                popupWindow.dismiss()
-            }
-
-        } else {
-
-            //vai esconder os botões com textos e exibir o btn ok
-            buttonPopupOk.visibility = View.VISIBLE
-            //exibe e ajusta os textos dos botões
-            buttonPopupN.visibility = View.GONE
-            buttonPopupS.visibility = View.GONE
-
-
-            buttonPopupOk.setOnClickListener{
-                // Dismiss the popup window
-                popupWindow.dismiss()
-            }
-
-        }
-
-        txtTitulo.text = titulo
-        txtTexto.text = texto
-
-
-        // Set a dismiss listener for popup window
-        popupWindow.setOnDismissListener {
-            //Fecha a janela ao clicar fora também
-        }
-
-        //lay_root é o layout parent que vou colocar a popup
-        val lay_root: ConstraintLayout = findViewById(R.id.layoutPrincipal)
-
-        // Finally, show the popup window on app
-        TransitionManager.beginDelayedTransition(lay_root)
-        popupWindow.showAtLocation(
-            lay_root, // Location to display popup window
-            Gravity.CENTER, // Exact position of layout to display popup
-            0, // X offset
-            0 // Y offset
-        )
-
-        if (call.equals("login")){
-            finish()
-        }
-
-
     }
 
     fun openIntroQuest(){
