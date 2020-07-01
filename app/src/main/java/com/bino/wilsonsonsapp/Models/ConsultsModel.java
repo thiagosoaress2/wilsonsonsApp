@@ -1,19 +1,18 @@
 package com.bino.wilsonsonsapp.Models;
 
-import com.bino.wilsonsonsapp.Controllers.Constants;
 import com.bino.wilsonsonsapp.Controllers.Consults;
 
 import java.util.List;
 
 public class ConsultsModel {
 
-    public static ObjectQuestions SelectQuestionPerId(int id) {
+    public static ObjectQuestions selectQuestionPerId(int id) {
         ObjectQuestions objectQuestions = Consults.ConsultQuestions("Select * from questions where id = " + id + ";").get(0);
         return objectQuestions;
     }
 
-    public static void SomaQuestions1(boolean situation, int id) {
-        ObjectQuestions objectQuestions = SelectQuestionPerId(id);
+    public static void somaQuestions1(boolean situation, int id) {
+        ObjectQuestions objectQuestions = selectQuestionPerId(id);
 
         int error = objectQuestions.getErros();
         if(error == 0){ error = 1;}
@@ -25,17 +24,17 @@ public class ConsultsModel {
         }
     }
 
-    public static ObjectUser SelectUser() {
+    public static ObjectUser selectUser() {
         ObjectUser objectUser = Consults.ConsultUser("Select * from user;");
         return objectUser;
     }
 
-    public static List<ObjectIntro> SelectIntro(int id_intro){
+    public static List<ObjectIntro> selectIntro(int id_intro){
        return Consults.ConsultIntro("Select * from intro order by ordem where id = "+id_intro+";");
     }
 
 
-    public static ObjectStatusUser SelectPoints() {
+    public static ObjectStatusUser selectPoints() {
 
         ObjectStatusUser objectStatusUser = null;
         List<ObjectQuestions> objectQuestionsList = Consults.ConsultQuestions("Select * from questions where respondida = " + true + ";");

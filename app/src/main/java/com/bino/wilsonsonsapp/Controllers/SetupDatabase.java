@@ -11,6 +11,8 @@ public class SetupDatabase{
 
     private static final String SQL_CREATE_USER_TABLE = "CREATE TABLE IF NOT EXISTS user (firebase_key text, name text, cargo text, date_nascimento text, ultimo_certificado text, date_certificado, photo text)";
     private static final String SQL_CREATE_SKILLS_TABLE = "CREATE TABLE IF NOT EXISTS skills (id integer, name text)";
+    private static final String SQL_CREATE_OCCUPATION_TABLE = "CREATE TABLE IF NOT EXISTS occupation (id integer, name text)";
+    private static final String SQL_CREATE_CERTIFICADO_TABLE = "CREATE TABLE IF NOT EXISTS certificate (firebase_key_user text, id integer, name text, validade text)";
     private static final String SQL_CREATE_QUESTIONS_TABLE = "CREATE TABLE IF NOT EXISTS questions (id integer, id_skills integer, type integer, id_intro integer, multiplaa text, multiplab text, multiplac text, multiplad text, multiplae text, alternativacorreta text," +
             " imagem text, acertos text, erros text, itemclicavel1 text, item1X text, item1Y text, itemclicavel2 text, item2X text, item2Y text, itemclicavel3 text, item3X text, item3Y text, itemclicavel4 text, item4X text, item4Y text, itemclicavel5 text, item5X text, item5Y text," +
             "movie text, moviesugest text, pontos text, totalpontos text, respondida boolean)";
@@ -19,6 +21,10 @@ public class SetupDatabase{
     private static final String SQL_INSERT_INTO_SKILL1 = "INSERT INTO skills (id, name) VALUES (1, 'Segurança');";
     private static final String SQL_INSERT_INTO_SKILL2 = "INSERT INTO skills (id, name) VALUES (2, 'Técnica');";
     private static final String SQL_INSERT_INTO_SKILL3 = "INSERT INTO skills (id, name) VALUES (3, 'Relacionamento');";
+
+    //private static final String SQL_INSERT_OCCUPATION1 = "INSERT INTO occupation (id, name) VALUES (1, '');";
+    //private static final String SQL_INSERT_OCCUPATION2 = "INSERT INTO occupation (id, name) VALUES (2, '');";
+    //private static final String SQL_INSERT_OCCUPATION3 = "INSERT INTO occupation (id, name) VALUES (3, '');";
 
     private static final String SQL_INSERT_INTO_QUESTIONS1 = "INSERT INTO questions (id, id_skills, type, id_intro, multiplaa, multiplab, multiplac, multiplad, multiplae, alternativacorreta, imagem," +
             "itemclicavel1, item1X, item1Y, itemclicavel2, item2X, item2Y, itemclicavel3, item3X, item3Y, itemclicavel4, item4X, item4Y, itemclicavel5, item5X, item5Y, movie, moviesugest, pontos, totalpontos, respondida)" +
@@ -67,6 +73,8 @@ public class SetupDatabase{
         //createTable
         this.currentDatabase.execSQL(SQL_CREATE_USER_TABLE);
         this.currentDatabase.execSQL(SQL_CREATE_SKILLS_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_OCCUPATION_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_CERTIFICADO_TABLE);
         this.currentDatabase.execSQL(SQL_CREATE_QUESTIONS_TABLE);
         this.currentDatabase.execSQL(SQL_CREATE_INTRO_TABLE);
 

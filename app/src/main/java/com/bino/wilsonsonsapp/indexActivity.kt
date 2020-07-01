@@ -2,10 +2,7 @@ package com.bino.wilsonsonsapp
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.transition.Slide
-import android.transition.TransitionManager
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -20,7 +17,6 @@ import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.Models.ConsultsModel
 import com.bino.wilsonsonsapp.Models.ObjectQuestions
 import com.bino.wilsonsonsapp.Models.indexModels
-import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 
@@ -161,7 +157,7 @@ class indexActivity : AppCompatActivity() {
         lay_problema.visibility = View.VISIBLE
 
         var objectQuestions: ObjectQuestions = ObjectQuestions()
-        objectQuestions = ConsultsModel.SelectQuestionPerId(id);
+        objectQuestions = ConsultsModel.selectQuestionPerId(id);
 
         val layRespostas: ConstraintLayout = findViewById(R.id.lay_respostaMultipla)
 
@@ -335,10 +331,10 @@ class indexActivity : AppCompatActivity() {
 
         if (correct){
             txt.setText("Acertou!")
-            ConsultsModel.SomaQuestions1(true, id)
+            ConsultsModel.somaQuestions1(true, id)
         } else {
             txt.setText("Errou")
-            ConsultsModel.SomaQuestions1(false, id)
+            ConsultsModel.somaQuestions1(false, id)
         }
     }
 
