@@ -13,14 +13,25 @@ public class ObjectQuestions {
     private String multiplae;
     private String alternativacorreta;
     private String imagem;
-    private String acertos;
-    private String erros;
-    private String itemclicavel1;
+    private int acertos;
+    private int erros;
+    private String movie;
+    private String moviesSugest;
+    private String itemClicavel1;
     private String item1X;
     private String item1Y;
-    private String itemclicavel2;
+    private String itemClicavel2;
     private String item2X;
     private String item2Y;
+    private String itemClicavel3;
+    private String item3X;
+    private String item3Y;
+    private String itemClicavel4;
+    private String item4X;
+    private String item4Y;
+    private String itemClicavel5;
+    private String item5X;
+    private String item5Y;
     private int pontos;
     private int totalpontos;
 
@@ -112,28 +123,44 @@ public class ObjectQuestions {
         this.imagem = imagem;
     }
 
-    public String getAcertos() {
+    public int getAcertos() {
         return acertos;
     }
 
-    public void setAcertos(String acertos) {
+    public void setAcertos(int acertos) {
         this.acertos = acertos;
     }
 
-    public String getErros() {
+    public int getErros() {
         return erros;
     }
 
-    public void setErros(String erros) {
+    public void setErros(int erros) {
         this.erros = erros;
     }
 
-    public String getItemclicavel1() {
-        return itemclicavel1;
+    public String getMovie() {
+        return movie;
     }
 
-    public void setItemclicavel1(String itemclicavel1) {
-        this.itemclicavel1 = itemclicavel1;
+    public void setMovie(String movie) {
+        this.movie = movie;
+    }
+
+    public String getMoviesSugest() {
+        return moviesSugest;
+    }
+
+    public void setMoviesSugest(String moviesSugest) {
+        this.moviesSugest = moviesSugest;
+    }
+
+    public String getItemClicavel1() {
+        return itemClicavel1;
+    }
+
+    public void setItemClicavel1(String itemClicavel1) {
+        this.itemClicavel1 = itemClicavel1;
     }
 
     public String getItem1X() {
@@ -152,12 +179,12 @@ public class ObjectQuestions {
         this.item1Y = item1Y;
     }
 
-    public String getItemclicavel2() {
-        return itemclicavel2;
+    public String getItemClicavel2() {
+        return itemClicavel2;
     }
 
-    public void setItemclicavel2(String itemclicavel2) {
-        this.itemclicavel2 = itemclicavel2;
+    public void setItemClicavel2(String itemClicavel2) {
+        this.itemClicavel2 = itemClicavel2;
     }
 
     public String getItem2X() {
@@ -176,6 +203,78 @@ public class ObjectQuestions {
         this.item2Y = item2Y;
     }
 
+    public String getItemClicavel3() {
+        return itemClicavel3;
+    }
+
+    public void setItemClicavel3(String itemClicavel3) {
+        this.itemClicavel3 = itemClicavel3;
+    }
+
+    public String getItem3X() {
+        return item3X;
+    }
+
+    public void setItem3X(String item3X) {
+        this.item3X = item3X;
+    }
+
+    public String getItem3Y() {
+        return item3Y;
+    }
+
+    public void setItem3Y(String item3Y) {
+        this.item3Y = item3Y;
+    }
+
+    public String getItemClicavel4() {
+        return itemClicavel4;
+    }
+
+    public void setItemClicavel4(String itemClicavel4) {
+        this.itemClicavel4 = itemClicavel4;
+    }
+
+    public String getItem4X() {
+        return item4X;
+    }
+
+    public void setItem4X(String item4X) {
+        this.item4X = item4X;
+    }
+
+    public String getItem4Y() {
+        return item4Y;
+    }
+
+    public void setItem4Y(String item4Y) {
+        this.item4Y = item4Y;
+    }
+
+    public String getItemClicavel5() {
+        return itemClicavel5;
+    }
+
+    public void setItemClicavel5(String itemClicavel5) {
+        this.itemClicavel5 = itemClicavel5;
+    }
+
+    public String getItem5X() {
+        return item5X;
+    }
+
+    public void setItem5X(String item5X) {
+        this.item5X = item5X;
+    }
+
+    public String getItem5Y() {
+        return item5Y;
+    }
+
+    public void setItem5Y(String item5Y) {
+        this.item5Y = item5Y;
+    }
+
     public int getPontos() {
         return pontos;
     }
@@ -191,4 +290,8 @@ public class ObjectQuestions {
     public void setTotalpontos(int totalpontos) {
         this.totalpontos = totalpontos;
     }
+
+
+
+
 }
