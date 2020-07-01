@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import com.bino.wilsonsonsapp.Models.ObjectCertificate;
 import com.bino.wilsonsonsapp.Models.ObjectIntro;
 import com.bino.wilsonsonsapp.Models.ObjectQuestions;
 import com.bino.wilsonsonsapp.Models.ObjectSkills;
@@ -25,22 +26,22 @@ public class Consults {
 
                 Cursor cursor = conection.rawQuery(sql, null);
                 int Colun_key = cursor.getColumnIndex("firebase_key");
+                int Colun_email = cursor.getColumnIndex("email");
                 int Colun_name = cursor.getColumnIndex("name");
-                int Colun_cargo = cursor.getColumnIndex("cargo");
+                int Colun_number = cursor.getColumnIndex("number");
+                int Colun_cargo = cursor.getColumnIndex("occupation_id");
                 int Colun_datenascimento = cursor.getColumnIndex("date_nascimento");
-                int Colun_date_certificado = cursor.getColumnIndex("date_certificado");
-                int Colun_ultimo_certificado = cursor.getColumnIndex("ultimo_certificado");
                 int Colun_photo = cursor.getColumnIndex("photo");
 
                 cursor.moveToFirst();
                 if (cursor.getCount() > 0) {
                     do {
                         objectUser.setKey(cursor.getString(Colun_key));
+                        objectUser.setEmail(cursor.getString(Colun_email));
                         objectUser.setName(cursor.getString(Colun_name));
-                        objectUser.setCargo(cursor.getString(Colun_cargo));
+                        objectUser.setNumber(cursor.getString(Colun_number));
+                        objectUser.setCargo(cursor.getInt(Colun_cargo));
                         objectUser.setDatenascimento(cursor.getString(Colun_datenascimento));
-                        objectUser.setDate_certificado(cursor.getString(Colun_date_certificado));
-                        objectUser.setUltimo_curso(cursor.getString(Colun_ultimo_certificado));
                         objectUser.setPhoto(cursor.getString(Colun_photo));
                         cursor.moveToNext();
                     } while (!cursor.isAfterLast());
@@ -54,6 +55,41 @@ public class Consults {
         return objectUser;
     }
 
+
+    @SuppressLint("WrongConstant")
+    public static List<ObjectCertificate> ConsultCertificate(String sql) {
+        List<ObjectCertificate> objectCertificate = new ArrayList<>();
+        SQLiteDatabase conection;
+        try {
+            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, 1);
+            if (conection.isOpen()) {
+
+                Cursor cursor = conection.rawQuery(sql, null);
+                int Colun_key = cursor.getColumnIndex("firebase_key_user");
+                int Colun_id = cursor.getColumnIndex("id");
+                int Colun_name = cursor.getColumnIndex("name");
+                int Colun_validade = cursor.getColumnIndex("validade");
+
+                cursor.moveToFirst();
+                if (cursor.getCount() > 0) {
+                    do {
+                        ObjectCertificate objectCertificate1 = new ObjectCertificate();
+                        objectCertificate1.setFirebase_key_user(cursor.getString(Colun_key));
+                        objectCertificate1.setId(cursor.getInt(Colun_id));
+                        objectCertificate1.setName(cursor.getString(Colun_name));
+                        objectCertificate1.setValidade(cursor.getString(Colun_validade));
+                        objectCertificate.add(objectCertificate1);
+                        cursor.moveToNext();
+                    } while (!cursor.isAfterLast());
+                }
+                cursor.close();
+                conection.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return objectCertificate;
+    }
 
     @SuppressLint("WrongConstant")
     public static ObjectSkills ConsultSkills(String sql) {
@@ -83,7 +119,6 @@ public class Consults {
         }
         return objectSkills;
     }
-
 
 
     @SuppressLint("WrongConstant")
@@ -177,6 +212,7 @@ public class Consults {
     }
 
 
+    @SuppressLint("WrongConstant")
     public static List<ObjectIntro> ConsultIntro(String sql) {
         List<ObjectIntro> objectIntroArrayList = new ArrayList<>();
         SQLiteDatabase conection;
