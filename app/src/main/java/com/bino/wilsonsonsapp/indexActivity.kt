@@ -33,7 +33,6 @@ class indexActivity : AppCompatActivity() {
     lateinit var lay_problema: ConstraintLayout
     lateinit var btnteste: Button
     lateinit var btnTesteProblema: Button
-    lateinit var btnTestePerfil: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,16 +65,6 @@ class indexActivity : AppCompatActivity() {
             openIntroQuest()
         }
 
-        btnTestePerfil.setOnClickListener {
-            val intent = Intent(this, perfilActivity::class.java)
-            //intent.putExtra("email", "semLogin")
-            startActivity(intent)
-        }
-
-        findViewById<Button>(R.id.btnAdminTeste).setOnClickListener {
-            val intent = Intent(this, adminActivity::class.java)
-            startActivity(intent)
-        }
 
         indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
 
@@ -104,7 +93,6 @@ class indexActivity : AppCompatActivity() {
         lay_problema = findViewById(R.id.lay_problema)
         btnteste = findViewById(R.id.btnteste)
         btnTesteProblema = findViewById(R.id.btnTesteProblema)
-        btnTestePerfil = findViewById(R.id.btnTeste2)
     }
 
     fun setupMenu(){
@@ -128,12 +116,15 @@ class indexActivity : AppCompatActivity() {
             }
 
             when (it.itemId) {
-                R.id.nav_user -> {
-
+                R.id.nav_perfil -> {
+                    val intent = Intent(this, perfilActivity::class.java)
+                    //intent.putExtra("email", "semLogin")
+                    startActivity(intent)
                     true
                 }
-                R.id.nav_perfil -> {
-
+                R.id.nav_adm -> {
+                    val intent = Intent(this, adminActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false

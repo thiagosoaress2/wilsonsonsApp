@@ -48,4 +48,6 @@ public class ConsultsUserModel {
 
         return objectStatusUser;
     }
+
+
 }

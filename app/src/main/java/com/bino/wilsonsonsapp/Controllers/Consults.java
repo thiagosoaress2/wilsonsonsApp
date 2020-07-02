@@ -9,6 +9,7 @@ import com.bino.wilsonsonsapp.Models.ObjectCertificate;
 import com.bino.wilsonsonsapp.Models.ObjectIntro;
 import com.bino.wilsonsonsapp.Models.ObjectQuestions;
 import com.bino.wilsonsonsapp.Models.ObjectSkills;
+import com.bino.wilsonsonsapp.Models.ObjectState;
 import com.bino.wilsonsonsapp.Models.ObjectUser;
 
 import java.util.ArrayList;
@@ -30,6 +31,7 @@ public class Consults {
                 int Colun_name = cursor.getColumnIndex("name");
                 int Colun_number = cursor.getColumnIndex("number");
                 int Colun_cargo = cursor.getColumnIndex("occupation_id");
+                int Colun_state = cursor.getColumnIndex("state_id");
                 int Colun_datenascimento = cursor.getColumnIndex("date_nascimento");
                 int Colun_photo = cursor.getColumnIndex("photo");
 
@@ -41,6 +43,7 @@ public class Consults {
                         objectUser.setName(cursor.getString(Colun_name));
                         objectUser.setNumber(cursor.getString(Colun_number));
                         objectUser.setCargo(cursor.getInt(Colun_cargo));
+                        objectUser.setState(cursor.getInt(Colun_state));
                         objectUser.setDatenascimento(cursor.getString(Colun_datenascimento));
                         objectUser.setPhoto(cursor.getString(Colun_photo));
                         cursor.moveToNext();
@@ -247,6 +250,37 @@ public class Consults {
             System.out.println(ex);
         }
         return objectIntroArrayList;
+    }
+
+    @SuppressLint("WrongConstant")
+    public static List<ObjectState> ConsultState(String sql) {
+        List<ObjectState> objectStates = new ArrayList<>();
+        SQLiteDatabase conection;
+        try {
+            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, 1);
+            if (conection.isOpen()) {
+
+                Cursor cursor = conection.rawQuery(sql, null);
+                int Colun_id = cursor.getColumnIndex("id");
+                int Colun_name = cursor.getColumnIndex("name");
+                cursor.moveToFirst();
+                if (cursor.getCount() > 0) {
+
+                    do {
+                        ObjectState objectState = new ObjectState();
+                        objectState.setId(cursor.getInt(Colun_id));
+                        objectState.setName(cursor.getString(Colun_name));
+                        objectStates.add(objectState);
+                        cursor.moveToNext();
+                    } while (!cursor.isAfterLast());
+                }
+                cursor.close();
+                conection.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return objectStates;
     }
 
     @SuppressLint("WrongConstant")
