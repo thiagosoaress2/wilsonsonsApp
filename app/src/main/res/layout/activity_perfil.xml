@@ -29,11 +29,11 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
         android:text="Pontos"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/perfil_iv"
-        app:layout_constraintTop_toTopOf="@+id/perfil_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/perfil_btnEditar" />
 
     <ProgressBar
         android:id="@+id/perfil_progressbarSeguranca"
@@ -59,6 +59,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/perfil_progressbarSeguranca" />
 
+    <Button
+        android:id="@+id/perfil_btnEditar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="editar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ProgressBar
         android:id="@+id/perfil_progressbarSocial"
         style="?android:attr/progressBarStyleHorizontal"
@@ -81,6 +91,196 @@
         app:layout_constraintTop_toBottomOf="@+id/perfil_progressbarSocial">
 
     </com.github.mikephil.charting.charts.PieChart>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layEditInfo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#00ABE9"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.07"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <Button
+                        android:id="@+id/cad_btnFechar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="fechar"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textView11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cadastro"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/cad_img"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
+                    app:srcCompat="@drawable/avatar" />
+
+                <Button
+                    android:id="@+id/cad_btnUpload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="upp"
+                    app:layout_constraintBottom_toBottomOf="@+id/cad_img"
+                    app:layout_constraintEnd_toEndOf="@+id/cad_img"
+                    app:layout_constraintStart_toEndOf="@+id/cad_img"
+                    app:layout_constraintTop_toBottomOf="@+id/cad_img" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Adicionar foto"
+                    app:layout_constraintEnd_toEndOf="@+id/cad_img"
+                    app:layout_constraintStart_toStartOf="@+id/cad_img"
+                    app:layout_constraintTop_toBottomOf="@+id/cad_btnUpload" />
+
+                <EditText
+                    android:id="@+id/cad_etNome"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="24dp"
+                    android:ems="10"
+                    android:hint="Nome completo"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+                <EditText
+                    android:id="@+id/cad_etNascimento"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="42dp"
+                    android:ems="10"
+                    android:hint="Data de nascimento"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                    app:layout_constraintStart_toStartOf="@+id/cad_etNome"
+                    app:layout_constraintTop_toBottomOf="@+id/cad_etNome" />
+
+                <Spinner
+                    android:id="@+id/cad_spinnerFuncao"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/cad_etNascimento"
+                    app:layout_constraintEnd_toEndOf="@+id/cad_etNome"
+                    app:layout_constraintStart_toEndOf="@+id/cad_etNascimento"
+                    app:layout_constraintTop_toTopOf="@+id/cad_etNascimento" />
+
+                <EditText
+                    android:id="@+id/cad_cel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ems="10"
+                    android:hint="Número celular"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                    app:layout_constraintStart_toStartOf="@+id/cad_etNascimento"
+                    app:layout_constraintTop_toBottomOf="@+id/cad_etNascimento" />
+
+                <Spinner
+                    android:id="@+id/cad_spinner_estado"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/cad_cel"
+                    app:layout_constraintEnd_toEndOf="@+id/cad_spinnerFuncao"
+                    app:layout_constraintStart_toStartOf="@+id/guideline4"
+                    app:layout_constraintTop_toTopOf="@+id/cad_cel" />
+
+                <EditText
+                    android:id="@+id/cad_formacao"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:ems="10"
+                    android:hint="Formação"
+                    android:inputType="textPersonName"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
+                    app:layout_constraintStart_toStartOf="@+id/cad_cel"
+                    app:layout_constraintTop_toBottomOf="@+id/cad_cel" />
+
+                <Button
+                    android:id="@+id/cad_btnAddFormacao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:text="Button"
+                    app:layout_constraintBottom_toBottomOf="@+id/cad_formacao"
+                    app:layout_constraintStart_toEndOf="@+id/cad_formacao"
+                    app:layout_constraintTop_toTopOf="@+id/cad_formacao" />
+
+                <Button
+                    android:id="@+id/cad_btnSalvar"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="Salvar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <RelativeLayout
         android:id="@+id/LayoutProgressBar"

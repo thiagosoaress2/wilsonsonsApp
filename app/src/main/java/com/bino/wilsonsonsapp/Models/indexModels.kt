@@ -2,6 +2,7 @@ package com.bino.wilsonsonsapp.Models
 
 import android.app.Activity
 import android.content.Context
+import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -12,10 +13,12 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.R
 import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.introQuestAdapter
+import com.bino.wilsonsonsapp.Utils.listCursosAdapter
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
 import com.bino.wilsonsonsapp.indexActivity
 import com.bumptech.glide.Glide
@@ -29,6 +32,8 @@ object indexModels {
     val arrayPosicoesX: MutableList<Int> = ArrayList()
     val arrayPosicoesY: MutableList<Int> = ArrayList()
 
+    var isverified: Boolean = false
+
     var posicaoUser=0
 
     var userBd = "testeThiago"
@@ -38,6 +43,12 @@ object indexModels {
 
     var alertaEmbarcacao: String = "nao"
     var alertaDataEmbarque: String = "nao"
+
+    val arrayCursos: MutableList<String> = ArrayList()
+    val arrayCertificados: MutableList<String> = ArrayList()
+    val arrayCertificadosValidade: MutableList<String> = ArrayList()
+
+    var uId: String = "nao"
 
 
     fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layout: ConstraintLayout, playerAvatar: ImageView){
@@ -210,7 +221,7 @@ object indexModels {
 
     fun checkCertificate() : Boolean {
 
-        val today = indexControllers.getDate()
+        val today = ControllersUniversais.getDate()
         //val limiteDate = GetfutureDate(30)
 
         val format = SimpleDateFormat("dd/MM/yyyy")
@@ -230,6 +241,32 @@ object indexModels {
         fun onLongClick(view: View?, position: Int)
     }
 
+    fun loadCourses() : Boolean{
+
+        arrayCursos.clear()
+
+        arrayCursos.add("Rebocador Torda")
+        arrayCursos.add("Rebocador Skua")
+        arrayCursos.add("Rebocador Biguá")
+        arrayCursos.add("Rebocador Petrel")
+        arrayCursos.add("Rebocador Saveiro")
+        arrayCursos.add("Rebocador Saveiro Atobá")
+        arrayCursos.add("Rebocador Talha-mar")
+        arrayCursos.add("Rebocador Saveiro Pelicano")
+        arrayCursos.add("Rebocador Saveiro Albatroz")
+        arrayCursos.add("Rebocador Cormoran")
+        arrayCursos.add("Rebocador Batuíra")
+        arrayCursos.add("Rebocador Sterna")
+        arrayCursos.add("Rebocador Prion")
+        arrayCursos.add("Rebocador Tagaz")
+        arrayCursos.add("Rebocador Zarapito")
+        arrayCursos.add("Rebocador Alcatraz")
+        arrayCursos.add("Rebocador Larus")
+        arrayCursos.add("Rebocador Pinguim")
+
+        return true
+
+    }
 
     internal class RecyclerTouchListener(context: Context, recyclerView: RecyclerView, private val clickListener: ClickListener?) : RecyclerView.OnItemTouchListener {
 

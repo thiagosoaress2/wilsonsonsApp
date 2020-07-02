@@ -4,23 +4,25 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import android.transition.Slide
+import android.transition.TransitionManager
 import android.util.Log
-import android.view.GestureDetector
-import android.view.MotionEvent
-import android.view.View
-import android.view.WindowManager
+import android.view.*
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.adminControllers
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.Models.adminModels
 import com.bino.wilsonsonsapp.Models.indexModels
 import com.bino.wilsonsonsapp.Utils.CircleTransform
+import com.bino.wilsonsonsapp.Utils.listFuncComCertVencendoAdapter
 import com.bino.wilsonsonsapp.Utils.listFuncPorEstadoAdapter
 import com.bumptech.glide.Glide
 import com.google.firebase.database.*
@@ -41,11 +43,12 @@ class adminActivity : AppCompatActivity() {
         setContentView(R.layout.activity_admin)
 
         loadComponents()
-        paginaColabAptos()
+
+        queryInicialCertVencendo()
 
         val btn: Button = findViewById(R.id.btnConsultColaboradoresAptos)
         btn.setOnClickListener {
-            adminModels.openCloseLay(paginaIndex, paginaColabAptos)
+            paginaColabAptos()
         }
 
     }
@@ -59,7 +62,208 @@ class adminActivity : AppCompatActivity() {
         databaseReference = FirebaseDatabase.getInstance().reference
     }
 
+    fun queryInicialCertVencendo(){
+
+        val rootRef = databaseReference.child("funcionarios")
+        rootRef.orderByChild("tipo").equalTo("colaborador")
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                    if (dataSnapshot.exists()) {
+
+                        for (querySnapshot in dataSnapshot.children) {
+
+
+                            var values: String = "nao"
+
+                            val bd = querySnapshot.key.toString()
+
+                            values = querySnapshot.child("nome").value.toString()
+                            adminModels.nome.add(values)
+
+                            values = querySnapshot.child("funcao").value.toString()
+                            adminModels.funcao.add(values)
+
+                            values = querySnapshot.child("contato").value.toString()
+                            adminModels.whats.add(values)
+
+                            values = querySnapshot.child("img").value.toString()
+                            adminModels.img.add(values)
+
+                            values = querySnapshot.child("certificados").value.toString()
+                            val qntCert = values.toInt()
+
+                            var cont=0
+                            while (cont<qntCert){
+                                var field = "certificado"+(cont+1).toString()
+                                values = querySnapshot.child(field).value.toString()
+
+                                //entra aqui se nao tiver filtro
+                                adminModels.certificados.add(bd+"!*!??#"+values)
+                                field = "valcert"+(cont+1).toString()
+                                values = querySnapshot.child(field).value.toString()
+                                adminModels.validCert.add(values)
+
+                                adminModels.bd.add(bd)
+
+                                cont++
+                            }
+
+
+                        }
+
+                    }
+
+                    montaRecyclerListaCertifsVencendo()
+
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Getting Post failed, log a message
+                    EncerraDialog()
+                    // ...
+                }
+            })
+
+    }
+
+    fun montaRecyclerListaCertifsVencendo (){
+
+        var adapter: listFuncComCertVencendoAdapter = listFuncComCertVencendoAdapter(this, adminModels.nome, adminModels.funcao, adminModels.certificados, adminModels.validCert, adminModels.bd)
+        var recyclerView: RecyclerView = findViewById(R.id.paginaIndex_recyclerView_certificadosObservers)
+        var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = linearLayoutManager
+        adapter.notifyDataSetChanged()
+
+        recyclerView.addOnItemTouchListener(RecyclerTouchListener(this, recyclerView!!, object: ClickListener{
+
+            override fun onClick(view: View, position: Int) {
+                openPopUp("Enviar mensagem", "Você deseja enviar uma mensagem para este colaborador?", true, "Sim, enviar", "Não", "falar", adminModels.whats.get(position))
+            }
+
+            override fun onLongClick(view: View?, position: Int) {
+
+            }
+        }))
+
+
+    }
+
+    fun openPopUp (titulo: String, texto:String, exibeBtnOpcoes:Boolean, btnSim: String, btnNao: String, call: String, whatsapp: String) {
+        //exibeBtnOpcoes - se for não, vai exibir apenas o botão com OK, sem opção. Senão, exibe dois botões e pega os textos deles de btnSim e btnNao
+
+        //EXIBIR POPUP
+        // Initialize a new layout inflater instance
+        val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        // Inflate a custom view using layout inflater
+        val view = inflater.inflate(R.layout.popup_model,null)
+
+        // Initialize a new instance of popup window
+        val popupWindow = PopupWindow(
+            view, // Custom view to show in popup window
+            LinearLayout.LayoutParams.MATCH_PARENT, // Width of popup window
+            LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+        )
+
+        // Set an elevation for the popup window
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            popupWindow.elevation = 10.0F
+        }
+
+
+        // If API level 23 or higher then execute the code
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+            // Create a new slide animation for popup window enter transition
+            val slideIn = Slide()
+            slideIn.slideEdge = Gravity.TOP
+            popupWindow.enterTransition = slideIn
+
+            // Slide animation for popup window exit transition
+            val slideOut = Slide()
+            slideOut.slideEdge = Gravity.RIGHT
+            popupWindow.exitTransition = slideOut
+
+        }
+
+
+        // Get the widgets reference from custom view
+        val buttonPopupN = view.findViewById<Button>(R.id.popupBtnNao)
+        val buttonPopupS = view.findViewById<Button>(R.id.popupBtnSim)
+        val buttonPopupOk = view.findViewById<Button>(R.id.popupBtnOk)
+        val txtTitulo = view.findViewById<TextView>(R.id.popupTitulo)
+        val txtTexto = view.findViewById<TextView>(R.id.popupTexto)
+        val background: ConstraintLayout = view.findViewById(R.id.lay_root)
+
+        background.setOnClickListener {
+            popupWindow.dismiss()
+        }
+
+
+        if (exibeBtnOpcoes){
+            //vai exibir os botões com textos e esconder o btn ok
+            buttonPopupOk.visibility = View.GONE
+            //exibe e ajusta os textos dos botões
+            buttonPopupN.text = btnNao
+            buttonPopupS.text = btnSim
+
+            // Set a click listener for popup's button widget
+            buttonPopupN.setOnClickListener{
+                // Dismiss the popup window
+                popupWindow.dismiss()
+            }
+
+            if (call.equals("falar")){
+                buttonPopupS.setOnClickListener {
+                    openWhatsApp(whatsapp, "Olá, tudo bem? Você tem um certificado vencendo. Estamos avisando para ter ciência e praticar. Abraços.")
+                }
+            }
+
+        } else {
+
+            //vai esconder os botões com textos e exibir o btn ok
+            buttonPopupOk.visibility = View.VISIBLE
+            //exibe e ajusta os textos dos botões
+            buttonPopupN.visibility = View.GONE
+            buttonPopupS.visibility = View.GONE
+
+
+            buttonPopupOk.setOnClickListener{
+                // Dismiss the popup window
+                popupWindow.dismiss()
+            }
+
+        }
+
+        txtTitulo.text = titulo
+        txtTexto.text = texto
+
+
+        // Set a dismiss listener for popup window
+        popupWindow.setOnDismissListener {
+            //Fecha a janela ao clicar fora também
+            popupWindow.dismiss()
+        }
+
+        //lay_root é o layout parent que vou colocar a popup
+        val lay_root: ConstraintLayout = findViewById(R.id.paginaIndex)
+
+        // Finally, show the popup window on app
+        TransitionManager.beginDelayedTransition(lay_root)
+        popupWindow.showAtLocation(
+            lay_root, // Location to display popup window
+            Gravity.CENTER, // Exact position of layout to display popup
+            0, // X offset
+            0 // Y offset
+        )
+
+
+    }
+
     fun paginaColabAptos(){
+
+        adminModels.openCloseLay(paginaIndex, paginaColabAptos)
 
         var list_of_items = arrayOf(
             "Selecione Estado",
@@ -125,7 +329,6 @@ class adminActivity : AppCompatActivity() {
         }
 
     }
-
 
     fun queryFindMyWorkers(estado: String, filtro: Boolean, filtroTxt: String) {
 
@@ -211,7 +414,7 @@ class adminActivity : AppCompatActivity() {
 
                     } else {
                         EncerraDialog()
-                        adminControllers.makeToast(this@adminActivity, "Nenhum colaborador encontrado")
+                        ControllersUniversais.makeToast(this@adminActivity, "Nenhum colaborador encontrado")
                     }
 
                     EncerraDialog()
@@ -366,7 +569,7 @@ class adminActivity : AppCompatActivity() {
 
         btnContato.setOnClickListener {
             if (embarcacaoSelecionada.equals("Selecione:")){
-                adminControllers.makeToast(this, "Selecione a embarcação")
+                ControllersUniversais.makeToast(this, "Selecione a embarcação")
             } else if (diasParaEmbarque.text.isEmpty()){
                 diasParaEmbarque.setError("!")
             } else {
@@ -376,17 +579,16 @@ class adminActivity : AppCompatActivity() {
                 databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("embarcacao").setValue(embarcacaoSelecionada)
                 //val data = diasParaEmbarque.text.toString()
                 //val dataFinal = indexControllers.GetfutureDate(data.toInt())
-                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("dataEmbarque").setValue(indexControllers.GetfutureDate(diasParaEmbarque.text.toString().toInt()))
+                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("dataEmbarque").setValue(ControllersUniversais.GetfutureDate(diasParaEmbarque.text.toString().toInt()))
                 databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("recebido").setValue("nao")
                 databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("criador").setValue(indexModels.userBd)
                 adminModels.openCloseLay(paginainfo2, paginaColabAptos)
-                adminControllers.makeToast(this, "Um alerta foi criado")
+                ControllersUniversais.makeToast(this, "Um alerta foi criado")
             }
         }
 
     }
 
-    //mandar mensagem pra outro caminhoneiro
     fun openWhatsApp(number: String, message: String) {
 
         val pm: PackageManager = getPackageManager();
@@ -426,7 +628,6 @@ class adminActivity : AppCompatActivity() {
         spinner.visibility = View.VISIBLE
     }
 
-    //este método torna invisivel um layout e encerra o dialogbar spinner.
     fun EncerraDialog() {
         val layout = findViewById<RelativeLayout>(R.id.LayoutProgressBar)
         val spinner = findViewById<ProgressBar>(R.id.progressBar1)
@@ -440,7 +641,6 @@ class adminActivity : AppCompatActivity() {
 
         fun onLongClick(view: View?, position: Int)
     }
-
 
     internal class RecyclerTouchListener(context: Context, recyclerView: RecyclerView, private val clickListener: ClickListener?) : RecyclerView.OnItemTouchListener {
 

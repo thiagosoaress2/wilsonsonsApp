@@ -493,13 +493,11 @@ class MainActivity : AppCompatActivity() {
 
 
         // Get the widgets reference from custom view
-        val buttonPopupN = view.findViewById<Button>(R.id.btnReclamar)
-        val buttonPopupS = view.findViewById<Button>(R.id.BtnRecebimento)
+        val buttonPopupN = view.findViewById<Button>(R.id.popupBtnNao)
+        val buttonPopupS = view.findViewById<Button>(R.id.popupBtnSim)
         val buttonPopupOk = view.findViewById<Button>(R.id.popupBtnOk)
         val txtTitulo = view.findViewById<TextView>(R.id.popupTitulo)
         val txtTexto = view.findViewById<TextView>(R.id.popupTexto)
-        val progressbar = view.findViewById<ProgressBar>(R.id.progressBar)
-        val txBarra = view.findViewById<TextView>(R.id.popupMsg)
 
         if (exibeBtnOpcoes) {
             //vai exibir os botões com textos e esconder o btn ok
@@ -868,13 +866,13 @@ class MainActivity : AppCompatActivity() {
         val newCad: DatabaseReference = databaseReference.child("usuarios").push()
         val userBD = newCad.key.toString()
         newCad.child("email").setValue(emailAddress)
-        newCad.child("tipo").setValue("usuario")
+        newCad.child("Estado").setValue("nao")
+        newCad.child("certificados").setValue(0)
+        newCad.child("tipo").setValue("colaborador")
         newCad.child("avaliacoes").setValue(0)
         newCad.child("img").setValue("nao")
-        newCad.child("code").setValue("nao")
-        newCad.child("nEmergencia").setValue("nao")
         newCad.child("nome").setValue("nao")
-        newCad.child("whatsapp").setValue("nao")
+        newCad.child("contato").setValue("nao")
         newCad.child("pontos").setValue("0")
     }
 
