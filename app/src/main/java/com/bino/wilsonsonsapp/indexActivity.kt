@@ -92,11 +92,7 @@ class indexActivity : AppCompatActivity() {
 
         indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
 
-        if (indexModels.checkCertificate()){
-            //avisa o user
-            //openPopUp("Atenção", "Seu certificado vai vencer dentro de 30 dias.", false, "n", "n", "n")
-            Toast.makeText(this, "Seu certificado vai vencer dentro de 30 dias.", Toast.LENGTH_SHORT).show()
-        }
+
 
         setupMenu()
 
@@ -168,47 +164,26 @@ class indexActivity : AppCompatActivity() {
         indexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this)
         val btnAbrePergunta: Button = findViewById(R.id.questionIntro_btn)
         btnAbrePergunta.setOnClickListener {
-            openProblema()
+            openProblema(0)
         }
     }
 
-    fun openProblema(){
+    fun openProblema(id: Int){
 
         layIntroQuest.visibility = View.GONE
        // layInicial.visibility = View.GONE
         lay_problema.visibility = View.VISIBLE
 
-        //var objectQuestions: ObjectQuestions = ObjectQuestions()
-
-        val id: Int = 0
-        val skill = "fazer"
-        val tipo = "AB"   //clicavel  multipla  AB
-        val bdDaIntro = "idDaIntro"
-        val opcaoA = "opcaoA"
-        val opcaoB = "opcaoB"
-        val opcaoC = "opcaoC"
-        val opcaoD = "opcaoD"
-        val opcaoE = "opcaoE"
-        val correta = "opcaoA"
-        val imagem = "https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho2.jpg?alt=media&token=843e406c-cca5-4fa8-9ad5-5a9f1adce458"
-        val acertos = 10
-        val erros = 0
-        val itemClicavel1 = "sim"
-        val item1X = "100"
-        val item1Y = "200"
-        val itemclicavel2 = "nao"
-        val item2X = "500"
-        val item2Y = "500"
-        val pontos = "1000"
-        val totalPontos = "20000"
+        var objectQuestions: ObjectQuestions = ObjectQuestions()
+        objectQuestions = ConsultsModel.SelectQuestionPerId(id);
 
         val layRespostas: ConstraintLayout = findViewById(R.id.lay_respostaMultipla)
 
-        Glide.with(this).load(imagem).into(findViewById(R.id.problema_image))//imagem principal
+        Glide.with(this).load(objectQuestions.imagem).into(findViewById(R.id.problema_image))//imagem principal
 
         //1 - multipla  //2 - clicavel //3 - AB
 
-        if (tipo.equals("multipla")){
+        if (objectQuestions.type == 1){
 
             val btnAbreRespostas: Button = findViewById(R.id.problema_btnAbreRespostas)
             btnAbreRespostas.visibility = View.VISIBLE
@@ -227,62 +202,62 @@ class indexActivity : AppCompatActivity() {
             val btnE: Button = findViewById(R.id.resposta_E)
 
             btnA.setOnClickListener {
-                if (indexControllers.isCorrectAnswer("a", correta)){
+                if (indexControllers.isCorrectAnswer("a", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    afterProblem(true, skill, acertos, erros)
+                    afterProblem(true, id)
                 } else {
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
-                    afterProblem(false, skill, acertos, erros)
+                    afterProblem(false, id)
                 }
             }
             btnB.setOnClickListener {
-                if (indexControllers.isCorrectAnswer("b", correta)){
+                if (indexControllers.isCorrectAnswer("b", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    afterProblem(true, skill, acertos, erros)
+                    afterProblem(true, id)
                 } else {
-                    afterProblem(false, skill, acertos, erros)
+                    afterProblem(false, id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
             btnC.setOnClickListener {
-                if (indexControllers.isCorrectAnswer("c", correta)){
+                if (indexControllers.isCorrectAnswer("c", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    afterProblem(true, skill, acertos, erros)
+                    afterProblem(true, id)
                 } else {
-                    afterProblem(false, skill, acertos, erros)
+                    afterProblem(false, id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
             btnD.setOnClickListener {
-                if (indexControllers.isCorrectAnswer("d", correta)){
+                if (indexControllers.isCorrectAnswer("d", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    afterProblem(true, skill, acertos, erros)
+                    afterProblem(true, id)
                 } else {
-                    afterProblem(false, skill, acertos, erros)
+                    afterProblem(false, id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
             btnE.setOnClickListener {
-                if (indexControllers.isCorrectAnswer("e", correta)){
+                if (indexControllers.isCorrectAnswer("e", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    afterProblem(true, skill, acertos, erros)
+                    afterProblem(true, id)
                 } else {
-                    afterProblem(false, skill, acertos, erros)
+                    afterProblem(false, id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
 
-        } else if (tipo.equals("clicavel")){
+        } else if (objectQuestions.type == 2){
 
             val layProblema: ConstraintLayout = findViewById(R.id.lay_problema)
 
-            if (itemClicavel1.equals("sim")){
+            if (objectQuestions.itemClicavel1.equals("sim")){
 
                 val imageView = ImageView(this)
                 // setting height and width of imageview
                 imageView.layoutParams = LinearLayout.LayoutParams(200, 200)
-                imageView.x = item1X.toFloat() //setting margin from left
-                imageView.y = item1Y.toFloat() //setting margin from top
+                imageView.x = objectQuestions.item1X.toFloat() //setting margin from left
+                imageView.y = objectQuestions.item1Y.toFloat() //setting margin from top
                 //imageView.elevation=10f
 
                 layProblema.addView(imageView) //adding image to the layout
@@ -290,24 +265,23 @@ class indexActivity : AppCompatActivity() {
                 //a imagem pode vir dentro de opção A
 
                 imageView.setOnClickListener {
-                    if (correta.equals("a")){
-                        afterProblem(true, skill, acertos, erros)
+                    if (objectQuestions.alternativacorreta.equals("a")){
+                        afterProblem(true, id)
                         Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     } else {
-                        afterProblem(false, skill, acertos, erros)
+                        afterProblem(false, id)
                         Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                     }
                 }
-
             }
 
-            if (itemclicavel2.equals("sim")){
+            if (objectQuestions.itemClicavel2.equals("sim")){
 
                 val imageView = ImageView(this)
                 // setting height and width of imageview
                 imageView.layoutParams = LinearLayout.LayoutParams(150, 150)
-                imageView.x = item2X.toFloat() //setting margin from left
-                imageView.y = item2Y.toFloat() //setting margin from top
+                imageView.x = objectQuestions.item2X.toFloat() //setting margin from left
+                imageView.y = objectQuestions.item2Y.toFloat() //setting margin from top
                 //imageView2.elevation=10f
 
                 layProblema.addView(imageView) //adding image to the layout
@@ -315,11 +289,11 @@ class indexActivity : AppCompatActivity() {
 
 
                 imageView.setOnClickListener {
-                    if (correta.equals("b")){
-                        afterProblem(true, skill, acertos, erros)
+                    if (objectQuestions.alternativacorreta.equals("b")){
+                        afterProblem(true, id)
                         Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     } else {
-                        afterProblem(false, skill, acertos, erros)
+                        afterProblem(false, id)
                         Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -336,25 +310,25 @@ class indexActivity : AppCompatActivity() {
             val txtA: TextView = findViewById(R.id.perguntaAB_opcaoA)
             val txtB: TextView = findViewById(R.id.perguntaAB_opcaoB)
 
-            txtA.setText(opcaoA)
-            txtB.setText(opcaoB)
+            txtA.setText(objectQuestions.multiplaa)
+            txtB.setText(objectQuestions.multiplab)
 
             txtA.setOnClickListener {
-                if (correta=="a"){
-                    afterProblem(true, skill, acertos, erros)
+                if (objectQuestions.alternativacorreta =="a"){
+                    afterProblem(true, id)
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                 } else {
-                    afterProblem(false, skill, acertos, erros)
+                    afterProblem(false, id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
 
             txtB.setOnClickListener {
-                if (correta=="b"){
-                    afterProblem(true, skill, acertos, erros)
+                if (objectQuestions.alternativacorreta == "b"){
+                    afterProblem(true, id)
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                 } else {
-                    afterProblem(false, skill, acertos, erros)
+                    afterProblem(false, id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -364,7 +338,7 @@ class indexActivity : AppCompatActivity() {
 
     }
 
-    fun afterProblem(correct: Boolean, skill: String, acertos: Int, erros: Int){
+    fun afterProblem(correct: Boolean, id: Int){
 
         val layResultado: ConstraintLayout = findViewById(R.id.lay_resultado)
         val layProblema: ConstraintLayout = findViewById(R.id.lay_problema)
@@ -375,8 +349,10 @@ class indexActivity : AppCompatActivity() {
 
         if (correct){
             txt.setText("Acertou!")
+            ConsultsModel.SomaQuestions1(true, id)
         } else {
             txt.setText("Errou")
+            ConsultsModel.SomaQuestions1(false, id)
         }
     }
 
@@ -515,8 +491,4 @@ class indexActivity : AppCompatActivity() {
 
         }
     }
-
-
-
-
 }
