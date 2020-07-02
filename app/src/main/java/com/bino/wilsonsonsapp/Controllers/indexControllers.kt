@@ -78,6 +78,23 @@ object indexControllers {
         return currentDate
     }
 
+    fun GetfutureDate (daysToAdd: Int) : String {
+
+        val sdf = SimpleDateFormat("dd/MM/yyyy")
+        val currentDate = sdf.format(Date())
+
+        val c = Calendar.getInstance()
+        c.time = sdf.parse(currentDate)
+        c.add(Calendar.DATE, daysToAdd) // number of days to add
+
+        var tomorrow: String = sdf.format(Date())
+        tomorrow = sdf.format(c.time) // dt is now the new date
+
+        return tomorrow
+
+    }
+
+
     fun isCorrectAnswer(answer: String, correct: String):Boolean{
 
         if (answer.equals(correct)){

@@ -17,11 +17,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.adminControllers
+import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.Models.adminModels
+import com.bino.wilsonsonsapp.Models.indexModels
 import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.listFuncPorEstadoAdapter
 import com.bumptech.glide.Glide
-import com.google.android.material.navigation.NavigationView
 import com.google.firebase.database.*
 import java.util.*
 
@@ -30,6 +31,8 @@ class adminActivity : AppCompatActivity() {
     lateinit var paginaIndex: ConstraintLayout
     lateinit var paginaColabAptos: ConstraintLayout
     lateinit var paginaDetails: ConstraintLayout
+    lateinit var paginainfo1: ConstraintLayout
+    lateinit var paginainfo2: ConstraintLayout
 
     lateinit var databaseReference: DatabaseReference
 
@@ -51,6 +54,8 @@ class adminActivity : AppCompatActivity() {
         paginaIndex = findViewById(R.id.paginaIndex)
         paginaColabAptos = findViewById(R.id.paginaColabAptos)
         paginaDetails = findViewById(R.id.layInfosDetalhadas)
+        paginainfo1 = findViewById(R.id.layInfo2)
+        paginainfo2 = findViewById(R.id.layInfo2)
         databaseReference = FirebaseDatabase.getInstance().reference
     }
 
@@ -324,9 +329,59 @@ class adminActivity : AppCompatActivity() {
         }
 
 
-        val btnContato: Button = findViewById(R.id.btnContato)
+        val btnContato: Button = findViewById(R.id.btnConvocar)
         btnContato.setOnClickListener {
-            openWhatsApp(adminModels.whats.get(position), "Olá. Queremos você na próxima embaracação")
+            //openWhatsApp(adminModels.whats.get(position), "Olá. Queremos você na próxima embaracação")
+            convocation(position)
+        }
+
+
+
+
+    }
+
+    fun convocation(position: Int){
+
+        adminModels.openCloseLay(paginainfo1, paginainfo2)
+
+        var list_of_items = arrayOf("Selecione:", "SSKN 3008", "TSKN 2608", "Outra")
+
+        var embarcacaoSelecionada = "Selecione:"
+        val spinnerEstado: Spinner = findViewById(R.id.spinnerEmbarcacao)
+        spinnerEstado.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_of_items)
+        spinnerEstado.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?,  position: Int, id: Long
+            ) {
+                embarcacaoSelecionada = list_of_items[position]
+
+            }
+        }
+
+        val diasParaEmbarque: EditText = findViewById(R.id.layInfo2_diasParaEmbarque)
+        val btnContato: Button = findViewById(R.id.layInfor2_btnContato)
+
+        btnContato.setOnClickListener {
+            if (embarcacaoSelecionada.equals("Selecione:")){
+                adminControllers.makeToast(this, "Selecione a embarcação")
+            } else if (diasParaEmbarque.text.isEmpty()){
+                diasParaEmbarque.setError("!")
+            } else {
+                openWhatsApp(adminModels.whats.get(position), "Olá, tudo bem? Esperamso que sim. Queremos avisar você para se preparar. \nVocê embarca no modelo "+embarcacaoSelecionada+" em "+diasParaEmbarque.text+" dias. Você pode se preparar para aumentar a familiarização no app de treinamento. Procure o alerta na página principal. Nós estamos separando treinamentos especiais para você.")
+
+                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("userBd").setValue(adminModels.bd.get(position))
+                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("embarcacao").setValue(embarcacaoSelecionada)
+                //val data = diasParaEmbarque.text.toString()
+                //val dataFinal = indexControllers.GetfutureDate(data.toInt())
+                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("dataEmbarque").setValue(indexControllers.GetfutureDate(diasParaEmbarque.text.toString().toInt()))
+                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("recebido").setValue("nao")
+                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("criador").setValue(indexModels.userBd)
+                adminModels.openCloseLay(paginainfo2, paginaColabAptos)
+                adminControllers.makeToast(this, "Um alerta foi criado")
+            }
         }
 
     }

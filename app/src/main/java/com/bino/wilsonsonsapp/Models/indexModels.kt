@@ -1,7 +1,10 @@
 package com.bino.wilsonsonsapp.Models
 
 import android.app.Activity
+import android.content.Context
 import android.util.Log
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -13,6 +16,7 @@ import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.R
 import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.introQuestAdapter
+import com.bino.wilsonsonsapp.Utils.mySharedPrefs
 import com.bino.wilsonsonsapp.indexActivity
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
@@ -27,68 +31,14 @@ object indexModels {
 
     var posicaoUser=0
 
-    var userBd = "nao"
+    var userBd = "testeThiago"
     var userImg= "nao"
 
     var limitCertificate = "11/10/2023"
 
+    var alertaEmbarcacao: String = "nao"
+    var alertaDataEmbarque: String = "nao"
 
-    /*
-    fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layout: ConstraintLayout, playerAvatar: ImageView){
-
-        placeMapOnScreen(activity, R.drawable.map, backgroundPlaceHolder)
-
-        val screenHeight = indexControllers.calculateTheScreenSizeH(activity, backgroundPlaceHolder)
-        val screenWidth = indexControllers.calculateTheScreenSizeW(activity, backgroundPlaceHolder)
-
-        val interval = screenWidth/fases
-        val startPoint = interval/4
-
-        val intervalH = screenHeight/6
-        val startPointH = screenHeight/2
-
-        var cont=0
-        while (cont<fases){
-            val imageView = ImageView(activity)
-            // setting height and width of imageview
-            imageView.layoutParams = LinearLayout.LayoutParams(80, 80)
-
-            if (cont==0){
-                imageView.x = startPoint.toFloat() //setting margin from left
-                imageView.y = startPointH.toFloat() //setting margin from top
-                arrayPosicoesX.add(startPoint)
-                arrayPosicoesY.add(startPointH)
-            } else {
-
-                if ((cont % 2) == 0) {
-                    // par
-                    imageView.x = startPoint.toFloat()+interval*cont
-                    imageView.y = startPointH.toFloat()+intervalH
-
-                    arrayPosicoesX.add(startPoint+interval*cont)
-                    arrayPosicoesY.add(startPointH+intervalH)
-                }
-
-                else {
-                    // impar
-                    imageView.x = startPoint.toFloat()+interval*cont
-                    imageView.y = startPointH.toFloat()-intervalH
-                    arrayPosicoesX.add(startPoint+interval*cont)
-                    arrayPosicoesY.add(startPointH-intervalH)
-                }
-
-            }
-
-            layout?.addView(imageView) //adding image to the layout
-
-            Glide.with(activity).load(R.drawable.navio).into(imageView)
-            cont++
-        }
-
-        placeThePlayerInitial(playerAvatar)
-
-    }
-     */
 
     fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layout: ConstraintLayout, playerAvatar: ImageView){
 
@@ -177,6 +127,7 @@ object indexModels {
         }
 
     }
+
 
     fun openIntroQuest(layIntroQuest: ConstraintLayout, recyclerView: RecyclerView, activity: Activity){
 
@@ -270,6 +221,48 @@ object indexModels {
             return false //menor nao precisa avisar
         } else {
             return true  //maior  precisa
+        }
+    }
+
+    interface ClickListener {
+        fun onClick(view: View, position: Int)
+
+        fun onLongClick(view: View?, position: Int)
+    }
+
+
+    internal class RecyclerTouchListener(context: Context, recyclerView: RecyclerView, private val clickListener: ClickListener?) : RecyclerView.OnItemTouchListener {
+
+        private val gestureDetector: GestureDetector
+
+        init {
+            gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+                override fun onSingleTapUp(e: MotionEvent): Boolean {
+                    return true
+                }
+
+                override fun onLongPress(e: MotionEvent) {
+                    val child = recyclerView.findChildViewUnder(e.x, e.y)
+                    if (child != null && clickListener != null) {
+                        clickListener.onLongClick(child, recyclerView.getChildPosition(child))
+                    }
+                }
+            })
+        }
+
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {
+
+            val child = rv.findChildViewUnder(e.x, e.y)
+            if (child != null && clickListener != null && gestureDetector.onTouchEvent(e)) {
+                clickListener.onClick(child, rv.getChildPosition(child))
+            }
+            return false
+        }
+
+        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {}
+
+        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+
         }
     }
 

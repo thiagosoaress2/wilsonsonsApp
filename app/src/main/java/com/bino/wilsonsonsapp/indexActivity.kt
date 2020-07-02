@@ -2,10 +2,8 @@ package com.bino.wilsonsonsapp
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.transition.Slide
-import android.transition.TransitionManager
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -16,13 +14,13 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bino.wilsonsonsapp.Controllers.adminControllers
 import com.bino.wilsonsonsapp.Controllers.indexControllers
-import com.bino.wilsonsonsapp.Models.ConsultsModel
-import com.bino.wilsonsonsapp.Models.ObjectQuestions
 import com.bino.wilsonsonsapp.Models.indexModels
-import com.bino.wilsonsonsapp.Utils.CircleTransform
+import com.bino.wilsonsonsapp.Utils.mySharedPrefs
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.database.*
 
 
 class indexActivity : AppCompatActivity() {
@@ -39,6 +37,10 @@ class indexActivity : AppCompatActivity() {
     lateinit var btnTesteProblema: Button
     lateinit var btnTestePerfil: Button
 
+    lateinit var databaseReference: DatabaseReference
+
+    lateinit var mySharedPrefs: mySharedPrefs
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +54,7 @@ class indexActivity : AppCompatActivity() {
 
         loadComponents()
 
+
         val situacao = intent.getStringExtra("email")
         if (indexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
             //   openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
@@ -59,6 +62,12 @@ class indexActivity : AppCompatActivity() {
             //verificar se tem novos mundos para baixar
             //chamar um método para baixar os conteudos e em seguida informar ao usuário que existem atualizações e novas fases
 
+            //primeiro pega alerta no bd se tiver
+            queryConvocacoes()
+
+        } else {
+            //verifica se tem algo no sharedPrefs de alerta
+            verificaAlertaTreinamento()
         }
 
         btnteste.setOnClickListener {
@@ -92,12 +101,13 @@ class indexActivity : AppCompatActivity() {
         setupMenu()
 
         //anima nuvem
-        //Carregue o objeto que vai receber a animação
         val nuvem: ImageView = findViewById(R.id.imgnuvem)
-        //carregue a animação
         val movenuvem = AnimationUtils.loadAnimation(this, R.anim.movenuvem)
-        //utilize assim
         nuvem.startAnimation(movenuvem)
+        //anima nuvem2
+        val nuvem2: ImageView = findViewById(R.id.imgnuvem2)
+        val movenuvem2 = AnimationUtils.loadAnimation(this, R.anim.movenuvem2)
+        nuvem2.startAnimation(movenuvem2)
 
 
     }
@@ -113,6 +123,10 @@ class indexActivity : AppCompatActivity() {
         btnteste = findViewById(R.id.btnteste)
         btnTesteProblema = findViewById(R.id.btnTesteProblema)
         btnTestePerfil = findViewById(R.id.btnTeste2)
+        databaseReference = FirebaseDatabase.getInstance().reference
+
+        mySharedPrefs = mySharedPrefs(this)
+
     }
 
     fun setupMenu(){
@@ -364,6 +378,100 @@ class indexActivity : AppCompatActivity() {
         } else {
             txt.setText("Errou")
         }
+    }
+
+    fun queryConvocacoes(){
+
+        //databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("userBd")
+
+        val rootRef = databaseReference.child("convocacoes").child(indexModels.userBd)
+        rootRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+
+                if (p0.exists()){
+
+                    //TODO("Not yet implemented")
+                    var values: String
+
+                    values = p0.child("dataEmbarque").value.toString()
+                    if (adminControllers.checkCertificateValidit(values)){
+                        //esta vencido. N precisa pegar nenhum dado e pode apagar o alerta
+                        rootRef.child("convocacoes").child(indexModels.userBd).removeValue()
+                        mySharedPrefs.removeAlert()
+
+                    } else {
+
+                        val recebido = p0.child("recebido").value.toString()
+                        if (recebido.equals("nao")){ //se for == sim é porque já está salvo no sharedPrefs
+
+                            //pegar os dados
+                            values = p0.child("embarcacao").value.toString()
+                            indexModels.alertaEmbarcacao = values
+                            values = p0.child("dataEmbarque").value.toString()
+                            indexModels.alertaDataEmbarque = values
+                            rootRef.child("recebido").setValue("sim")
+
+                            mySharedPrefs.setAlertInfo(indexModels.alertaDataEmbarque, indexModels.alertaEmbarcacao)
+                            verificaAlertaTreinamento()
+                        }
+
+                    }
+
+                    EncerraDialog()
+
+                }
+
+            }
+
+
+        })
+
+    }
+
+    fun verificaAlertaTreinamento(){
+
+        mySharedPrefs.getAlertInfo()
+        if (!indexModels.alertaEmbarcacao.equals("nao")){ //se for diferente de não é porque tem alerta
+
+            if (adminControllers.checkCertificateValidit(indexModels.alertaDataEmbarque)){
+                //esta vencido. N precisa pegar nenhum dado e pode apagar o alerta
+                //nao fazer nada. Nao vai exibir o botão mas tb nao apaga no bd. Vai apagar quando tiver internet
+            } else {
+
+                val btnAlerta: Button = findViewById(R.id.btnAlertatreino)
+                btnAlerta.visibility = View.VISIBLE
+                btnAlerta.setOnClickListener {
+                    //abrir procedimentos de treino
+                    Log.d("teste", "funcionou tudo")
+                }
+            }
+        }
+
+    }
+
+    fun ChamaDialog() {
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+        ) //este serve para bloquear cliques que pdoeriam dar erros
+        val layout = findViewById<RelativeLayout>(R.id.LayoutProgressBar)
+        layout.visibility = View.VISIBLE
+        val spinner = findViewById<ProgressBar>(R.id.progressBar1)
+        spinner.visibility = View.VISIBLE
+    }
+
+    //este método torna invisivel um layout e encerra o dialogbar spinner.
+    fun EncerraDialog() {
+        val layout = findViewById<RelativeLayout>(R.id.LayoutProgressBar)
+        val spinner = findViewById<ProgressBar>(R.id.progressBar1)
+        layout.visibility = View.GONE
+        spinner.visibility = View.GONE
+        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE) //libera os clicks
     }
 
     //click listener da primeira recycleview
