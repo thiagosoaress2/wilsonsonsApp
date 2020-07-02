@@ -26,6 +26,7 @@ import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_index.*
 
 
 class indexActivity : AppCompatActivity() {
@@ -410,6 +411,8 @@ class indexActivity : AppCompatActivity() {
         val layResultado: ConstraintLayout = findViewById(R.id.lay_resultado)
         val layProblema: ConstraintLayout = findViewById(R.id.lay_problema)
         val txt: TextView = findViewById(R.id.resultado_txt)
+        val imgAcertoErro: ImageView = findViewById(R.id.resultado_img)
+        val msg: TextView = findViewById(R.id.resultado_mensagem)
 
         layProblema.visibility = View.GONE
         layResultado.visibility = View.VISIBLE
@@ -417,10 +420,17 @@ class indexActivity : AppCompatActivity() {
         if (correct){
             txt.setText("Acertou!")
             ConsultsQuestionsModel.somaQuestions1(true, id)
+            msg.setText("Mensagem de acerto")
+            Glide.with(this).load(R.drawable.barquinho).into(imgAcertoErro)
         } else {
             txt.setText("Errou")
+            msg.setText("Menagem de erro")
+            Glide.with(this).load(R.drawable.barquinho).into(imgAcertoErro)
             ConsultsQuestionsModel.somaQuestions1(false, id)
         }
+
+
+
     }
 
     fun queryConvocacoes(){
