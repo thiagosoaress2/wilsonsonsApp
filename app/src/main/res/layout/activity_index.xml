@@ -51,6 +51,16 @@
             tools:srcCompat="@tools:sample/avatars" />
 
 
+        <Button
+            android:id="@+id/btnAlertatreino"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Botão alerta treinamento"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ImageView
             android:id="@+id/playerAvatar"
             android:layout_width="wrap_content"
@@ -68,6 +78,17 @@
             android:elevation="60dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/nuvem" />
+
+        <ImageView
+            android:id="@+id/imgnuvem2"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:elevation="60dp"
+            android:layout_marginBottom="32dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/nuvem" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -352,4 +373,26 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/LayoutProgressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="40dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="gone">
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:progressDrawable="@drawable/circular_progressbar" />
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
