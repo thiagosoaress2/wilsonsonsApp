@@ -3,12 +3,14 @@ package com.bino.wilsonsonsapp.Models;
 public class ObjectUser {
 
     private String key;
+    private String email;
     private String name;
-    private String cargo;
+    private String number;
+    private int cargo;
+    private int state;
     private String datenascimento;
-    private String ultimo_curso;
-    private String date_certificado;
     private String photo;
+
 
     public String getKey() {
         return key;
@@ -16,6 +18,14 @@ public class ObjectUser {
 
     public void setKey(String key) {
         this.key = key;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -26,12 +36,28 @@ public class ObjectUser {
         this.name = name;
     }
 
-    public String getCargo() {
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
+
+    public int getCargo() {
         return cargo;
     }
 
-    public void setCargo(String cargo) {
+    public void setCargo(int cargo) {
         this.cargo = cargo;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     public String getDatenascimento() {
@@ -42,22 +68,6 @@ public class ObjectUser {
         this.datenascimento = datenascimento;
     }
 
-    public String getUltimo_curso() {
-        return ultimo_curso;
-    }
-
-    public void setUltimo_curso(String ultimo_curso) {
-        this.ultimo_curso = ultimo_curso;
-    }
-
-    public String getDate_certificado() {
-        return date_certificado;
-    }
-
-    public void setDate_certificado(String date_certificado) {
-        this.date_certificado = date_certificado;
-    }
-
     public String getPhoto() {
         return photo;
     }
@@ -65,4 +75,8 @@ public class ObjectUser {
     public void setPhoto(String photo) {
         this.photo = photo;
     }
+
+
+
+
 }

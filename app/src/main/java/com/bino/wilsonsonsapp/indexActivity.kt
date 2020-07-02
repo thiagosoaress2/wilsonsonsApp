@@ -3,7 +3,6 @@ package com.bino.wilsonsonsapp
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.*
@@ -16,7 +15,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.adminControllers
 import com.bino.wilsonsonsapp.Controllers.indexControllers
-import com.bino.wilsonsonsapp.Models.ConsultsModel
+import com.bino.wilsonsonsapp.Models.ConsultsQuestionsModel
 import com.bino.wilsonsonsapp.Models.ObjectQuestions
 import com.bino.wilsonsonsapp.Models.indexModels
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
@@ -37,7 +36,6 @@ class indexActivity : AppCompatActivity() {
     lateinit var lay_problema: ConstraintLayout
     lateinit var btnteste: Button
     lateinit var btnTesteProblema: Button
-    lateinit var btnTestePerfil: Button
 
     lateinit var databaseReference: DatabaseReference
 
@@ -81,16 +79,6 @@ class indexActivity : AppCompatActivity() {
             openIntroQuest()
         }
 
-        btnTestePerfil.setOnClickListener {
-            val intent = Intent(this, perfilActivity::class.java)
-            //intent.putExtra("email", "semLogin")
-            startActivity(intent)
-        }
-
-        findViewById<Button>(R.id.btnAdminTeste).setOnClickListener {
-            val intent = Intent(this, adminActivity::class.java)
-            startActivity(intent)
-        }
 
         indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
 
@@ -120,7 +108,8 @@ class indexActivity : AppCompatActivity() {
         lay_problema = findViewById(R.id.lay_problema)
         btnteste = findViewById(R.id.btnteste)
         btnTesteProblema = findViewById(R.id.btnTesteProblema)
-        btnTestePerfil = findViewById(R.id.btnTeste2)
+        
+        //apaguei no merge
         databaseReference = FirebaseDatabase.getInstance().reference
 
         mySharedPrefs = mySharedPrefs(this)
@@ -148,12 +137,15 @@ class indexActivity : AppCompatActivity() {
             }
 
             when (it.itemId) {
-                R.id.nav_user -> {
-
+                R.id.nav_perfil -> {
+                    val intent = Intent(this, perfilActivity::class.java)
+                    //intent.putExtra("email", "semLogin")
+                    startActivity(intent)
                     true
                 }
-                R.id.nav_perfil -> {
-
+                R.id.nav_adm -> {
+                    val intent = Intent(this, adminActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 else -> false
@@ -177,7 +169,7 @@ class indexActivity : AppCompatActivity() {
         lay_problema.visibility = View.VISIBLE
 
         var objectQuestions: ObjectQuestions = ObjectQuestions()
-        objectQuestions = ConsultsModel.SelectQuestionPerId(id);
+        objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(id);
 
         val layRespostas: ConstraintLayout = findViewById(R.id.lay_respostaMultipla)
 
@@ -351,10 +343,10 @@ class indexActivity : AppCompatActivity() {
 
         if (correct){
             txt.setText("Acertou!")
-            ConsultsModel.SomaQuestions1(true, id)
+            ConsultsQuestionsModel.somaQuestions1(true, id)
         } else {
             txt.setText("Errou")
-            ConsultsModel.SomaQuestions1(false, id)
+            ConsultsQuestionsModel.somaQuestions1(false, id)
         }
     }
 

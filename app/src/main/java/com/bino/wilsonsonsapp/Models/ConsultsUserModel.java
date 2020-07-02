@@ -1,41 +1,30 @@
 package com.bino.wilsonsonsapp.Models;
 
-import com.bino.wilsonsonsapp.Controllers.Constants;
 import com.bino.wilsonsonsapp.Controllers.Consults;
 
 import java.util.List;
 
-public class ConsultsModel {
+public class ConsultsUserModel {
 
-    public static ObjectQuestions SelectQuestionPerId(int id) {
-        ObjectQuestions objectQuestions = Consults.ConsultQuestions("Select * from questions where id = " + id + ";").get(0);
-        return objectQuestions;
-    }
-
-    public static void SomaQuestions1(boolean situation, int id) {
-        ObjectQuestions objectQuestions = SelectQuestionPerId(id);
-
-        int error = objectQuestions.getErros();
-        if(error == 0){ error = 1;}
-
-        if(situation){
-            Consults.ExecSql("UPDATE INTO questions SET acertos = "+ objectQuestions.getAcertos()+1+ ", points = "+100/error +" WHERE id = "+id+";");
-        }else{
-            Consults.ExecSql("UPDATE INTO questions SET erros = "+ objectQuestions.getErros()+1 +", points = "+100/(error+1) +" WHERE id = "+id+";");
-        }
-    }
-
-    public static ObjectUser SelectUser() {
-        ObjectUser objectUser = Consults.ConsultUser("Select * from user;");
+    public static ObjectUser selectUser() {
+        ObjectUser objectUser = Consults.ConsultUser("SELECT * FROM user;");
         return objectUser;
     }
 
-    public static List<ObjectIntro> SelectIntro(int id_intro){
-       return Consults.ConsultIntro("Select * from intro order by ordem where id = "+id_intro+";");
+    public static void insertUser(String firebase_key, String name, String number, String cargo, String date_nascimento, String photo) {
+        Consults.ExecSql("INSERT INTO user (firebase_key, name, number, cargo, date_nascimento, photo) VALUES" +
+                " ('"+firebase_key+"', '"+name+"', '"+number+"', '"+cargo+"', '"+date_nascimento+"', '"+photo+"');");
     }
 
+    public static void updateUser(int id, String name, String number, String cargo, String date_nascimento, String photo) {
+        Consults.ExecSql("UPDATE user SET name ='"+name+"', number = '"+number+"', cargo = '"+cargo+"', date_nascimento = '"+date_nascimento+"', photo = '"+photo+"';");
+    }
 
-    public static ObjectStatusUser SelectPoints() {
+    public static void deleteUser() {
+        Consults.ExecSql("DELETE FROM user;");
+    }
+
+    public static ObjectStatusUser selectPoints() {
 
         ObjectStatusUser objectStatusUser = null;
         List<ObjectQuestions> objectQuestionsList = Consults.ConsultQuestions("Select * from questions where respondida = " + true + ";");
@@ -59,4 +48,6 @@ public class ConsultsModel {
 
         return objectStatusUser;
     }
+
+
 }
