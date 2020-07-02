@@ -401,7 +401,6 @@ class indexActivity : AppCompatActivity() {
                 }
             }
 
-
         }
 
     }
