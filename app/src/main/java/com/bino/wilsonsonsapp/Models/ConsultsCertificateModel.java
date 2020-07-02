@@ -12,8 +12,8 @@ public class ConsultsCertificateModel {
         return Consults.ConsultCertificate("SELECT * FROM certificate WHERE firebase_key_user = "+firebase_key_user+";");
     }
 
-    public static List<ObjectCertificate> selectCertificatePerId(int id) {
-        return Consults.ConsultCertificate("SELECT * FROM certificate WHERE id = "+id+";");
+    public static ObjectCertificate selectCertificatePerId(int id) {
+        return Consults.ConsultCertificate("SELECT * FROM certificate WHERE id = "+id+";").get(0);
     }
 
     public static void insertCertificate(String firebase_key_user, String name, String validade) {

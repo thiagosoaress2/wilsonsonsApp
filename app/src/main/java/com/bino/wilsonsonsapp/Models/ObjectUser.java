@@ -7,6 +7,7 @@ public class ObjectUser {
     private String name;
     private String number;
     private int cargo;
+    private int state;
     private String datenascimento;
     private String photo;
 
@@ -49,6 +50,14 @@ public class ObjectUser {
 
     public void setCargo(int cargo) {
         this.cargo = cargo;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     public String getDatenascimento() {
