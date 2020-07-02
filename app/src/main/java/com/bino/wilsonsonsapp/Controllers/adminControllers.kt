@@ -7,14 +7,9 @@ import java.text.SimpleDateFormat
 
 object adminControllers {
 
-    fun makeToast(activity: Activity, message: String){
-
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
-    }
-
     fun checkCertificateValidit(validade: String) : Boolean {
 
-        val today = indexControllers.getDate()
+        val today = ControllersUniversais.getDate()
         //val limiteDate = GetfutureDate(30)
 
         val format = SimpleDateFormat("dd/MM/yyyy")
@@ -25,6 +20,21 @@ object adminControllers {
             return false //menor nao precisa avisar
         } else {
             return true  //maior  precisa
+        }
+    }
+
+    fun checkCertificateAboutToExpire(validade: String): Boolean {
+
+        val today = ControllersUniversais.getDate()
+
+        val format = SimpleDateFormat("dd/MM/yyyy")
+        val date1 = format.parse(validade)
+        val date2 = format.parse(today)
+
+        if (date1.compareTo(date2) >= 30) {  //se for hoje ou no futuro
+            return false //nao precisa avisar
+        } else {
+            return true  //precisa
         }
     }
 }

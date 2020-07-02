@@ -19,7 +19,9 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.indexControllers
+import com.bino.wilsonsonsapp.Models.adminModels
 import com.bino.wilsonsonsapp.Models.indexModels
 import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.cameraPermissions
@@ -87,6 +89,114 @@ class perfilActivity : AppCompatActivity() {
         }
 
         indexModels.placeImage(findViewById(R.id.perfil_iv), this)
+
+        val btnEditar: Button = findViewById(R.id.perfil_btnEditar)
+        btnEditar.setOnClickListener {
+            openEditLay()
+        }
+    }
+
+    fun openEditLay(){
+        val layCad: ConstraintLayout = findViewById(R.id.layEditInfo)
+        layCad.visibility = View.VISIBLE
+
+        var list_of_items = arrayOf(
+            "Selecione Estado",
+            "RJ",
+            "SP",
+            "AC",
+            "AL",
+            "AP",
+            "AM",
+            "BA",
+            "CE",
+            "DF",
+            "ES",
+            "GO",
+            "MA",
+            "MT",
+            "MS",
+            "MG",
+            "PA",
+            "PB",
+            "PR",
+            "PE",
+            "PI",
+            "RJ",
+            "RN",
+            "RS",
+            "RO",
+            "RR",
+            "SC",
+            "SP",
+            "SE",
+            "TO")
+        var estadoSelecionado = "Selecione Estado"
+        val spinnerEstado: Spinner = findViewById(R.id.cad_spinner_estado)
+        spinnerEstado.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_of_items)
+        spinnerEstado.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?,  position: Int, id: Long
+            ) {
+                estadoSelecionado = list_of_items[position]
+            }
+        }
+
+        var list_of_items2 = arrayOf(
+            "Selecione Estado",
+            "RJ",
+            "SP",
+            "AC",
+            "AL",
+            "AP",
+            "AM",
+            "BA",
+            "CE",
+            "DF",
+            "ES",
+            "GO",
+            "MA",
+            "MT",
+            "MS",
+            "MG",
+            "PA",
+            "PB",
+            "PR",
+            "PE",
+            "PI",
+            "RJ",
+            "RN",
+            "RS",
+            "RO",
+            "RR",
+            "SC",
+            "SP",
+            "SE",
+            "TO")
+        var funcaoSelecionada = "Selecione função"
+        val spinner: Spinner = findViewById(R.id.cad_spinnerFuncao)
+        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_of_items)
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?,  position: Int, id: Long
+            ) {
+                funcaoSelecionada = list_of_items2[position]
+            }
+        }
+
+
+
+
+        val btnVoltar: Button = findViewById(R.id.cad_btnFechar)
+        btnVoltar.setOnClickListener {
+            layCad.visibility = View.GONE
+        }
     }
 
     fun mountChart(){
@@ -231,13 +341,13 @@ class perfilActivity : AppCompatActivity() {
 
 
         // Get the widgets reference from custom view
-        val buttonPopupN = view.findViewById<Button>(R.id.btnReclamar)
-        val buttonPopupS = view.findViewById<Button>(R.id.BtnRecebimento)
+        val buttonPopupN = view.findViewById<Button>(R.id.popupBtnNao)
+        val buttonPopupS = view.findViewById<Button>(R.id.popupBtnSim)
         val buttonPopupOk = view.findViewById<Button>(R.id.popupBtnOk)
         val txtTitulo = view.findViewById<TextView>(R.id.popupTitulo)
         val txtTexto = view.findViewById<TextView>(R.id.popupTexto)
 
-        val background: ConstraintLayout = view.findViewById(R.id.background)
+        val background: ConstraintLayout = view.findViewById(R.id.lay_root)
 
         background.setOnClickListener {
             popupWindow.dismiss()
@@ -460,8 +570,7 @@ class perfilActivity : AppCompatActivity() {
         mFireBaseStorage = FirebaseStorage.getInstance()
         mphotoStorageReference = mFireBaseStorage.reference
 
-
-        mphotoStorageReference =mFireBaseStorage.getReference().child(indexControllers.getDate()+indexControllers.getHour())
+        mphotoStorageReference =mFireBaseStorage.getReference().child(ControllersUniversais.getDate()+ControllersUniversais.getHour())
 
 
         val bmp: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath)

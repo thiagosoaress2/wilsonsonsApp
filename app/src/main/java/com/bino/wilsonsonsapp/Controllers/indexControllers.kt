@@ -19,7 +19,6 @@ import java.util.*
 
 object indexControllers {
 
-
     fun isNetworkAvailable(activity: Activity): Boolean {
         val cm = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         var activeNetworkInfo: NetworkInfo? = null
@@ -39,16 +38,6 @@ object indexControllers {
 
     }
 
-    fun calculateTheImageViewSizeH(activity: Activity, imageView: ImageView): Int {
-        val height : Int = imageView.y.toInt()
-        return height
-    }
-
-    fun calculateTheImageViewSizeW(activity: Activity, imageView: ImageView): Int {
-        val height : Int = imageView.x.toInt()
-        return height
-    }
-
     fun calculateTheScreenSizeW(activity: Activity, imageView: ImageView) : Int {
 
         //pegando o tamanho da tela do celular
@@ -61,40 +50,6 @@ object indexControllers {
 
     }
 
-    fun getDate () : String {
-
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val currentDate = sdf.format(Date())
-
-        return currentDate
-    }
-
-    //pega a hora
-    fun getHour () : String {
-
-        val sdf = SimpleDateFormat("hh:mm:ss")
-        val currentDate = sdf.format(Date())
-
-        return currentDate
-    }
-
-    fun GetfutureDate (daysToAdd: Int) : String {
-
-        val sdf = SimpleDateFormat("dd/MM/yyyy")
-        val currentDate = sdf.format(Date())
-
-        val c = Calendar.getInstance()
-        c.time = sdf.parse(currentDate)
-        c.add(Calendar.DATE, daysToAdd) // number of days to add
-
-        var tomorrow: String = sdf.format(Date())
-        tomorrow = sdf.format(c.time) // dt is now the new date
-
-        return tomorrow
-
-    }
-
-
     fun isCorrectAnswer(answer: String, correct: String):Boolean{
 
         if (answer.equals(correct)){
@@ -103,6 +58,5 @@ object indexControllers {
             return false
         }
     }
-
 
 }

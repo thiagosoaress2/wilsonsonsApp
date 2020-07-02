@@ -13,15 +13,18 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.adminControllers
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.Models.ConsultsQuestionsModel
 import com.bino.wilsonsonsapp.Models.ObjectQuestions
 import com.bino.wilsonsonsapp.Models.indexModels
+import com.bino.wilsonsonsapp.Utils.listCursosAdapter
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 
 
@@ -35,9 +38,11 @@ class indexActivity : AppCompatActivity() {
     lateinit var layInicial: ConstraintLayout
     lateinit var layIntroQuest: ConstraintLayout
     lateinit var lay_problema: ConstraintLayout
+    lateinit var layListas: ConstraintLayout
     lateinit var btnteste: Button
     lateinit var btnTesteProblema: Button
 
+    lateinit var auth: FirebaseAuth
     lateinit var databaseReference: DatabaseReference
 
     lateinit var mySharedPrefs: mySharedPrefs
@@ -57,18 +62,30 @@ class indexActivity : AppCompatActivity() {
 
 
         val situacao = intent.getStringExtra("email")
-        if (indexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
-            //   openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
-        } else if (indexControllers.isNetworkAvailable(this)){
-            //verificar se tem novos mundos para baixar
-            //chamar um método para baixar os conteudos e em seguida informar ao usuário que existem atualizações e novas fases
+        if (!situacao.equals("semLogin")){
+            indexModels.uId = auth.currentUser!!.uid.toString()
+        }
+        if (!indexModels.isverified){ //para carregar uma unica vez
 
-            //primeiro pega alerta no bd se tiver
-            queryConvocacoes()
+            indexModels.isverified=true
 
-        } else {
-            //verifica se tem algo no sharedPrefs de alerta
-            verificaAlertaTreinamento()
+            if (indexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
+                //   openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
+            } else if (indexControllers.isNetworkAvailable(this)){
+                //verificar se tem novos mundos para baixar
+                //chamar um método para baixar os conteudos e em seguida informar ao usuário que existem atualizações e novas fases
+
+                //primeiro pega alerta no bd se tiver
+                queryConvocacoes()
+                updateCertificatesOnLine()
+
+            } else {
+                //verifica se tem algo no sharedPrefs de alerta
+                verificaAlertaTreinamento()
+                updateCertificatesOffLine()
+            }
+
+
         }
 
         btnteste.setOnClickListener {
@@ -78,6 +95,11 @@ class indexActivity : AppCompatActivity() {
 
         btnTesteProblema.setOnClickListener {
             openIntroQuest()
+        }
+
+        val btnMeusCertificados: Button = findViewById(R.id.btnCertificados)
+        btnMeusCertificados.setOnClickListener {
+            showListedItems("cert")
         }
 
 
@@ -109,6 +131,7 @@ class indexActivity : AppCompatActivity() {
         lay_problema = findViewById(R.id.lay_problema)
         btnteste = findViewById(R.id.btnteste)
         btnTesteProblema = findViewById(R.id.btnTesteProblema)
+        layListas = findViewById(R.id.lay_listas)
         
         //apaguei no merge
         databaseReference = FirebaseDatabase.getInstance().reference
@@ -152,6 +175,55 @@ class indexActivity : AppCompatActivity() {
                 else -> false
             }
         }
+    }
+
+    fun updateCertificatesOnLine(){
+
+        val rootRef = databaseReference.child("funcionarios").child(indexModels.userBd)
+        rootRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onCancelled(p0: DatabaseError) {
+
+
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+
+                if (p0.exists()){
+
+                    //TODO("Not yet implemented")
+                    var values: String
+                    var cont=0
+
+                    values = p0.child("certificados").value.toString()
+                    val certificados = values.toInt()
+
+                    while (cont<certificados){
+                        cont++
+                        var field = "certificado"+cont.toString()
+                        val certificado = p0.child(field).value.toString()
+                        indexModels.arrayCertificados.add(certificado)
+                        field = "valcert"+cont.toString()
+                        val validade = p0.child(field).value.toString()
+                        indexModels.arrayCertificadosValidade.add(validade)
+                        mySharedPrefs.addCertificados(certificados, this@indexActivity) //salva no shared para quando estiver offline
+                    }
+
+
+                }
+
+            }
+
+
+        })
+
+    }
+
+    fun updateCertificatesOffLine(){
+
+        mySharedPrefs.loadCertificates() //carrega os dados nos arrays
+
+        //showListedItems("cert")
+
     }
 
     fun openIntroQuest(){
@@ -388,9 +460,10 @@ class indexActivity : AppCompatActivity() {
                             rootRef.child("recebido").setValue("sim")
 
                             mySharedPrefs.setAlertInfo(indexModels.alertaDataEmbarque, indexModels.alertaEmbarcacao)
-                            verificaAlertaTreinamento()
+
                         }
 
+                        verificaAlertaTreinamento()
                     }
 
                     EncerraDialog()
@@ -418,10 +491,75 @@ class indexActivity : AppCompatActivity() {
                 btnAlerta.visibility = View.VISIBLE
                 btnAlerta.setOnClickListener {
                     //abrir procedimentos de treino
-                    Log.d("teste", "funcionou tudo")
+                    showListedItems("curso") //neste momento vai abrir a lista de cursos
+
                 }
             }
         }
+
+    }
+
+    fun showListedItems(tipo: String){
+
+        //ControllersUniversais.openCloseLay(layInicial, layListas)
+        layListas.visibility = View.VISIBLE
+        toolbar.visibility = View.GONE
+
+        val btnVoltar: Button = findViewById(R.id.lista_itens_btnVoltar)
+        btnVoltar.setOnClickListener {
+          //ControllersUniversais.openCloseLay(layListas, layInicial)
+            layListas.visibility = View.GONE
+            toolbar.visibility = View.VISIBLE
+        }
+
+        val recyclerView: RecyclerView = findViewById(R.id.listaCurso_recyclerView)
+        val textView: TextView = findViewById(R.id.lista_items_tvTitulo)
+
+        if (tipo.equals("curso")){
+            indexModels.loadCourses()
+            textView.setText("Lista de cursos")
+
+        } else {
+            textView.setText("Seus certificados")
+        }
+
+        mountRecyclerViewCourses(recyclerView, tipo)
+
+        recyclerView.addOnItemTouchListener(RecyclerTouchListener(this, recyclerView!!, object: ClickListener{
+
+            override fun onClick(view: View, position: Int) {
+                Log.d("teste", indexModels.arrayCursos.get(position))
+
+            }
+
+            override fun onLongClick(view: View?, position: Int) {
+
+            }
+        }))
+
+    }
+
+    private fun mountRecyclerViewCourses(recyclerView: RecyclerView, tipo: String){
+
+        var adapter: listCursosAdapter= listCursosAdapter(this, indexModels.arrayCursos, indexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
+
+        if (tipo.equals("curso")){
+            adapter = listCursosAdapter(this, indexModels.arrayCursos, indexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
+        } else {
+            adapter = listCursosAdapter(this, indexModels.arrayCertificados, indexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
+        }
+
+
+        //define o tipo de layout (linerr, grid)
+        var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
+
+        //coloca o adapter na recycleview
+        recyclerView.adapter = adapter
+
+        recyclerView.layoutManager = linearLayoutManager
+
+        // Notify the adapter for data change.
+        adapter.notifyDataSetChanged()
 
     }
 

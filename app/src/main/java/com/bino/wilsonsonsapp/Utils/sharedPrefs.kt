@@ -1,7 +1,9 @@
 package com.bino.wilsonsonsapp.Utils
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
+import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.Models.indexModels
 
@@ -32,7 +34,7 @@ class mySharedPrefs (val context: Context) {
     }
 
     fun getAlertInfo() {
-        indexModels.alertaEmbarcacao = sharedPref.getString("dataEmbarque", "nao").toString()
+        indexModels.alertaDataEmbarque = sharedPref.getString("dataEmbarque", "nao").toString()
         indexModels.alertaEmbarcacao = sharedPref.getString("embarcacao", "nao").toString()
     }
 
@@ -41,6 +43,70 @@ class mySharedPrefs (val context: Context) {
         editor.remove("dataEmbarque")
         editor.remove("embarcacao")
         editor.apply()
+    }
+
+    fun addCertificados(quantidade: Int, activity: Activity){
+        if (quantidade>0){
+
+            val editor = sharedPref.edit()
+            var cont=0
+            while (cont<quantidade){
+                var field = "certificado"+(cont+1).toString()  //precisa adicioanr 1 pois os certificados começam do 1 e o nosso cont do 0
+                editor.putString(field, indexModels.arrayCertificados.get(cont))
+                field = "valcert"+(cont+1).toString()
+                editor.putString(field, indexModels.arrayCertificadosValidade.get(cont))
+                cont++
+            }
+
+            editor.putString("quantidade", quantidade.toString())
+            editor.apply()
+
+        } else {
+            ControllersUniversais.makeToast(activity, "Você não pode incluir 0 certificados")
+        }
+    }
+
+    fun deleteCertificado(posicao: Int, activity: Activity){
+        val editor: SharedPreferences.Editor = sharedPref.edit()
+        var field = "certificado"+(posicao).toString()  //precisa adicioanr 1 pois os certificados começam do 1 e o nosso cont do 0
+        editor.remove(field)
+        field = "valcert"+(posicao).toString()
+        editor.remove(field)
+
+        //atualizando a quantidade
+        val quantidade = sharedPref.getString("quantidade", "nao").toString()
+        val quantidadeUpdated = quantidade.toInt()-1
+        editor.putString("quantidade", quantidadeUpdated.toString())
+
+        editor.apply()
+        ControllersUniversais.makeToast(activity, "Certificado removido")
+    }
+
+    fun getQuantiCert(): Int{
+
+        val quantidade = sharedPref.getString("quantidade", "nao").toString()
+        return quantidade.toInt()
+
+    }
+
+    fun getllCertificates(){
+
+    }
+
+    fun loadCertificates() {
+
+        val quantidade =sharedPref.getString("quantidade", "nao").toString()
+        var cont=0
+        while (cont<quantidade.toInt()){
+            cont++
+            var field = "certificado"+(cont).toString()  //precisa adicioanr 1 pois os certificados começam do 1 e o nosso cont do 0
+            val cert = sharedPref.getString(field, "nao").toString()
+            indexModels.arrayCertificados.add(cert)
+            field = "valcert"+(cont).toString()
+            val valid = sharedPref.getString(field, "nao").toString()
+            indexModels.arrayCertificadosValidade.add(valid)
+
+        }
     }
 
     //apagar tudo
