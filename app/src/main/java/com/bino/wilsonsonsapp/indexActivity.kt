@@ -3,6 +3,7 @@ package com.bino.wilsonsonsapp
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.view.animation.AnimationUtils
 import android.widget.*
