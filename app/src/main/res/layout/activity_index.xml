@@ -5,7 +5,7 @@
     android:id="@+id/layoutPrincipal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".indexActivity">
+    tools:context=".IndexActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layIndex"
@@ -60,15 +60,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/btnCertificados"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Meus certificados"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnTesteProblema" />
 
         <ImageView
             android:id="@+id/playerAvatar"

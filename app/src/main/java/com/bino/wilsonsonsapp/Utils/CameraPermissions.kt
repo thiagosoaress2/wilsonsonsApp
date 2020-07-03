@@ -7,7 +7,7 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-object cameraPermissions {
+object CameraPermissions {
 
     fun hasPermissions(activity : Activity): Boolean{
         return ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA)== PackageManager.PERMISSION_GRANTED

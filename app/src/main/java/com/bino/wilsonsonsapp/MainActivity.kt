@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
             telaLoginMailNew.visibility = View.GONE
             telainicial.visibility = View.VISIBLE
 
-            val intent = Intent(this, indexActivity::class.java)
+            val intent = Intent(this, IndexActivity::class.java)
             intent.putExtra("email", "semLogin")
             startActivity(intent)
 
@@ -332,7 +332,7 @@ class MainActivity : AppCompatActivity() {
 
                     val user: FirebaseUser? = auth.currentUser
                     val emailAddress = user?.email
-                    val intent = Intent(this, indexActivity::class.java)
+                    val intent = Intent(this, IndexActivity::class.java)
 
                     intent.putExtra("email", emailAddress)
                     startActivity(intent)
@@ -372,7 +372,7 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         val user: FirebaseUser? = auth.currentUser
                         val emailAddress = user?.email
-                        val intent = Intent(this, indexActivity::class.java)
+                        val intent = Intent(this, IndexActivity::class.java)
 
                         intent.putExtra("email", emailAddress)
                         startActivity(intent)
@@ -386,7 +386,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             } else { //aqui é para o caso de nao ser via email. E neste caso, nao precisa verificar nada. Abre direto a segunda activity
-                val intent = Intent(this, indexActivity::class.java)
+                val intent = Intent(this, IndexActivity::class.java)
                 val user: FirebaseUser? = auth.currentUser
                 val emailAddress = user?.email
                 intent.putExtra("email", emailAddress)
@@ -401,7 +401,7 @@ class MainActivity : AppCompatActivity() {
 
         } else if (tipoLogin.equals("facebook")) {
             Log.d("teste", "chegou aqui")
-            val intent = Intent(this, indexActivity::class.java)
+            val intent = Intent(this, IndexActivity::class.java)
 
             val user: FirebaseUser? = auth.currentUser
             val emailAddress = user?.email

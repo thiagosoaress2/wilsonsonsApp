@@ -1,12 +1,12 @@
 package com.bino.wilsonsonsapp.Controllers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bino.wilsonsonsapp.Models.ConsultsStateModel;
-
-public class SetupDatabase{
+public class SetupDatabase {
 
     private SQLiteDatabase currentDatabase;
     private Context currentContext;
@@ -29,15 +29,15 @@ public class SetupDatabase{
     private static final String SQL_INSERT_OCCUPATION2 = "INSERT INTO occupation (id, name) VALUES (2, 'Mecânico');";
     private static final String SQL_INSERT_OCCUPATION3 = "INSERT INTO occupation (id, name) VALUES (3, 'Mecânico');";
 
-    private static final String SQL_INSERT_STATE1  = "INSERT INTO state (id, name) VALUES (1, 'AC');";
-    private static final String SQL_INSERT_STATE2  = "INSERT INTO state (id, name) VALUES (2, 'AL');";
-    private static final String SQL_INSERT_STATE3  = "INSERT INTO state (id, name) VALUES (3, 'AP');";
-    private static final String SQL_INSERT_STATE4  = "INSERT INTO state (id, name) VALUES (4, 'AM');";
-    private static final String SQL_INSERT_STATE5  = "INSERT INTO state (id, name) VALUES (5, 'BA');";
-    private static final String SQL_INSERT_STATE6  = "INSERT INTO state (id, name) VALUES (6, 'CE');";
-    private static final String SQL_INSERT_STATE7  = "INSERT INTO state (id, name) VALUES (7, 'DF');";
-    private static final String SQL_INSERT_STATE8  = "INSERT INTO state (id, name) VALUES (8, 'ES');";
-    private static final String SQL_INSERT_STATE9  = "INSERT INTO state (id, name) VALUES (9, 'GO');";
+    private static final String SQL_INSERT_STATE1 = "INSERT INTO state (id, name) VALUES (1, 'AC');";
+    private static final String SQL_INSERT_STATE2 = "INSERT INTO state (id, name) VALUES (2, 'AL');";
+    private static final String SQL_INSERT_STATE3 = "INSERT INTO state (id, name) VALUES (3, 'AP');";
+    private static final String SQL_INSERT_STATE4 = "INSERT INTO state (id, name) VALUES (4, 'AM');";
+    private static final String SQL_INSERT_STATE5 = "INSERT INTO state (id, name) VALUES (5, 'BA');";
+    private static final String SQL_INSERT_STATE6 = "INSERT INTO state (id, name) VALUES (6, 'CE');";
+    private static final String SQL_INSERT_STATE7 = "INSERT INTO state (id, name) VALUES (7, 'DF');";
+    private static final String SQL_INSERT_STATE8 = "INSERT INTO state (id, name) VALUES (8, 'ES');";
+    private static final String SQL_INSERT_STATE9 = "INSERT INTO state (id, name) VALUES (9, 'GO');";
     private static final String SQL_INSERT_STATE10 = "INSERT INTO state (id, name) VALUES (10, 'MA');";
     private static final String SQL_INSERT_STATE11 = "INSERT INTO state (id, name) VALUES (11, 'MT');";
     private static final String SQL_INSERT_STATE12 = "INSERT INTO state (id, name) VALUES (12, 'MS');";
@@ -60,26 +60,26 @@ public class SetupDatabase{
     //1 - multipla  //2 - clicavel //3 - AB
     private static final String SQL_INSERT_INTO_QUESTIONS1 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
             " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 2, 1, 'a',imagemID, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, false);";
+            "VALUES ( 0, 1, 2, 1, 'a', 'imagemID', 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
-    private static final String SQL_INSERT_INTO_1_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro', 'drescription intro', 1, 0);";
-    private static final String SQL_INSERT_INTO_1_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro', 'drescription intro', 2, 1);";
+    private static final String SQL_INSERT_INTO_1_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro', 'drescription intro', 'https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho.jpg?alt=media&token=c27bd083-fe07-4a37-8557-14125a99ebf4', 0);";
+    private static final String SQL_INSERT_INTO_1_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro', 'drescription intro', 'https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho2.jpg?alt=media&token=843e406c-cca5-4fa8-9ad5-5a9f1adce458', 1);";
     private static final String SQL_INSERT_INTO_1_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro', 'drescription intro', 1, 2);";
 
 
     private static final String SQL_INSERT_INTO_QUESTIONS2 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
             " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 2, 1, 'a',imagemID, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, false);";
+            "VALUES ( 1, 1, 2, 2, 'a', 'imagemID', 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
 
-    private static final String SQL_INSERT_INTO_2_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro', 'drescription intro', 1, 0);";
-    private static final String SQL_INSERT_INTO_2_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro', 'drescription intro', 2, 1);";
+    private static final String SQL_INSERT_INTO_2_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro', 'drescription intro', 'https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho.jpg?alt=media&token=c27bd083-fe07-4a37-8557-14125a99ebf4', 0);";
+    private static final String SQL_INSERT_INTO_2_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro', 'drescription intro','https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho2.jpg?alt=media&token=843e406c-cca5-4fa8-9ad5-5a9f1adce458', 1);";
     private static final String SQL_INSERT_INTO_2_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro', 'drescription intro', 1, 2);";
 
 
     private static final String SQL_INSERT_INTO_QUESTIONS3 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
             " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 1, 1, 'a',imagemID, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, https://www.youtube.com/watch?v=_Awvrochhvk, https://www.youtube.com/watch?v=_Awvrochhvk, 100, false);";
+            "VALUES ( 0, 1, 1, 1, 'a',imagemID, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, https://www.youtube.com/watch?v=_Awvrochhvk, https://www.youtube.com/watch?v=_Awvrochhvk, 100, 'false');";
 
     private static final String SQL_INSERT_INTO_3_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo', 1, 0);";
     private static final String SQL_INSERT_INTO_3_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo', 2, 1);";
@@ -88,7 +88,7 @@ public class SetupDatabase{
 
     private static final String SQL_INSERT_INTO_QUESTIONS4 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
             " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 3, 1, 'a',imagemID, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, https://www.youtube.com/watch?v=_Awvrochhvk, https://www.youtube.com/watch?v=_Awvrochhvk, 100, false);";
+            "VALUES ( 0, 1, 3, 1, 'a',imagemID, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, https://www.youtube.com/watch?v=_Awvrochhvk, https://www.youtube.com/watch?v=_Awvrochhvk, 100, 'false');";
 
 
     private static final String SQL_INSERT_INTO_4_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo', 1, 0);";
@@ -97,85 +97,91 @@ public class SetupDatabase{
 
 
     public SetupDatabase(AppCompatActivity activityRef) {
-        this.currentContext = activityRef.getApplicationContext();
+        this.currentContext = activityRef;
         this.currentDatabase = this.currentContext.openOrCreateDatabase(Constants.DATABASE_NAME, 0, null, null);
 
-      //  if() {
-            //createTable
-            this.currentDatabase.execSQL(SQL_CREATE_USER_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_SKILLS_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_STATE_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_OCCUPATION_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_CERTIFICADO_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_QUESTIONS_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_INTRO_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_USER_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_SKILLS_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_STATE_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_OCCUPATION_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_CERTIFICADO_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_QUESTIONS_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_INTRO_TABLE);
 
-            //insertOccupation
-            this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION1);
-            this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION2);
-            this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION3);
+        //  if() {
+        //createTable
 
-            //insertSkill
-            this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL1);
-            this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL2);
-            this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL3);
 
-            //State
-            this.currentDatabase.execSQL(SQL_INSERT_STATE1);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE2);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE3);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE4);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE5);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE6);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE7);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE8);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE9);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE10);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE11);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE12);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE13);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE14);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE15);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE16);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE17);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE18);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE19);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE20);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE21);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE22);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE23);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE24);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE25);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE26);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE27);
+        //insertOccupation
+        this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION1);
+        this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION2);
+        this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION3);
 
-            this.currentDatabase.close();
-    //    }
+        //insertSkill
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL1);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL2);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL3);
+
+        //State
+        this.currentDatabase.execSQL(SQL_INSERT_STATE1);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE2);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE3);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE4);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE5);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE6);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE7);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE8);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE9);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE10);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE11);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE12);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE13);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE14);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE15);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE16);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE17);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE18);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE19);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE20);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE21);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE22);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE23);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE24);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE25);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE26);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE27);
+
+
+        //    }
 
 
         //insertQuestions - intro
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS1);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_1_2);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_1_3);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS1);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_1_2);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_1_3);
 
 
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS2);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_2_1);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_2_2);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_2_3);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS2);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_2_1);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_2_2);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_2_3);
+
+        this.currentDatabase.close();
 
       /*
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
+      this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
       this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
       this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
       this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
 
 
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS4);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL1);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL2);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL3);
+      this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS4);
+      this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL1);
+      this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL2);
+      this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL3);
         */
+
     }
+
 }

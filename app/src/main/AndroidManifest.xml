@@ -14,9 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".perfilActivity" />
-        <activity android:name=".adminActivity" />
-        <activity android:name=".gamePlayActivity" />
-        <activity android:name=".indexActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".GamePlayActivity" />
+        <activity android:name=".IndexActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

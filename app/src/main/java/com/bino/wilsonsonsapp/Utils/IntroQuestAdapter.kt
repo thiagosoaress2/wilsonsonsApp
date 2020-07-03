@@ -9,12 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.bino.wilsonsonsapp.Models.ObjectIntro
 import com.bino.wilsonsonsapp.R
 import com.bumptech.glide.Glide
 
-class introQuestAdapter(private var context: Context, private var arrayNome:MutableList<String>, private var arrayTexto:MutableList<String>, private var arrayImg:MutableList<String>): RecyclerView.Adapter<introQuestAdapter.ViewHolder>() {
+class IntroQuestAdapter(private var context: Context, private var listObjectIntro: List<ObjectIntro>): RecyclerView.Adapter<IntroQuestAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
-        return arrayNome.size;
+        return listObjectIntro.size;
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -26,43 +27,42 @@ class introQuestAdapter(private var context: Context, private var arrayNome:Muta
 
         if (position % 2 == 0){
 
-            Log.d("teste", "O valor de arrayTitulo é "+arrayNome.get(position))
-            Log.d("teste", "O valor de arrayTexto é "+arrayTexto.get(position))
-            Log.d("teste", "O valor de arrayImg é "+arrayImg.get(position))
+            Log.d("teste", "O valor de arrayTitulo é " + listObjectIntro.get(position).title)
+            Log.d("teste", "O valor de arrayTexto é " + listObjectIntro.get(position).text)
+            Log.d("teste", "O valor de arrayImg é " + listObjectIntro.get(position).img)
 
             holder.layout.visibility = View.VISIBLE
-            if (!arrayNome.get(position).equals("nao")){
+            if (!listObjectIntro.get(position).title.equals("nao")){
                 holder.textViewTit.visibility = View.VISIBLE
-                holder.textViewTit.text = arrayNome.get(position)
+                holder.textViewTit.text = listObjectIntro.get(position).title
             }
-            if (!arrayTexto.get(position).equals("nao")){
+            if (!listObjectIntro.get(position).text.equals("nao")){
                 holder.textViewTexto.visibility = View.VISIBLE
                 //holder.textViewTexto.text = arrayTexto.get(position)
-                holder.textViewTexto.setText(arrayTexto.get(position))
+                holder.textViewTexto.setText(listObjectIntro.get(position).text)
             }
-            if (!arrayImg.get(position).equals("nao")){
+            if (!listObjectIntro.get(position).img.equals("nao")){
                 holder.img.visibility = View.VISIBLE
-                Glide.with(context).load(arrayImg.get(position)).into(holder.img)
+                Glide.with(context).load(listObjectIntro.get(position).img).into(holder.img)
             }
 
         } else {
 
             holder.layout2.visibility = View.VISIBLE
-            if (!arrayNome.get(position).equals("nao")){
+            if (!listObjectIntro.get(position).title.equals("nao")){
                 holder.textViewTit2.visibility = View.VISIBLE
-                holder.textViewTit2.text = arrayNome.get(position)
+                holder.textViewTit2.text = listObjectIntro.get(position).title
             }
-            if (!arrayTexto.get(position).equals("nao")){
+            if (!listObjectIntro.get(position).text.equals("nao")){
                 holder.textViewTexto2.visibility = View.VISIBLE
                 //holder.textViewTexto2.text = arrayTexto.get(position)
-                holder.textViewTexto2.setText(arrayTexto.get(position))
+                holder.textViewTexto2.setText(listObjectIntro.get(position).text)
             }
-            if (!arrayImg.get(position).equals("nao")){
+            if (!listObjectIntro.get(position).img.equals("nao")){
                 holder.img2.visibility = View.VISIBLE
-                Glide.with(context).load(arrayImg.get(position)).into(holder.img2)
+                Glide.with(context).load(listObjectIntro.get(position).img).into(holder.img2)
             }
         }
-
     }
 
 
@@ -81,5 +81,4 @@ class introQuestAdapter(private var context: Context, private var arrayNome:Muta
         //var img: ImageView = itemView!!.findViewById(R.id.minhaloja_rv_row_imageview)
 
     }
-
 }

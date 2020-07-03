@@ -2,32 +2,27 @@ package com.bino.wilsonsonsapp.Models
 
 import android.app.Activity
 import android.content.Context
-import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
-import com.bino.wilsonsonsapp.Controllers.indexControllers
+import com.bino.wilsonsonsapp.Controllers.IndexControllers
 import com.bino.wilsonsonsapp.R
 import com.bino.wilsonsonsapp.Utils.CircleTransform
-import com.bino.wilsonsonsapp.Utils.introQuestAdapter
-import com.bino.wilsonsonsapp.Utils.listCursosAdapter
-import com.bino.wilsonsonsapp.Utils.mySharedPrefs
-import com.bino.wilsonsonsapp.indexActivity
+import com.bino.wilsonsonsapp.Utils.IntroQuestAdapter
+import com.bino.wilsonsonsapp.IndexActivity
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 
-object indexModels {
+object IndexModels {
 
     val arrayPosicoesX: MutableList<Int> = ArrayList()
     val arrayPosicoesY: MutableList<Int> = ArrayList()
@@ -55,8 +50,8 @@ object indexModels {
 
         placeMapOnScreen(activity, R.drawable.gamebackground1, backgroundPlaceHolder)
 
-        val screenHeight = indexControllers.calculateTheScreenSizeH(activity, backgroundPlaceHolder)
-        var screenWidth = indexControllers.calculateTheScreenSizeW(activity, backgroundPlaceHolder)-100
+        val screenHeight = IndexControllers.calculateTheScreenSizeH(activity, backgroundPlaceHolder)
+        var screenWidth = IndexControllers.calculateTheScreenSizeW(activity, backgroundPlaceHolder)-100
 
         val intervalX = screenWidth/(fases/2)  //pega a quantidade de fases e divide por 2. Digamos, se for 6 fases, vai dividir por 3. Assim teremos uma variação pequena
         var startPointX = 100 //para começar no cantinho
@@ -140,12 +135,14 @@ object indexModels {
     }
 
 
-    fun openIntroQuest(layIntroQuest: ConstraintLayout, recyclerView: RecyclerView, activity: Activity){
+    fun openIntroQuest(layIntroQuest: ConstraintLayout, recyclerView: RecyclerView, activity: Activity, objectQuestions: ObjectQuestions){
 
         //layInicial.visibility = View.GONE
         layIntroQuest.visibility = View.VISIBLE
 
-        val arrayTitulo: MutableList<String> = ArrayList()
+        var objectIntro: List<ObjectIntro> = ConsultsQuestionsModel.selectIntro(objectQuestions.id_intro)
+
+     /*   val arrayTitulo: MutableList<String> = ArrayList()
         arrayTitulo.add("Olaaaa")
         arrayTitulo.add("Este é o titulo 2")
         val arrayTexto: MutableList<String> = ArrayList()
@@ -154,8 +151,8 @@ object indexModels {
         val arrayImage: MutableList<String> = ArrayList()
         arrayImage.add("https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho.jpg?alt=media&token=c27bd083-fe07-4a37-8557-14125a99ebf4")
         arrayImage.add("https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho2.jpg?alt=media&token=843e406c-cca5-4fa8-9ad5-5a9f1adce458")
-
-        val adapter: introQuestAdapter = introQuestAdapter(activity, arrayTitulo, arrayTexto, arrayImage)
+*/
+        val adapter: IntroQuestAdapter = IntroQuestAdapter(activity, objectIntro)
 
         //chame a recyclerview
         //val recyclerView: RecyclerView = findViewById(R.id.question_intro_recyclerView)
@@ -172,13 +169,13 @@ object indexModels {
         adapter.notifyDataSetChanged()
 
         recyclerView.addOnItemTouchListener(
-            indexActivity.RecyclerTouchListener(
+            IndexActivity.RecyclerTouchListener(
                 activity,
                 recyclerView!!,
-                object : indexActivity.ClickListener {
+                object : IndexActivity.ClickListener {
 
                     override fun onClick(view: View, position: Int) {
-                        Log.d("teste", arrayTitulo.get(position))
+                        Log.d("teste", objectIntro.get(position).title)
                         //Toast.makeText(this@MainActivity, !! aNome.get(position).toString(), Toast.LENGTH_SHORT).show()
                     }
 

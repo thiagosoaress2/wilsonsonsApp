@@ -4,8 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
-import com.bino.wilsonsonsapp.Controllers.indexControllers
-import com.bino.wilsonsonsapp.Models.indexModels
+import com.bino.wilsonsonsapp.Models.IndexModels
 
 class mySharedPrefs (val context: Context) {
 
@@ -34,8 +33,8 @@ class mySharedPrefs (val context: Context) {
     }
 
     fun getAlertInfo() {
-        indexModels.alertaDataEmbarque = sharedPref.getString("dataEmbarque", "nao").toString()
-        indexModels.alertaEmbarcacao = sharedPref.getString("embarcacao", "nao").toString()
+        IndexModels.alertaDataEmbarque = sharedPref.getString("dataEmbarque", "nao").toString()
+        IndexModels.alertaEmbarcacao = sharedPref.getString("embarcacao", "nao").toString()
     }
 
     fun removeAlert(){
@@ -52,9 +51,9 @@ class mySharedPrefs (val context: Context) {
             var cont=0
             while (cont<quantidade){
                 var field = "certificado"+(cont+1).toString()  //precisa adicioanr 1 pois os certificados começam do 1 e o nosso cont do 0
-                editor.putString(field, indexModels.arrayCertificados.get(cont))
+                editor.putString(field, IndexModels.arrayCertificados.get(cont))
                 field = "valcert"+(cont+1).toString()
-                editor.putString(field, indexModels.arrayCertificadosValidade.get(cont))
+                editor.putString(field, IndexModels.arrayCertificadosValidade.get(cont))
                 cont++
             }
 
@@ -101,10 +100,10 @@ class mySharedPrefs (val context: Context) {
             cont++
             var field = "certificado"+(cont).toString()  //precisa adicioanr 1 pois os certificados começam do 1 e o nosso cont do 0
             val cert = sharedPref.getString(field, "nao").toString()
-            indexModels.arrayCertificados.add(cert)
+            IndexModels.arrayCertificados.add(cert)
             field = "valcert"+(cont).toString()
             val valid = sharedPref.getString(field, "nao").toString()
-            indexModels.arrayCertificadosValidade.add(valid)
+            IndexModels.arrayCertificadosValidade.add(valid)
 
         }
     }

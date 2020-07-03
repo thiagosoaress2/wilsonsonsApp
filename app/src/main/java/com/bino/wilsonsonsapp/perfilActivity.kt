@@ -20,11 +20,9 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
-import com.bino.wilsonsonsapp.Controllers.indexControllers
-import com.bino.wilsonsonsapp.Models.adminModels
-import com.bino.wilsonsonsapp.Models.indexModels
+import com.bino.wilsonsonsapp.Models.IndexModels
 import com.bino.wilsonsonsapp.Utils.CircleTransform
-import com.bino.wilsonsonsapp.Utils.cameraPermissions
+import com.bino.wilsonsonsapp.Utils.CameraPermissions
 import com.bino.wilsonsonsapp.Utils.readFilesPermissions
 import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
 import com.bumptech.glide.Glide
@@ -68,7 +66,7 @@ class perfilActivity : AppCompatActivity() {
         super.onStart()
 
         //pede priemiro a camera e depois vai pedindo um por um
-        cameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
+        CameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
 
         mFireBaseStorage = FirebaseStorage.getInstance()
         mphotoStorageReference = mFireBaseStorage.reference
@@ -76,10 +74,10 @@ class perfilActivity : AppCompatActivity() {
 
         val btnUpload: Button = findViewById(R.id.perfil_btnUpload)
         btnUpload.setOnClickListener {
-            if (cameraPermissions.hasPermissions(this) && readFilesPermissions.hasPermissions(this) && writeFilesPermissions.hasPermissions(this)){
+            if (CameraPermissions.hasPermissions(this) && readFilesPermissions.hasPermissions(this) && writeFilesPermissions.hasPermissions(this)){
                 openPopUp("Upload de foto", "Como você vai enviar a foto?", true, "Tirar foto", "Escolher foto")
-            } else if (!cameraPermissions.hasPermissions(this)){
-                cameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
+            } else if (!CameraPermissions.hasPermissions(this)){
+                CameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
             } else if (!readFilesPermissions.hasPermissions(this)){
                 readFilesPermissions.checkPermission(this, READ_PERMISSION_CODE)
             } else if (!writeFilesPermissions.hasPermissions(this)){
@@ -88,7 +86,7 @@ class perfilActivity : AppCompatActivity() {
 
         }
 
-        indexModels.placeImage(findViewById(R.id.perfil_iv), this)
+        IndexModels.placeImage(findViewById(R.id.perfil_iv), this)
 
         val btnEditar: Button = findViewById(R.id.perfil_btnEditar)
         btnEditar.setOnClickListener {
@@ -600,7 +598,7 @@ class perfilActivity : AppCompatActivity() {
                 urifinal = downloadUri.toString()
                 //se quiser salvar, é o urifinal que é o link
                 //pra salvar no bd e carregar com glide.
-                databaseReference.child("usuarios").child(indexModels.userBd).child("img").setValue(urifinal)
+                databaseReference.child("usuarios").child(IndexModels.userBd).child("img").setValue(urifinal)
                 EncerraDialog()
 
 
@@ -616,7 +614,7 @@ class perfilActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 
         if (requestCode==CAMERA_PERMISSION_CODE){
-            cameraPermissions.handlePermissionsResult(requestCode, permissions, grantResults, CAMERA_PERMISSION_CODE)
+            CameraPermissions.handlePermissionsResult(requestCode, permissions, grantResults, CAMERA_PERMISSION_CODE)
             readFilesPermissions.requestPermission(this, READ_PERMISSION_CODE)
         }
         if (requestCode==READ_PERMISSION_CODE){

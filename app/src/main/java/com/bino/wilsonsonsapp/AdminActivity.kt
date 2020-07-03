@@ -17,18 +17,17 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
-import com.bino.wilsonsonsapp.Controllers.adminControllers
-import com.bino.wilsonsonsapp.Controllers.indexControllers
-import com.bino.wilsonsonsapp.Models.adminModels
-import com.bino.wilsonsonsapp.Models.indexModels
+import com.bino.wilsonsonsapp.Controllers.AdminControllers
+import com.bino.wilsonsonsapp.Models.AdminModels
+import com.bino.wilsonsonsapp.Models.IndexModels
 import com.bino.wilsonsonsapp.Utils.CircleTransform
-import com.bino.wilsonsonsapp.Utils.listFuncComCertVencendoAdapter
-import com.bino.wilsonsonsapp.Utils.listFuncPorEstadoAdapter
+import com.bino.wilsonsonsapp.Utils.ListFuncComCertVencendoAdapter
+import com.bino.wilsonsonsapp.Utils.ListFuncPorEstadoAdapter
 import com.bumptech.glide.Glide
 import com.google.firebase.database.*
 import java.util.*
 
-class adminActivity : AppCompatActivity() {
+class AdminActivity : AppCompatActivity() {
 
     lateinit var paginaIndex: ConstraintLayout
     lateinit var paginaColabAptos: ConstraintLayout
@@ -79,16 +78,16 @@ class adminActivity : AppCompatActivity() {
                             val bd = querySnapshot.key.toString()
 
                             values = querySnapshot.child("nome").value.toString()
-                            adminModels.nome.add(values)
+                            AdminModels.nome.add(values)
 
                             values = querySnapshot.child("funcao").value.toString()
-                            adminModels.funcao.add(values)
+                            AdminModels.funcao.add(values)
 
                             values = querySnapshot.child("contato").value.toString()
-                            adminModels.whats.add(values)
+                            AdminModels.whats.add(values)
 
                             values = querySnapshot.child("img").value.toString()
-                            adminModels.img.add(values)
+                            AdminModels.img.add(values)
 
                             values = querySnapshot.child("certificados").value.toString()
                             val qntCert = values.toInt()
@@ -99,12 +98,12 @@ class adminActivity : AppCompatActivity() {
                                 values = querySnapshot.child(field).value.toString()
 
                                 //entra aqui se nao tiver filtro
-                                adminModels.certificados.add(bd+"!*!??#"+values)
+                                AdminModels.certificados.add(bd+"!*!??#"+values)
                                 field = "valcert"+(cont+1).toString()
                                 values = querySnapshot.child(field).value.toString()
-                                adminModels.validCert.add(values)
+                                AdminModels.validCert.add(values)
 
-                                adminModels.bd.add(bd)
+                                AdminModels.bd.add(bd)
 
                                 cont++
                             }
@@ -129,7 +128,7 @@ class adminActivity : AppCompatActivity() {
 
     fun montaRecyclerListaCertifsVencendo (){
 
-        var adapter: listFuncComCertVencendoAdapter = listFuncComCertVencendoAdapter(this, adminModels.nome, adminModels.funcao, adminModels.certificados, adminModels.validCert, adminModels.bd)
+        var adapter: ListFuncComCertVencendoAdapter = ListFuncComCertVencendoAdapter(this, AdminModels.nome, AdminModels.funcao, AdminModels.certificados, AdminModels.validCert, AdminModels.bd)
         var recyclerView: RecyclerView = findViewById(R.id.paginaIndex_recyclerView_certificadosObservers)
         var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -139,7 +138,7 @@ class adminActivity : AppCompatActivity() {
         recyclerView.addOnItemTouchListener(RecyclerTouchListener(this, recyclerView!!, object: ClickListener{
 
             override fun onClick(view: View, position: Int) {
-                openPopUp("Enviar mensagem", "Você deseja enviar uma mensagem para este colaborador?", true, "Sim, enviar", "Não", "falar", adminModels.whats.get(position))
+                openPopUp("Enviar mensagem", "Você deseja enviar uma mensagem para este colaborador?", true, "Sim, enviar", "Não", "falar", AdminModels.whats.get(position))
             }
 
             override fun onLongClick(view: View?, position: Int) {
@@ -263,7 +262,7 @@ class adminActivity : AppCompatActivity() {
 
     fun paginaColabAptos(){
 
-        adminModels.openCloseLay(paginaIndex, paginaColabAptos)
+        AdminModels.openCloseLay(paginaIndex, paginaColabAptos)
 
         var list_of_items = arrayOf(
             "Selecione Estado",
@@ -309,7 +308,7 @@ class adminActivity : AppCompatActivity() {
             override fun onItemSelected(parent: AdapterView<*>?, view: View?,  position: Int, id: Long
             ) {
                 estadoSelecionado = list_of_items[position]
-                adminModels.estado = estadoSelecionado
+                AdminModels.estado = estadoSelecionado
             }
         }
 
@@ -332,11 +331,11 @@ class adminActivity : AppCompatActivity() {
 
     fun queryFindMyWorkers(estado: String, filtro: Boolean, filtroTxt: String) {
 
-        adminModels.nome.clear()
-        adminModels.certificados.clear()
-        adminModels.validCert.clear()
-        adminModels.funcao.clear()
-        adminModels.bd.clear()
+        AdminModels.nome.clear()
+        AdminModels.certificados.clear()
+        AdminModels.validCert.clear()
+        AdminModels.funcao.clear()
+        AdminModels.bd.clear()
 
         ChamaDialog()
         val rootRef = databaseReference.child("funcionarios")
@@ -363,45 +362,45 @@ class adminActivity : AppCompatActivity() {
                                 if (filtro){
                                     if (filtroTxt.equals(values)){
                                         //entra aqui se for filtrado e bateu os requisitos
-                                        adminModels.certificados.add(bd+"!*!??#"+values)
+                                        AdminModels.certificados.add(bd+"!*!??#"+values)
                                         field = "valcert"+(cont+1).toString()
                                         values = querySnapshot.child(field).value.toString()
-                                        adminModels.validCert.add(values)
+                                        AdminModels.validCert.add(values)
 
-                                        adminModels.bd.add(bd)
+                                        AdminModels.bd.add(bd)
 
                                         values = querySnapshot.child("nome").value.toString()
-                                        adminModels.nome.add(values)
+                                        AdminModels.nome.add(values)
 
                                         values = querySnapshot.child("funcao").value.toString()
-                                        adminModels.funcao.add(values)
+                                        AdminModels.funcao.add(values)
 
                                         values = querySnapshot.child("contato").value.toString()
-                                        adminModels.whats.add(values)
+                                        AdminModels.whats.add(values)
 
                                         values = querySnapshot.child("img").value.toString()
-                                        adminModels.img.add(values)
+                                        AdminModels.img.add(values)
                                     }
                                 } else {
                                     //entra aqui se nao tiver filtro
-                                    adminModels.certificados.add(bd+"!*!??#"+values)
+                                    AdminModels.certificados.add(bd+"!*!??#"+values)
                                     field = "valcert"+(cont+1).toString()
                                     values = querySnapshot.child(field).value.toString()
-                                    adminModels.validCert.add(values)
+                                    AdminModels.validCert.add(values)
 
-                                    adminModels.bd.add(bd)
+                                    AdminModels.bd.add(bd)
 
                                     values = querySnapshot.child("nome").value.toString()
-                                    adminModels.nome.add(values)
+                                    AdminModels.nome.add(values)
 
                                     values = querySnapshot.child("funcao").value.toString()
-                                    adminModels.funcao.add(values)
+                                    AdminModels.funcao.add(values)
 
                                     values = querySnapshot.child("contato").value.toString()
-                                    adminModels.whats.add(values)
+                                    AdminModels.whats.add(values)
 
                                     values = querySnapshot.child("img").value.toString()
-                                    adminModels.img.add(values)
+                                    AdminModels.img.add(values)
                                 }
 
                                 cont++
@@ -414,7 +413,7 @@ class adminActivity : AppCompatActivity() {
 
                     } else {
                         EncerraDialog()
-                        ControllersUniversais.makeToast(this@adminActivity, "Nenhum colaborador encontrado")
+                        ControllersUniversais.makeToast(this@AdminActivity, "Nenhum colaborador encontrado")
                     }
 
                     EncerraDialog()
@@ -433,7 +432,7 @@ class adminActivity : AppCompatActivity() {
 
     fun montaRecyclerListaPorEstado (){
 
-        var adapter: listFuncPorEstadoAdapter = listFuncPorEstadoAdapter(this, adminModels.nome, adminModels.funcao, adminModels.certificados, adminModels.validCert, adminModels.bd)
+        var adapter: ListFuncPorEstadoAdapter = ListFuncPorEstadoAdapter(this, AdminModels.nome, AdminModels.funcao, AdminModels.certificados, AdminModels.validCert, AdminModels.bd)
         var recyclerView: RecyclerView = findViewById(R.id.colabAptos_recyclerView)
         var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
@@ -443,7 +442,7 @@ class adminActivity : AppCompatActivity() {
         recyclerView.addOnItemTouchListener(RecyclerTouchListener(this, recyclerView!!, object: ClickListener{
 
             override fun onClick(view: View, position: Int) {
-                Log.d("teste", "clicou em "+adminModels.nome.get(position))
+                Log.d("teste", "clicou em "+AdminModels.nome.get(position))
                 openInfoWindow(position)
             }
 
@@ -457,10 +456,10 @@ class adminActivity : AppCompatActivity() {
 
     fun openInfoWindow(position: Int){
 
-        adminModels.openCloseLay(paginaColabAptos, paginaDetails)
+        AdminModels.openCloseLay(paginaColabAptos, paginaDetails)
 
         paginaDetails.setOnClickListener {
-            adminModels.openCloseLay(paginaDetails, paginaColabAptos)
+            AdminModels.openCloseLay(paginaDetails, paginaColabAptos)
         }
 
         val img: ImageView = findViewById(R.id.details_img)
@@ -471,7 +470,7 @@ class adminActivity : AppCompatActivity() {
 
         try {
             Glide.with(applicationContext)
-                .load(adminModels.img.get(position))
+                .load(AdminModels.img.get(position))
                 .thumbnail(0.9f)
                 .skipMemoryCache(true)
                 .transform(CircleTransform(this)) // applying the image transformer
@@ -480,14 +479,14 @@ class adminActivity : AppCompatActivity() {
             e.printStackTrace()
         }
 
-        tvNome.setText(adminModels.nome.get(position))
-        tvfuncao.setText(adminModels.funcao.get(position))
-        tvContato.setText(adminModels.whats.get(position))
+        tvNome.setText(AdminModels.nome.get(position))
+        tvfuncao.setText(AdminModels.funcao.get(position))
+        tvContato.setText(AdminModels.whats.get(position))
 
         var cont=0
         var indexes: MutableList<Int> = ArrayList()
-        while (cont<adminModels.certificados.size){  //descobrir quantas vezes teremos que entrar pra pegar o dado
-            if (adminModels.certificados.get(cont).contains(adminModels.bd.get(position))){
+        while (cont<AdminModels.certificados.size){  //descobrir quantas vezes teremos que entrar pra pegar o dado
+            if (AdminModels.certificados.get(cont).contains(AdminModels.bd.get(position))){
                 indexes.add(cont)
             }
             cont++
@@ -498,31 +497,31 @@ class adminActivity : AppCompatActivity() {
         while (cont<indexes.size){
 
 
-            val tokens = StringTokenizer(adminModels.certificados.get(indexes.get(cont)).toString(), "!*!??#") //”*” este é delim
+            val tokens = StringTokenizer(AdminModels.certificados.get(indexes.get(cont)).toString(), "!*!??#") //”*” este é delim
             val desc = tokens.nextToken() // descartar
             val certificado = tokens.nextToken() // valor que queremos
             if (cont==0){
                 //holder.tvCertf.text = certificado+" - val: "+arrayValidade.get(cont)
-                if (adminControllers.checkCertificateValidit(adminModels.validCert.get(indexes.get(cont)))){
+                if (AdminControllers.checkCertificateValidit(AdminModels.validCert.get(indexes.get(cont)))){
                     Log.d("teste", "entrou no vermelho na primeira")
-                    val valvencida = " <font color='#FF0000'>"+certificado+" - val: "+adminModels.validCert.get(indexes.get(cont)).toString()+"</font>"
+                    val valvencida = " <font color='#FF0000'>"+certificado+" - val: "+AdminModels.validCert.get(indexes.get(cont)).toString()+"</font>"
                     tvCertificados.setText(Html.fromHtml(valvencida));
                     //holder.tvCertf.text = valvencida
                 } else {
-                    tvCertificados.text = certificado+" - val: "+adminModels.validCert.get(indexes.get(cont))
+                    tvCertificados.text = certificado+" - val: "+AdminModels.validCert.get(indexes.get(cont))
                 }
             } else {
                 val textoInicial = tvCertificados.text.toString()
-                if (adminControllers.checkCertificateValidit(adminModels.validCert.get(indexes.get(cont)))) {
+                if (AdminControllers.checkCertificateValidit(AdminModels.validCert.get(indexes.get(cont)))) {
                     val valvencida =
-                        " <font color='#FF0000'>" + certificado + " - val: " + adminModels.validCert.get(
+                        " <font color='#FF0000'>" + certificado + " - val: " + AdminModels.validCert.get(
                             indexes.get(cont)
                         ).toString() + "</font>"
                     //holder.tvCertf.text = textoInicial+"\n"+valvencida
                     tvCertificados.setText(Html.fromHtml(textoInicial + "\n" + valvencida));
                 } else {
                     tvCertificados.text =
-                        textoInicial + "\n" + certificado + " - val: " + adminModels.validCert.get(
+                        textoInicial + "\n" + certificado + " - val: " + AdminModels.validCert.get(
                             indexes.get(cont)
                         )
                 }
@@ -545,7 +544,7 @@ class adminActivity : AppCompatActivity() {
 
     fun convocation(position: Int){
 
-        adminModels.openCloseLay(paginainfo1, paginainfo2)
+        AdminModels.openCloseLay(paginainfo1, paginainfo2)
 
         var list_of_items = arrayOf("Selecione:", "SSKN 3008", "TSKN 2608", "Outra")
 
@@ -573,16 +572,16 @@ class adminActivity : AppCompatActivity() {
             } else if (diasParaEmbarque.text.isEmpty()){
                 diasParaEmbarque.setError("!")
             } else {
-                openWhatsApp(adminModels.whats.get(position), "Olá, tudo bem? Esperamso que sim. Queremos avisar você para se preparar. \nVocê embarca no modelo "+embarcacaoSelecionada+" em "+diasParaEmbarque.text+" dias. Você pode se preparar para aumentar a familiarização no app de treinamento. Procure o alerta na página principal. Nós estamos separando treinamentos especiais para você.")
+                openWhatsApp(AdminModels.whats.get(position), "Olá, tudo bem? Esperamso que sim. Queremos avisar você para se preparar. \nVocê embarca no modelo "+embarcacaoSelecionada+" em "+diasParaEmbarque.text+" dias. Você pode se preparar para aumentar a familiarização no app de treinamento. Procure o alerta na página principal. Nós estamos separando treinamentos especiais para você.")
 
-                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("userBd").setValue(adminModels.bd.get(position))
-                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("embarcacao").setValue(embarcacaoSelecionada)
+                databaseReference.child("convocacoes").child(AdminModels.bd.get(position)).child("userBd").setValue(AdminModels.bd.get(position))
+                databaseReference.child("convocacoes").child(AdminModels.bd.get(position)).child("embarcacao").setValue(embarcacaoSelecionada)
                 //val data = diasParaEmbarque.text.toString()
                 //val dataFinal = indexControllers.GetfutureDate(data.toInt())
-                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("dataEmbarque").setValue(ControllersUniversais.GetfutureDate(diasParaEmbarque.text.toString().toInt()))
-                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("recebido").setValue("nao")
-                databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("criador").setValue(indexModels.userBd)
-                adminModels.openCloseLay(paginainfo2, paginaColabAptos)
+                databaseReference.child("convocacoes").child(AdminModels.bd.get(position)).child("dataEmbarque").setValue(ControllersUniversais.GetfutureDate(diasParaEmbarque.text.toString().toInt()))
+                databaseReference.child("convocacoes").child(AdminModels.bd.get(position)).child("recebido").setValue("nao")
+                databaseReference.child("convocacoes").child(AdminModels.bd.get(position)).child("criador").setValue(IndexModels.userBd)
+                AdminModels.openCloseLay(paginainfo2, paginaColabAptos)
                 ControllersUniversais.makeToast(this, "Um alerta foi criado")
             }
         }
