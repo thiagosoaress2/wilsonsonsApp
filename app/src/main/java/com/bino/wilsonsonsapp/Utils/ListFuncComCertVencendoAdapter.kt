@@ -1,7 +1,6 @@
 package com.bino.wilsonsonsapp.Utils
 
 import android.content.Context
-import android.graphics.Color
 import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bino.wilsonsonsapp.Controllers.adminControllers
+import com.bino.wilsonsonsapp.Controllers.AdminControllers
 import com.bino.wilsonsonsapp.R
 import java.util.*
 
 
-class listFuncComCertVencendoAdapter (private var context: Context, private var arrayNome:MutableList<String>, private var arrayFuncao:MutableList<String>, private var arrayCertificados:MutableList<String>, private var arrayValidade:MutableList<String>, private var arrayBd:MutableList<String>): RecyclerView.Adapter<listFuncComCertVencendoAdapter.ViewHolder>() {
+class ListFuncComCertVencendoAdapter (private var context: Context, private var arrayNome:MutableList<String>, private var arrayFuncao:MutableList<String>, private var arrayCertificados:MutableList<String>, private var arrayValidade:MutableList<String>, private var arrayBd:MutableList<String>): RecyclerView.Adapter<ListFuncComCertVencendoAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return arrayNome.size;
     }
@@ -45,12 +44,12 @@ class listFuncComCertVencendoAdapter (private var context: Context, private var 
             val certificado = tokens.nextToken() // valor que queremos
             if (cont==0){
                 //holder.tvCertf.text = certificado+" - val: "+arrayValidade.get(cont)
-                if (adminControllers.checkCertificateValidit(arrayValidade.get(indexes.get(cont)))){
+                if (AdminControllers.checkCertificateValidit(arrayValidade.get(indexes.get(cont)))){
                     Log.d("teste", "entrou no vermelho na primeira")
                     val valvencida = " <font color='#FF0000'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+"</font>"
                     holder.tvCertf.setText(Html.fromHtml(valvencida));
                     //holder.tvCertf.text = valvencida
-                } else if (adminControllers.checkCertificateAboutToExpire(arrayValidade.get(indexes.get(cont)))){
+                } else if (AdminControllers.checkCertificateAboutToExpire(arrayValidade.get(indexes.get(cont)))){
                     val valvencida = " <font color='#FCFF33'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+" - vence em 30 dias. </font>"
                     holder.tvCertf.setText(Html.fromHtml(valvencida));
                 } else {
@@ -58,12 +57,12 @@ class listFuncComCertVencendoAdapter (private var context: Context, private var 
                 }
             } else {
                 val textoInicial = holder.tvCertf.text.toString()
-                if (adminControllers.checkCertificateValidit(arrayValidade.get(indexes.get(cont)))){
+                if (AdminControllers.checkCertificateValidit(arrayValidade.get(indexes.get(cont)))){
                     Log.d("teste", "entrou no vermelho")
                     val valvencida = " <font color='#FF0000'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+"</font>"
                     //holder.tvCertf.text = textoInicial+"\n"+valvencida
                     holder.tvCertf.setText(Html.fromHtml(textoInicial+"\n"+valvencida));
-                } else if (adminControllers.checkCertificateAboutToExpire(arrayValidade.get(indexes.get(cont)))){
+                } else if (AdminControllers.checkCertificateAboutToExpire(arrayValidade.get(indexes.get(cont)))){
                     val valvencida = " <font color='#FCFF33'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+" - vence em 30 dias. </font>"
                     holder.tvCertf.setText(Html.fromHtml(valvencida));
                 }

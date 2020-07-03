@@ -17,7 +17,7 @@ import com.bino.wilsonsonsapp.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-object indexControllers {
+object IndexControllers {
 
     fun isNetworkAvailable(activity: Activity): Boolean {
         val cm = activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

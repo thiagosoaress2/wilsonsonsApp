@@ -5,7 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-object adminModels {
+object AdminModels {
 
     lateinit var estado:String
 

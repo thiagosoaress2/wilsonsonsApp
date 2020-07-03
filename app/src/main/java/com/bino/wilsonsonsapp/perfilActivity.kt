@@ -1,5 +1,6 @@
 package com.bino.wilsonsonsapp
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
@@ -11,6 +12,8 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.text.Editable
+import android.text.TextWatcher
 import android.transition.Slide
 import android.transition.TransitionManager
 import android.view.Gravity
@@ -20,11 +23,9 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
-import com.bino.wilsonsonsapp.Controllers.indexControllers
-import com.bino.wilsonsonsapp.Models.adminModels
-import com.bino.wilsonsonsapp.Models.indexModels
+import com.bino.wilsonsonsapp.Models.IndexModels
 import com.bino.wilsonsonsapp.Utils.CircleTransform
-import com.bino.wilsonsonsapp.Utils.cameraPermissions
+import com.bino.wilsonsonsapp.Utils.CameraPermissions
 import com.bino.wilsonsonsapp.Utils.readFilesPermissions
 import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
 import com.bumptech.glide.Glide
@@ -61,14 +62,13 @@ class perfilActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
 
-        mountChart()
     }
 
     override fun onStart() {
         super.onStart()
 
         //pede priemiro a camera e depois vai pedindo um por um
-        cameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
+        CameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
 
         mFireBaseStorage = FirebaseStorage.getInstance()
         mphotoStorageReference = mFireBaseStorage.reference
@@ -76,10 +76,10 @@ class perfilActivity : AppCompatActivity() {
 
         val btnUpload: Button = findViewById(R.id.perfil_btnUpload)
         btnUpload.setOnClickListener {
-            if (cameraPermissions.hasPermissions(this) && readFilesPermissions.hasPermissions(this) && writeFilesPermissions.hasPermissions(this)){
+            if (CameraPermissions.hasPermissions(this) && readFilesPermissions.hasPermissions(this) && writeFilesPermissions.hasPermissions(this)){
                 openPopUp("Upload de foto", "Como você vai enviar a foto?", true, "Tirar foto", "Escolher foto")
-            } else if (!cameraPermissions.hasPermissions(this)){
-                cameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
+            } else if (!CameraPermissions.hasPermissions(this)){
+                CameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
             } else if (!readFilesPermissions.hasPermissions(this)){
                 readFilesPermissions.checkPermission(this, READ_PERMISSION_CODE)
             } else if (!writeFilesPermissions.hasPermissions(this)){
@@ -88,17 +88,27 @@ class perfilActivity : AppCompatActivity() {
 
         }
 
-        indexModels.placeImage(findViewById(R.id.perfil_iv), this)
+        IndexModels.placeImage(findViewById(R.id.perfil_iv), this)
 
         val btnEditar: Button = findViewById(R.id.perfil_btnEditar)
         btnEditar.setOnClickListener {
             openEditLay()
+        }
+
+        val situacao =intent.getStringExtra("infos")
+
+        if (situacao!=null){
+            btnEditar.performClick()
         }
     }
 
     fun openEditLay(){
         val layCad: ConstraintLayout = findViewById(R.id.layEditInfo)
         layCad.visibility = View.VISIBLE
+
+        val editNascimento: EditText = findViewById(R.id.cad_etNascimento)
+        dateWatcher(editNascimento)
+
 
         var list_of_items = arrayOf(
             "Selecione Estado",
@@ -199,93 +209,74 @@ class perfilActivity : AppCompatActivity() {
         }
     }
 
-    fun mountChart(){
+    fun dateWatcher( editText:EditText) {
 
-        val pieChart = findViewById<PieChart>(R.id.pieChart)
+        var oldString : String = ""
 
-        val NoOfEmp = ArrayList<PieEntry>()
+        editText.addTextChangedListener(object : TextWatcher {
+            var changed: Boolean = false
 
-        /*
-        if (arrayDesempenhoEmCadaDisciplina.get(0).equals("0") && arrayDesempenhoEmCadaDisciplina.get(1).equals("0") && arrayDesempenhoEmCadaDisciplina.get(2).equals("0") && arrayDesempenhoEmCadaDisciplina.get(3).equals("0")&& arrayDesempenhoEmCadaDisciplina.get(4).equals("0")){
-            NoOfEmp.add(PieEntry(1F, "Português"))
-            NoOfEmp.add(PieEntry(1F, "Matemática"))
-            NoOfEmp.add(PieEntry(1F, "His/Geo"))
-            NoOfEmp.add(PieEntry(1F, "Ciências"))
-            NoOfEmp.add(PieEntry(1F, "Ing/Art/Ens.R/Ed.Fi"))
+            override fun afterTextChanged(p0: Editable?) {
 
-        } else if (arrayDesempenhoEmCadaDisciplina.get(0).contains("null") || arrayDesempenhoEmCadaDisciplina.get(1).contains("null") || arrayDesempenhoEmCadaDisciplina.get(2).contains("null") || arrayDesempenhoEmCadaDisciplina.get(3).contains("null") || arrayDesempenhoEmCadaDisciplina.get(4).contains("null")){
+                changed = false
 
-            /*
-            NoOfEmp.add(PieEntry(1F, "Português"))
-            NoOfEmp.add(PieEntry(1F, "Matemática"))
-            NoOfEmp.add(PieEntry(1F, "His/Geo"))
-            NoOfEmp.add(PieEntry(1F, "Ciências"))
-            NoOfEmp.add(PieEntry(1F, "Ing/Art/Ens.R/Ed.Fi"))
-             */
-            arrayDesempenhoEmCadaDisciplina.clear()
-            Log.d("teste", "chamou query novamente aqui")
-            queryGetUserInfos()
 
-        }
-        else {
-            NoOfEmp.add(
-                PieEntry(
-                    (arrayDesempenhoEmCadaDisciplina.get(0) + "F").toFloat(),
-                    "Português"
-                )
-            )
-            NoOfEmp.add(
-                PieEntry(
-                    (arrayDesempenhoEmCadaDisciplina.get(1) + "F").toFloat(),
-                    "Matemática"
-                )
-            )
-            NoOfEmp.add(
-                PieEntry(
-                    (arrayDesempenhoEmCadaDisciplina.get(2) + "F").toFloat(),
-                    "His/Geo"
-                )
-            )
-            NoOfEmp.add(
-                PieEntry(
-                    (arrayDesempenhoEmCadaDisciplina.get(3) + "F").toFloat(),
-                    "Ciências"
-                )
-            )
-            NoOfEmp.add(
-                PieEntry(
-                    (arrayDesempenhoEmCadaDisciplina.get(4) + "F").toFloat(),
-                    "Ing/Art/Ens.R/Ed.Fi"
-                )
-            )
-        }
 
-         */
+            }
 
-        //NoOfEmp.add(PieEntry((arrayDesempenhoEmCadaDisciplina.get(0) + "F").toFloat(),"Português"))
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int)
+            {
+                //changed=false
+                editText.setSelection(p0.toString().length)
+            }
 
-        NoOfEmp.add(PieEntry((50f), "Segurança"))
-        NoOfEmp.add(PieEntry((25f), "Relacionamento"))
-        NoOfEmp.add(PieEntry((30f), "Técnica"))
+            @SuppressLint("SetTextI18n")
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
-        val dataSet = PieDataSet(NoOfEmp, "")
+                var str: String = p0.toString()
 
-        pieChart.getDescription().setEnabled(false);
-        dataSet.setDrawIcons(false)
-        dataSet.sliceSpace = 3f
-        dataSet.iconsOffset = MPPointF(0F, 40F)
-        dataSet.selectionShift = 5f
-        dataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
+                if (str != null) {
 
-        val data = PieData(dataSet)
-        data.setValueTextSize(11f)
-        data.setValueTextColor(Color.WHITE)
-        pieChart.data = data
-        pieChart.highlightValues(null)
-        pieChart.invalidate()
-        pieChart.animateXY(5000, 5000)
+                    if (oldString.equals(str)) {
+                        //significs que o user esta apagando
+                        //do Nothing
 
+                    } else if (str.length == 2) {  //  xx
+                        var element0: String = str.elementAt(0).toString()
+                        var element1: String = str.elementAt(1).toString()
+                        str = element0 + element1 + "/"
+                        editText.setText(str)
+                        oldString = element0 + element1
+                        editText.setSelection(str.length)
+
+                    } else if (str.length == 5) { //  xx/xx
+
+                        var element0: String = str.elementAt(0).toString() //x
+                        var element1: String = str.elementAt(1).toString() //-x
+                        var element2: String = str.elementAt(2).toString() //--/
+                        var element3: String = str.elementAt(3).toString() //--/x
+                        var element4: String = str.elementAt(4).toString() //--/-x
+
+                        str = element0 + element1 + element2 + element3 + element4 + "/"
+                        editText.setText(str)
+                        oldString = element0 + element1 + element2 + element3 + element4
+                        editText.setSelection(str.length)
+
+                    } else if (str.length > 10) { // este exemplo é para data no formato xx/xx/xx. Se você quer usar xx/xx/xxxx mudar para if (str.length >10). O resto do código permanece o mesmo.
+
+                        str = str.substring(0, str.length - 1)
+                        editText.setText(str)
+                        editText.setSelection(str.length)
+
+                    }
+
+
+                }
+
+            }
+        })
     }
+
 
     fun takePictureFromCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -600,7 +591,7 @@ class perfilActivity : AppCompatActivity() {
                 urifinal = downloadUri.toString()
                 //se quiser salvar, é o urifinal que é o link
                 //pra salvar no bd e carregar com glide.
-                databaseReference.child("usuarios").child(indexModels.userBd).child("img").setValue(urifinal)
+                databaseReference.child("usuarios").child(IndexModels.userBd).child("img").setValue(urifinal)
                 EncerraDialog()
 
 
@@ -616,7 +607,7 @@ class perfilActivity : AppCompatActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 
         if (requestCode==CAMERA_PERMISSION_CODE){
-            cameraPermissions.handlePermissionsResult(requestCode, permissions, grantResults, CAMERA_PERMISSION_CODE)
+            CameraPermissions.handlePermissionsResult(requestCode, permissions, grantResults, CAMERA_PERMISSION_CODE)
             readFilesPermissions.requestPermission(this, READ_PERMISSION_CODE)
         }
         if (requestCode==READ_PERMISSION_CODE){

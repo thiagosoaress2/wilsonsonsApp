@@ -16,17 +16,11 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
-import com.bino.wilsonsonsapp.Controllers.SetupDatabase
-import com.bino.wilsonsonsapp.Controllers.adminControllers
-import com.bino.wilsonsonsapp.Controllers.indexControllers
-import com.bino.wilsonsonsapp.Models.ConsultsQuestionsModel
-import com.bino.wilsonsonsapp.Models.ObjectQuestions
-import com.bino.wilsonsonsapp.Models.ObjectUser
-import com.bino.wilsonsonsapp.Models.indexModels
-import com.bino.wilsonsonsapp.Utils.listCursosAdapter
+import com.bino.wilsonsonsapp.Controllers.AdminControllers
+import com.bino.wilsonsonsapp.Controllers.IndexControllers
+import com.bino.wilsonsonsapp.Models.*
+import com.bino.wilsonsonsapp.Utils.ListCursosAdapter
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
-import com.bino.wilsonsonsapp.Utils.readFilesPermissions
-import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -54,22 +48,10 @@ class indexActivity : AppCompatActivity() {
     lateinit var mySharedPrefs: mySharedPrefs
     lateinit var objectUser: ObjectUser
 
-    private val WRITE_PERMISSION_CODE = 101
-    private val READ_PERMISSION_CODE = 102
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
-
-
-        readFilesPermissions.checkPermission(this, READ_PERMISSION_CODE)
-        writeFilesPermissions.checkPermission(this, WRITE_PERMISSION_CODE)
-
-        if (readFilesPermissions.hasPermissions(this) && writeFilesPermissions.hasPermissions(this)){
-            SetupDatabase(this)
-
-        }
 
 
     }
@@ -79,20 +61,19 @@ class indexActivity : AppCompatActivity() {
 
         loadComponents()
 
-        auth = FirebaseAuth.getInstance()
 
         val situacao = intent.getStringExtra("email")
         if (!situacao.equals("semLogin")){
-            //indexModels.uId = auth.currentUser!!.uid.toString()
+            //IndexModels.uId = auth.currentUser!!.uid.toString()
             objectUser.key = auth.currentUser!!.uid.toString()
         }
-        if (!indexModels.isverified){ //para carregar uma unica vez
+        if (!IndexModels.isverified){ //para carregar uma unica vez
 
-            indexModels.isverified=true
+            IndexModels.isverified=true
 
-            if (indexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
+            if (IndexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
                 //   openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
-            } else if (indexControllers.isNetworkAvailable(this)){
+            } else if (IndexControllers.isNetworkAvailable(this)){
                 //verificar se tem novos mundos para baixar
                 //chamar um método para baixar os conteudos e em seguida informar ao usuário que existem atualizações e novas fases
 
@@ -110,21 +91,23 @@ class indexActivity : AppCompatActivity() {
         }
 
         btnteste.setOnClickListener {
-            indexModels.posicaoUser++
-            indexModels.moveThePlayer(findViewById(R.id.playerAvatar))
+            IndexModels.posicaoUser++
+            IndexModels.moveThePlayer(findViewById(R.id.playerAvatar))
         }
 
         btnTesteProblema.setOnClickListener {
             openIntroQuest()
         }
 
+        /*
         val btnMeusCertificados: Button = findViewById(R.id.btnCertificados)
         btnMeusCertificados.setOnClickListener {
             showListedItems("cert")
         }
+         */
 
 
-        indexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
+        IndexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
 
 
 
@@ -144,9 +127,9 @@ class indexActivity : AppCompatActivity() {
 
     fun loadComponents(){
 
-        drawer = findViewById(R.id.drawer_layout)
-        toolbar = findViewById(R.id.toolbar)
-        navigationView = findViewById(R.id.nav_view)
+        //drawer = findViewById(R.id.drawer_layout)
+        //toolbar = findViewById(R.id.toolbar)
+        //navigationView = findViewById(R.id.nav_view)
         layInicial = findViewById(R.id.layoutPrincipal)
         layIntroQuest = findViewById(R.id.LayQuestion_intro)
         lay_problema = findViewById(R.id.lay_problema)
@@ -226,7 +209,7 @@ class indexActivity : AppCompatActivity() {
 
     fun updateCertificatesOnLine(){
 
-        val rootRef = databaseReference.child("funcionarios").child(indexModels.userBd)
+        val rootRef = databaseReference.child("funcionarios").child(IndexModels.userBd)
         rootRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
@@ -248,20 +231,13 @@ class indexActivity : AppCompatActivity() {
                         cont++
                         var field = "certificado"+cont.toString()
                         val certificado = p0.child(field).value.toString()
-                        indexModels.arrayCertificados.add(certificado)
+                        IndexModels.arrayCertificados.add(certificado)
                         field = "valcert"+cont.toString()
                         val validade = p0.child(field).value.toString()
-                        indexModels.arrayCertificadosValidade.add(validade)
+                        IndexModels.arrayCertificadosValidade.add(validade)
                         mySharedPrefs.addCertificados(certificados, this@indexActivity) //salva no shared para quando estiver offline
                     }
 
-                    //update skills infos
-                    var temp = p0.child("skillrel").value.toString()
-                    //atualizar
-                    temp = p0.child("skilltec").value.toString()
-                    //atuaçizar
-                    temp = p0.child("skillseg").value.toString()
-                    //atualizar
 
                 }
 
@@ -282,7 +258,7 @@ class indexActivity : AppCompatActivity() {
 
     fun openIntroQuest(){
 
-        indexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this)
+        IndexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this, ObjectQuestions())
         val btnAbrePergunta: Button = findViewById(R.id.questionIntro_btn)
         btnAbrePergunta.setOnClickListener {
             openProblema(0)
@@ -323,7 +299,7 @@ class indexActivity : AppCompatActivity() {
             val btnE: Button = findViewById(R.id.resposta_E)
 
             btnA.setOnClickListener {
-                if (indexControllers.isCorrectAnswer("a", objectQuestions.alternativacorreta)){
+                if (IndexControllers.isCorrectAnswer("a", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     afterProblem(true, id)
                 } else {
@@ -332,7 +308,7 @@ class indexActivity : AppCompatActivity() {
                 }
             }
             btnB.setOnClickListener {
-                if (indexControllers.isCorrectAnswer("b", objectQuestions.alternativacorreta)){
+                if (IndexControllers.isCorrectAnswer("b", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     afterProblem(true, id)
                 } else {
@@ -341,7 +317,7 @@ class indexActivity : AppCompatActivity() {
                 }
             }
             btnC.setOnClickListener {
-                if (indexControllers.isCorrectAnswer("c", objectQuestions.alternativacorreta)){
+                if (IndexControllers.isCorrectAnswer("c", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     afterProblem(true, id)
                 } else {
@@ -350,7 +326,7 @@ class indexActivity : AppCompatActivity() {
                 }
             }
             btnD.setOnClickListener {
-                if (indexControllers.isCorrectAnswer("d", objectQuestions.alternativacorreta)){
+                if (IndexControllers.isCorrectAnswer("d", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     afterProblem(true, id)
                 } else {
@@ -359,7 +335,7 @@ class indexActivity : AppCompatActivity() {
                 }
             }
             btnE.setOnClickListener {
-                if (indexControllers.isCorrectAnswer("e", objectQuestions.alternativacorreta)){
+                if (IndexControllers.isCorrectAnswer("e", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     afterProblem(true, id)
                 } else {
@@ -452,7 +428,7 @@ class indexActivity : AppCompatActivity() {
             val layAB: ConstraintLayout = findViewById(R.id.lay_tipoSimNao)
             layAB.visibility = View.VISIBLE
 
-           indexModels.placeImage(findViewById(R.id.perguntaAB_img), this)
+            IndexModels.placeImage(findViewById(R.id.perguntaAB_img), this)
 
             val txtA: TextView = findViewById(R.id.perguntaAB_opcaoA)
             val txtB: TextView = findViewById(R.id.perguntaAB_opcaoB)
@@ -519,24 +495,11 @@ class indexActivity : AppCompatActivity() {
 
     }
 
-    fun afterProblemProcedures(acertou: Boolean){
-
-        //move the player - acertando ou errando ele se move
-        indexModels.posicaoUser++
-        indexModels.moveThePlayer(findViewById(R.id.playerAvatar))
-
-        //agora acertar a imagem que vai ficar e um textview com os pontos
-        if (acertou){
-
-        }
-
-    }
-
     fun queryConvocacoes(){
 
         //databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("userBd")
 
-        val rootRef = databaseReference.child("convocacoes").child(indexModels.userBd)
+        val rootRef = databaseReference.child("convocacoes").child(IndexModels.userBd)
         rootRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
 
@@ -551,9 +514,9 @@ class indexActivity : AppCompatActivity() {
                     var values: String
 
                     values = p0.child("dataEmbarque").value.toString()
-                    if (adminControllers.checkCertificateValidit(values)){
+                    if (AdminControllers.checkCertificateValidit(values)){
                         //esta vencido. N precisa pegar nenhum dado e pode apagar o alerta
-                        rootRef.child("convocacoes").child(indexModels.userBd).removeValue()
+                        rootRef.child("convocacoes").child(IndexModels.userBd).removeValue()
                         mySharedPrefs.removeAlert()
 
                     } else {
@@ -563,12 +526,12 @@ class indexActivity : AppCompatActivity() {
 
                             //pegar os dados
                             values = p0.child("embarcacao").value.toString()
-                            indexModels.alertaEmbarcacao = values
+                            IndexModels.alertaEmbarcacao = values
                             values = p0.child("dataEmbarque").value.toString()
-                            indexModels.alertaDataEmbarque = values
+                            IndexModels.alertaDataEmbarque = values
                             rootRef.child("recebido").setValue("sim")
 
-                            mySharedPrefs.setAlertInfo(indexModels.alertaDataEmbarque, indexModels.alertaEmbarcacao)
+                            mySharedPrefs.setAlertInfo(IndexModels.alertaDataEmbarque, IndexModels.alertaEmbarcacao)
 
                         }
 
@@ -589,9 +552,9 @@ class indexActivity : AppCompatActivity() {
     fun verificaAlertaTreinamento(){
 
         mySharedPrefs.getAlertInfo()
-        if (!indexModels.alertaEmbarcacao.equals("nao")){ //se for diferente de não é porque tem alerta
+        if (!IndexModels.alertaEmbarcacao.equals("nao")){ //se for diferente de não é porque tem alerta
 
-            if (adminControllers.checkCertificateValidit(indexModels.alertaDataEmbarque)){
+            if (AdminControllers.checkCertificateValidit(IndexModels.alertaDataEmbarque)){
                 //esta vencido. N precisa pegar nenhum dado e pode apagar o alerta
                 //nao fazer nada. Nao vai exibir o botão mas tb nao apaga no bd. Vai apagar quando tiver internet
             } else {
@@ -625,7 +588,7 @@ class indexActivity : AppCompatActivity() {
         val textView: TextView = findViewById(R.id.lista_items_tvTitulo)
 
         if (tipo.equals("curso")){
-            indexModels.loadCourses()
+            IndexModels.loadCourses()
             textView.setText("Lista de cursos")
 
         } else {
@@ -637,7 +600,7 @@ class indexActivity : AppCompatActivity() {
         recyclerView.addOnItemTouchListener(RecyclerTouchListener(this, recyclerView!!, object: ClickListener{
 
             override fun onClick(view: View, position: Int) {
-                Log.d("teste", indexModels.arrayCursos.get(position))
+                Log.d("teste", IndexModels.arrayCursos.get(position))
 
             }
 
@@ -650,12 +613,12 @@ class indexActivity : AppCompatActivity() {
 
     private fun mountRecyclerViewCourses(recyclerView: RecyclerView, tipo: String){
 
-        var adapter: listCursosAdapter= listCursosAdapter(this, indexModels.arrayCursos, indexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
+        var adapter: ListCursosAdapter= ListCursosAdapter(this, IndexModels.arrayCursos, IndexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
 
         if (tipo.equals("curso")){
-            adapter = listCursosAdapter(this, indexModels.arrayCursos, indexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
+            adapter = ListCursosAdapter(this, IndexModels.arrayCursos, IndexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
         } else {
-            adapter = listCursosAdapter(this, indexModels.arrayCertificados, indexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
+            adapter = ListCursosAdapter(this, IndexModels.arrayCertificados, IndexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
         }
 
 
@@ -671,19 +634,6 @@ class indexActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
 
     }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-
-        if (requestCode==READ_PERMISSION_CODE){
-            readFilesPermissions.handlePermissionsResult(requestCode, permissions, grantResults, READ_PERMISSION_CODE)
-        } else if (requestCode==WRITE_PERMISSION_CODE){
-            writeFilesPermissions.handlePermissionsResult(requestCode, permissions, grantResults, WRITE_PERMISSION_CODE)
-            SetupDatabase(this)
-        }
-
-    }
-
-
 
     fun ChamaDialog() {
         window.setFlags(

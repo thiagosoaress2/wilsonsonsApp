@@ -21,9 +21,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.bino.wilsonsonsapp.Controllers.SetupDatabase
-import com.bino.wilsonsonsapp.Utils.readFilesPermissions
-import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -75,7 +72,8 @@ class MainActivity : AppCompatActivity() {
             telaLoginMailNew.visibility = View.GONE
             telainicial.visibility = View.VISIBLE
 
-            val intent = Intent(this, indexActivity::class.java)
+            //val intent = Intent(this, IndexActivity::class.java)
+            val intent = Intent(this, IndexActivityNew::class.java)
             intent.putExtra("email", "semLogin")
             startActivity(intent)
 
@@ -339,7 +337,7 @@ class MainActivity : AppCompatActivity() {
 
                     val user: FirebaseUser? = auth.currentUser
                     val emailAddress = user?.email
-                    val intent = Intent(this, indexActivity::class.java)
+                    val intent = Intent(this, IndexActivityNew::class.java)
 
                     intent.putExtra("email", emailAddress)
                     startActivity(intent)
@@ -379,7 +377,7 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         val user: FirebaseUser? = auth.currentUser
                         val emailAddress = user?.email
-                        val intent = Intent(this, indexActivity::class.java)
+                        val intent = Intent(this, IndexActivityNew::class.java)
 
                         intent.putExtra("email", emailAddress)
                         startActivity(intent)
@@ -393,7 +391,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
             } else { //aqui é para o caso de nao ser via email. E neste caso, nao precisa verificar nada. Abre direto a segunda activity
-                val intent = Intent(this, indexActivity::class.java)
+                val intent = Intent(this, IndexActivityNew::class.java)
                 val user: FirebaseUser? = auth.currentUser
                 val emailAddress = user?.email
                 intent.putExtra("email", emailAddress)
@@ -408,7 +406,7 @@ class MainActivity : AppCompatActivity() {
 
         } else if (tipoLogin.equals("facebook")) {
             Log.d("teste", "chegou aqui")
-            val intent = Intent(this, indexActivity::class.java)
+            val intent = Intent(this, IndexActivityNew::class.java)
 
             val user: FirebaseUser? = auth.currentUser
             val emailAddress = user?.email
@@ -595,6 +593,10 @@ class MainActivity : AppCompatActivity() {
     fun LoginWithEmail() {
 
         val btnNovoUser = findViewById<TextView>(R.id.layInicial_tvNovoUsuario)
+        val btnNovoUserfake = findViewById<TextView>(R.id.textView15)
+        btnNovoUserfake.setOnClickListener {
+            btnNovoUser.performClick()
+        }
         btnNovoUser.setOnClickListener {
 
             trocaTela(telaLoginMailNew, telainicial)
@@ -884,6 +886,7 @@ class MainActivity : AppCompatActivity() {
         newCad.child("skillrel").setValue("0")
         newCad.child("skilltec").setValue("0")
         newCad.child("skillseg").setValue("0")
+
     }
 
     fun ChamaDialog() {

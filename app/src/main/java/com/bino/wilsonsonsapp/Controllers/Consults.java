@@ -1,6 +1,7 @@
 package com.bino.wilsonsonsapp.Controllers;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,7 +23,7 @@ public class Consults {
         ObjectUser objectUser = new ObjectUser();
         SQLiteDatabase conection;
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, 1);
+            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);
@@ -64,7 +65,7 @@ public class Consults {
         List<ObjectCertificate> objectCertificate = new ArrayList<>();
         SQLiteDatabase conection;
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, 1);
+            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);
@@ -99,7 +100,7 @@ public class Consults {
         ObjectSkills objectSkills = new ObjectSkills();
         SQLiteDatabase conection;
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, 1);
+            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);
@@ -126,12 +127,12 @@ public class Consults {
 
     @SuppressLint("WrongConstant")
     public static List<ObjectQuestions> ConsultQuestions(String sql) {
-        SQLiteDatabase conection;
+
         List<ObjectQuestions> objectQuestionsArrayList = new ArrayList<>();
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, 1);
+     
+            SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
-
                 Cursor cursor = conection.rawQuery(sql, null);
                 int Colun_id = cursor.getColumnIndex("id");
                 int Colun_id_skills = cursor.getColumnIndex("id_skills");
@@ -214,7 +215,7 @@ public class Consults {
         List<ObjectIntro> objectIntroArrayList = new ArrayList<>();
         SQLiteDatabase conection;
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, 1);
+            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);
@@ -251,7 +252,7 @@ public class Consults {
         List<ObjectState> objectStates = new ArrayList<>();
         SQLiteDatabase conection;
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, 1);
+            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);

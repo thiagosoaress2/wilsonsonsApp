@@ -1,11 +1,8 @@
 package com.bino.wilsonsonsapp.Controllers
 
-import android.app.Activity
-import android.widget.Toast
-import com.bino.wilsonsonsapp.Models.indexModels
 import java.text.SimpleDateFormat
 
-object adminControllers {
+object AdminControllers {
 
     fun checkCertificateValidit(validade: String) : Boolean {
 

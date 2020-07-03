@@ -5,4 +5,10 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="colorTextNavigation">#163B53</color>
+
+    <color name="transparent">#FF000000</color>
+
+
+    <color name="yellow_btn">#E5A00D</color>
+    <color name="white">#ffffff</color>
 </resources>

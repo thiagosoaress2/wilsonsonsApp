@@ -2,32 +2,27 @@ package com.bino.wilsonsonsapp.Models
 
 import android.app.Activity
 import android.content.Context
-import android.provider.Settings.Global.getString
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
-import com.bino.wilsonsonsapp.Controllers.indexControllers
+import com.bino.wilsonsonsapp.Controllers.IndexControllers
 import com.bino.wilsonsonsapp.R
 import com.bino.wilsonsonsapp.Utils.CircleTransform
-import com.bino.wilsonsonsapp.Utils.introQuestAdapter
-import com.bino.wilsonsonsapp.Utils.listCursosAdapter
-import com.bino.wilsonsonsapp.Utils.mySharedPrefs
-import com.bino.wilsonsonsapp.indexActivity
+import com.bino.wilsonsonsapp.Utils.IntroQuestAdapter
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
-import java.util.*
 import kotlin.collections.ArrayList
 
 
-object indexModels {
+object IndexModels {
 
     val arrayPosicoesX: MutableList<Int> = ArrayList()
     val arrayPosicoesY: MutableList<Int> = ArrayList()
@@ -48,14 +43,16 @@ object indexModels {
     val arrayCertificados: MutableList<String> = ArrayList()
     val arrayCertificadosValidade: MutableList<String> = ArrayList()
 
+    var pontos: Int = 0
+
     //var uId: String = "nao"
 
     fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layout: ConstraintLayout, playerAvatar: ImageView){
 
         placeMapOnScreen(activity, R.drawable.gamebackground1, backgroundPlaceHolder)
 
-        val screenHeight = indexControllers.calculateTheScreenSizeH(activity, backgroundPlaceHolder)
-        var screenWidth = indexControllers.calculateTheScreenSizeW(activity, backgroundPlaceHolder)-100
+        val screenHeight = IndexControllers.calculateTheScreenSizeH(activity, backgroundPlaceHolder)
+        var screenWidth = IndexControllers.calculateTheScreenSizeW(activity, backgroundPlaceHolder)-100
 
         val intervalX = screenWidth/(fases/2)  //pega a quantidade de fases e divide por 2. Digamos, se for 6 fases, vai dividir por 3. Assim teremos uma variação pequena
         var startPointX = 100 //para começar no cantinho
@@ -133,38 +130,46 @@ object indexModels {
             playerAvatar.animate().translationX(arrayPosicoesX.get(posicaoUser).toFloat()).translationY(
                 arrayPosicoesY.get(posicaoUser).toFloat())
         } else {
-            Log.d("teste", "Jogador está no final, chamar proximo procedimento")
+           finishTheLevel()
         }
 
     }
 
-    fun setTheResultInMap(resultImg: ImageView, activity: Activity, layout: ConstraintLayout, posicaoDoUser: Int, acertou: Boolean){
+    fun setTheResultInMap(activity: Activity, layout: ConstraintLayout, acertou: Boolean){
 
         val imageView = ImageView(activity)
         // setting height and width of imageview
         imageView.layoutParams = LinearLayout.LayoutParams(60, 60)
 
-        imageView.x = arrayPosicoesX.get(posicaoUser - 2).toFloat() //setting margin from left
-        imageView.y = arrayPosicoesY.get(posicaoUser - 2).toFloat() //setting margin from top
+        imageView.x = arrayPosicoesX.get(posicaoUser - 1).toFloat() //setting margin from left
+        imageView.y = arrayPosicoesY.get(posicaoUser - 1).toFloat() //setting margin from top
         layout?.addView(imageView) //adding image to the layout
 
+        val textView = TextView(activity)
+        textView.layoutParams = LinearLayout.LayoutParams(80, 40)
+        textView.x = arrayPosicoesX.get(posicaoUser -1).toFloat()
+        textView.y = arrayPosicoesY.get(posicaoUser -1).toFloat()-25
+        layout?.addView(textView)
 
         if (acertou){
-
+            textView.setText(pontos+100)
             Glide.with(activity).load(R.drawable.acertonomapa).into(imageView)
         } else {
 
+            textView.setText(pontos-50)
             Glide.with(activity).load(R.drawable.erronomapa).into(imageView)
         }
 
     }
 
-    fun openIntroQuest(layIntroQuest: ConstraintLayout, recyclerView: RecyclerView, activity: Activity){
+    fun openIntroQuest(layIntroQuest: ConstraintLayout, recyclerView: RecyclerView, activity: Activity, objectQuestions: ObjectQuestions){
 
         //layInicial.visibility = View.GONE
         layIntroQuest.visibility = View.VISIBLE
 
-        val arrayTitulo: MutableList<String> = ArrayList()
+        var objectIntro: List<ObjectIntro> = ConsultsQuestionsModel.selectIntro(objectQuestions.id_intro)
+
+     /*   val arrayTitulo: MutableList<String> = ArrayList()
         arrayTitulo.add("Olaaaa")
         arrayTitulo.add("Este é o titulo 2")
         val arrayTexto: MutableList<String> = ArrayList()
@@ -173,8 +178,8 @@ object indexModels {
         val arrayImage: MutableList<String> = ArrayList()
         arrayImage.add("https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho.jpg?alt=media&token=c27bd083-fe07-4a37-8557-14125a99ebf4")
         arrayImage.add("https://firebasestorage.googleapis.com/v0/b/wilsonsonshack.appspot.com/o/problemas%2Fquadrinho2.jpg?alt=media&token=843e406c-cca5-4fa8-9ad5-5a9f1adce458")
-
-        val adapter: introQuestAdapter = introQuestAdapter(activity, arrayTitulo, arrayTexto, arrayImage)
+*/
+        val adapter: IntroQuestAdapter = IntroQuestAdapter(activity, objectIntro)
 
         //chame a recyclerview
         //val recyclerView: RecyclerView = findViewById(R.id.question_intro_recyclerView)
@@ -191,13 +196,13 @@ object indexModels {
         adapter.notifyDataSetChanged()
 
         recyclerView.addOnItemTouchListener(
-            indexActivity.RecyclerTouchListener(
+            IndexModels.RecyclerTouchListener(
                 activity,
                 recyclerView!!,
-                object : indexActivity.ClickListener {
+                object : IndexModels.ClickListener {
 
                     override fun onClick(view: View, position: Int) {
-                        Log.d("teste", arrayTitulo.get(position))
+                        Log.d("teste", objectIntro.get(position).title)
                         //Toast.makeText(this@MainActivity, !! aNome.get(position).toString(), Toast.LENGTH_SHORT).show()
                     }
 
@@ -235,6 +240,14 @@ object indexModels {
                 e.printStackTrace()
             }
         }
+
+    }
+
+    private fun finishTheLevel(){
+        
+        //calcular aqui como o user foi
+        //exibir um resumo
+        //avisar se tem mais ou se acabou
 
     }
 
@@ -321,6 +334,19 @@ object indexModels {
 
         }
     }
+
+    fun checkCadInfo() : Boolean{
+
+        val objectUser: ObjectUser = ObjectUser()
+
+        if (objectUser.state ==0 || objectUser.number == null || objectUser.name ==null || objectUser.datenascimento ==null || objectUser.datenascimento ==null || objectUser.cargo==0 || objectUser.photo == null){
+            //openPopUpCadInfo("Completar", "Fazer depois", findViewById(R.id.layoutPrincipal))
+            return false
+        } else{
+            return true
+        }
+    }
+
 
 
 }

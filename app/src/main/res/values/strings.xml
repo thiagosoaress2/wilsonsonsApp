@@ -13,5 +13,11 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="main_layInicial_txt_cadestrese">Ainda não está cadastrado?</string>
+    <string name="main_layInicial_txt_cadestrese2">Cadastre-se!</string>
+    <string name="main_layInicial_etmail">    E-mail</string>
+    <string name="main_layInicial_etsenha">    Senha</string>
+    <string name="main_layInicial_txtesqueceu">Esqueceu a senha?</string>
+
 
 </resources>

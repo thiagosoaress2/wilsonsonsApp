@@ -81,17 +81,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/perfil_progressbarTecnica" />
 
-    <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/pieChart"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_progressbarSocial">
-
-    </com.github.mikephil.charting.charts.PieChart>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layEditInfo"
         android:layout_width="0dp"

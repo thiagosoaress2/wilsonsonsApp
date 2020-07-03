@@ -5,7 +5,7 @@
     android:id="@+id/layoutPrincipal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".IndexActivity">
+    tools:context=".IndexActivityNew">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layIndex"
@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
 
         <Button
@@ -361,7 +361,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <TextView
             android:id="@+id/resultado_txt"
@@ -424,7 +424,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
@@ -466,6 +466,84 @@
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layPopup"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:elevation="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.8">
+
+            <ImageView
+                android:id="@+id/popupInfos_imagev"
+                android:layout_width="0dp"
+                android:layout_height="250dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="Ops. Parece que você ainda não preencheu totalmente suas informações"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/popupInfos_imagev" />
+
+            <Button
+                android:id="@+id/popupInfos_btnSim"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:text="Button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline7"
+                app:layout_constraintTop_toTopOf="@+id/popupInfos_btnNao" />
+
+            <Button
+                android:id="@+id/popupInfos_btnNao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:text="Button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline7"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <RelativeLayout
         android:id="@+id/LayoutProgressBar"
         android:layout_width="match_parent"
@@ -487,4 +565,5 @@
             android:layout_centerVertical="true"
             android:progressDrawable="@drawable/circular_progressbar" />
     </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

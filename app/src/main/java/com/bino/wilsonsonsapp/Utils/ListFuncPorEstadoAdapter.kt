@@ -1,7 +1,6 @@
 package com.bino.wilsonsonsapp.Utils
 
 import android.content.Context
-import android.graphics.Color
 import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bino.wilsonsonsapp.Controllers.adminControllers
+import com.bino.wilsonsonsapp.Controllers.AdminControllers
 import com.bino.wilsonsonsapp.R
 import java.util.*
 
 
-class listFuncPorEstadoAdapter (private var context: Context, private var arrayNome:MutableList<String>, private var arrayFuncao:MutableList<String>, private var arrayCertificados:MutableList<String>, private var arrayValidade:MutableList<String>, private var arrayBd:MutableList<String>): RecyclerView.Adapter<listFuncPorEstadoAdapter.ViewHolder>() {
+class ListFuncPorEstadoAdapter (private var context: Context, private var arrayNome:MutableList<String>, private var arrayFuncao:MutableList<String>, private var arrayCertificados:MutableList<String>, private var arrayValidade:MutableList<String>, private var arrayBd:MutableList<String>): RecyclerView.Adapter<ListFuncPorEstadoAdapter.ViewHolder>() {
     override fun getItemCount(): Int {
         return arrayNome.size;
     }
@@ -45,7 +44,7 @@ class listFuncPorEstadoAdapter (private var context: Context, private var arrayN
             val certificado = tokens.nextToken() // valor que queremos
             if (cont==0){
                 //holder.tvCertf.text = certificado+" - val: "+arrayValidade.get(cont)
-                if (adminControllers.checkCertificateValidit(arrayValidade.get(indexes.get(cont)))){
+                if (AdminControllers.checkCertificateValidit(arrayValidade.get(indexes.get(cont)))){
                     Log.d("teste", "entrou no vermelho na primeira")
                     val valvencida = " <font color='#FF0000'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+"</font>"
                     holder.tvCertf.setText(Html.fromHtml(valvencida));
@@ -55,7 +54,7 @@ class listFuncPorEstadoAdapter (private var context: Context, private var arrayN
                 }
             } else {
                 val textoInicial = holder.tvCertf.text.toString()
-                if (adminControllers.checkCertificateValidit(arrayValidade.get(indexes.get(cont)))){
+                if (AdminControllers.checkCertificateValidit(arrayValidade.get(indexes.get(cont)))){
                     Log.d("teste", "entrou no vermelho")
                     val valvencida = " <font color='#FF0000'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+"</font>"
                     //holder.tvCertf.text = textoInicial+"\n"+valvencida

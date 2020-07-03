@@ -1,12 +1,14 @@
 package com.bino.wilsonsonsapp.Models;
 
+import android.content.Context;
+
 import com.bino.wilsonsonsapp.Controllers.Consults;
 
 import java.util.List;
 
 public class ConsultsQuestionsModel {
 
-    public static ObjectQuestions selectQuestionPerId(int id) {
+    public static ObjectQuestions selectQuestionPerId( int id) {
         ObjectQuestions objectQuestions = Consults.ConsultQuestions("Select * from questions where id = " + id + ";").get(0);
         return objectQuestions;
     }
