@@ -22,6 +22,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.SetupDatabase
+import com.bino.wilsonsonsapp.Utils.readFilesPermissions
+import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -37,12 +39,17 @@ class MainActivity : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
     lateinit var databaseReference: DatabaseReference
 
+
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        SetupDatabase(this)
+
         auth = FirebaseAuth.getInstance()
         loadComponents()
+
         metodosIniciais()
 
     }

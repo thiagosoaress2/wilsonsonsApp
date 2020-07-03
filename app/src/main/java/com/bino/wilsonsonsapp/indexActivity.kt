@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
+import com.bino.wilsonsonsapp.Controllers.SetupDatabase
 import com.bino.wilsonsonsapp.Controllers.adminControllers
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.Models.ConsultsQuestionsModel
@@ -23,6 +24,8 @@ import com.bino.wilsonsonsapp.Models.ObjectQuestions
 import com.bino.wilsonsonsapp.Models.indexModels
 import com.bino.wilsonsonsapp.Utils.listCursosAdapter
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
+import com.bino.wilsonsonsapp.Utils.readFilesPermissions
+import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -49,10 +52,22 @@ class indexActivity : AppCompatActivity() {
 
     lateinit var mySharedPrefs: mySharedPrefs
 
+    private val WRITE_PERMISSION_CODE = 101
+    private val READ_PERMISSION_CODE = 102
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
+
+
+        readFilesPermissions.checkPermission(this, READ_PERMISSION_CODE)
+        writeFilesPermissions.checkPermission(this, WRITE_PERMISSION_CODE)
+
+        if (readFilesPermissions.hasPermissions(this) && writeFilesPermissions.hasPermissions(this)){
+            SetupDatabase(this)
+
+        }
 
 
     }
@@ -631,6 +646,18 @@ class indexActivity : AppCompatActivity() {
         adapter.notifyDataSetChanged()
 
     }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+
+        if (requestCode==READ_PERMISSION_CODE){
+            readFilesPermissions.handlePermissionsResult(requestCode, permissions, grantResults, READ_PERMISSION_CODE)
+        } else if (requestCode==WRITE_PERMISSION_CODE){
+            writeFilesPermissions.handlePermissionsResult(requestCode, permissions, grantResults, WRITE_PERMISSION_CODE)
+            SetupDatabase(this)
+        }
+
+    }
+
 
     fun ChamaDialog() {
         window.setFlags(

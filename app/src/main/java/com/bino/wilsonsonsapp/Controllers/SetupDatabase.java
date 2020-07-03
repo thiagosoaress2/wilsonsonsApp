@@ -1,5 +1,6 @@
 package com.bino.wilsonsonsapp.Controllers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +17,8 @@ public class SetupDatabase{
     private static final String SQL_CREATE_OCCUPATION_TABLE = "CREATE TABLE IF NOT EXISTS occupation (id integer, name text)";
     private static final String SQL_CREATE_STATE_TABLE = "CREATE TABLE IF NOT EXISTS state (id integer, name text)";
     private static final String SQL_CREATE_CERTIFICADO_TABLE = "CREATE TABLE IF NOT EXISTS certificate (firebase_key_user text, id integer, name text, validade text)";
-    private static final String SQL_CREATE_QUESTIONS_TABLE = "CREATE TABLE IF NOT EXISTS questions (id integer, id_skills integer, type integer, id_intro integer, multiplaa text, multiplab text, multiplac text, multiplad text, multiplae text, alternativacorreta text," +
+
+    private static final String SQL_CREATE_QUESTIONS_TABLE = "CREATE TABLE IF NOT EXISTS questions (id integer, id_skills integer, type integer, id_intro integer, multiplaa text, imagemID integer, multiplab text, multiplac text, multiplad text, multiplae text, alternativacorreta text," +
             " imagem text, acertos text, erros text, item1X text, item1Y text, item2X text, item2Y text, item3X text, item3Y text, item4X text, item4Y text, item5X text, item5Y text," +
             "largura text, altura text,movie text, moviesugest text, pontos text, totalpontos text, respondida boolean)";
     private static final String SQL_CREATE_INTRO_TABLE = "CREATE TABLE IF NOT EXISTS intro (id_intro, title text, texto text, img integer, ordem integer)";
@@ -100,70 +102,76 @@ public class SetupDatabase{
         this.currentContext = activityRef.getApplicationContext();
         this.currentDatabase = this.currentContext.openOrCreateDatabase(Constants.DATABASE_NAME, 0, null, null);
 
-      //  if() {
-            //createTable
-            this.currentDatabase.execSQL(SQL_CREATE_USER_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_SKILLS_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_STATE_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_OCCUPATION_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_CERTIFICADO_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_QUESTIONS_TABLE);
-            this.currentDatabase.execSQL(SQL_CREATE_INTRO_TABLE);
+        //  if() {
+        //createTable
+        this.currentDatabase.execSQL(SQL_CREATE_USER_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_SKILLS_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_STATE_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_OCCUPATION_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_CERTIFICADO_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_QUESTIONS_TABLE);
+        this.currentDatabase.execSQL(SQL_CREATE_INTRO_TABLE);
 
-            //insertOccupation
-            this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION1);
-            this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION2);
-            this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION3);
+        //insertOccupation
+        this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION1);
+        this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION2);
+        this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION3);
 
-            //insertSkill
-            this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL1);
-            this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL2);
-            this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL3);
+        //insertSkill
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL1);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL2);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL3);
 
-            //State
-            this.currentDatabase.execSQL(SQL_INSERT_STATE1);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE2);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE3);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE4);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE5);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE6);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE7);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE8);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE9);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE10);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE11);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE12);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE13);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE14);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE15);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE16);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE17);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE18);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE19);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE20);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE21);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE22);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE23);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE24);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE25);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE26);
-            this.currentDatabase.execSQL(SQL_INSERT_STATE27);
+        //State
+        this.currentDatabase.execSQL(SQL_INSERT_STATE1);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE2);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE3);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE4);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE5);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE6);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE7);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE8);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE9);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE10);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE11);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE12);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE13);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE14);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE15);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE16);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE17);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE18);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE19);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE20);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE21);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE22);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE23);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE24);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE25);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE26);
+        this.currentDatabase.execSQL(SQL_INSERT_STATE27);
 
-            this.currentDatabase.close();
-    //    }
+        this.currentDatabase.close();
+        //    }
 
 
         //insertQuestions - intro
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS1);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_1_2);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_1_3);
 
 
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS2);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_2_1);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_2_2);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_2_3);
+        this.currentDatabase = this.currentContext.openOrCreateDatabase(Constants.DATABASE_NAME, 0, null, null);
+
+
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS1);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_1_2);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_1_3);
+
+
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS2);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_2_1);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_2_2);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_2_3);
+
 
       /*
       this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
