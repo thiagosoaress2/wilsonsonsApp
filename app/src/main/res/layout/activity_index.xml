@@ -393,14 +393,23 @@
             app:layout_constraintTop_toBottomOf="@+id/resultado_txt" />
 
         <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/cad_youtubelink"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/logoyoutube"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/resultado_mensagem"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintTop_toBottomOf="@+id/resultado_mensagem" />
+
+        <TextView
+            android:id="@+id/cad_tvTemLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Esta questão tem um video de suporte."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cad_youtubelink" />
 
         <ImageView
             android:id="@+id/resultado_img"
