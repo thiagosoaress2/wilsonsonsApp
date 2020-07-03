@@ -169,7 +169,32 @@ class indexActivity : AppCompatActivity() {
                     startActivity(intent)
                     true
                 }
-                R.id.nav_adm -> {
+                R.id.nav_course -> {
+                    val intent = Intent(this, adminActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.nav_certificate -> {
+                    val intent = Intent(this, adminActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.nav_skills -> {
+                    val intent = Intent(this, adminActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.nav_links -> {
+                    val intent = Intent(this, adminActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.nav_gestion -> {
+                    val intent = Intent(this, adminActivity::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.nav_config -> {
                     val intent = Intent(this, adminActivity::class.java)
                     startActivity(intent)
                     true
@@ -454,6 +479,7 @@ class indexActivity : AppCompatActivity() {
             Glide.with(this).load(R.drawable.errosimbol).into(imgAcertoErro)
             ConsultsQuestionsModel.somaQuestions1(false, id)
         }
+
 
         if ("tem imagem ".equals("temimagem")){//pegar do banco de dados
             cad_youtubelink.visibility = View.VISIBLE
