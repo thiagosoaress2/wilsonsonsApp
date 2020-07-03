@@ -15,6 +15,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.adminControllers
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.Models.ConsultsQuestionsModel
@@ -342,8 +343,32 @@ class indexActivity : AppCompatActivity() {
 
         } else if (objectQuestions.type == 2){
 
+            val altura = 80 // isto vai vir do bd
+            val largura = 80 //vai vir do bd
+
             val layProblema: ConstraintLayout = findViewById(R.id.lay_problema)
 
+            val imageView = ImageView(this)
+            // setting height and width of imageview
+            imageView.layoutParams = LinearLayout.LayoutParams(largura, altura)
+            imageView.x = objectQuestions.item1X.toFloat() //setting margin from left
+            imageView.y = objectQuestions.item1Y.toFloat() //setting margin from top
+
+            layProblema.addView(imageView) //adding image to the layout
+            Glide.with(this).load(R.drawable.navio).into(imageView)
+            //a imagem pode vir dentro de opção A
+
+            imageView.setOnClickListener {
+                afterProblem(true, id)
+                Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
+            }
+
+            layProblema.setOnClickListener {
+                afterProblem(false, id)
+                Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
+            }
+
+            /*
             if (objectQuestions.itemClicavel1.equals("sim")){
 
                 val imageView = ImageView(this)
@@ -393,6 +418,8 @@ class indexActivity : AppCompatActivity() {
 
             }
 
+
+             */
         } else {
             //codigo AB
             val layAB: ConstraintLayout = findViewById(R.id.lay_tipoSimNao)
@@ -445,13 +472,24 @@ class indexActivity : AppCompatActivity() {
             txt.setText("Acertou!")
             ConsultsQuestionsModel.somaQuestions1(true, id)
             msg.setText("Mensagem de acerto")
-            Glide.with(this).load(R.drawable.barquinho).into(imgAcertoErro)
+            Glide.with(this).load(R.drawable.acertosimbol).into(imgAcertoErro)
         } else {
             txt.setText("Errou")
             msg.setText("Menagem de erro")
-            Glide.with(this).load(R.drawable.barquinho).into(imgAcertoErro)
+            Glide.with(this).load(R.drawable.errosimbol).into(imgAcertoErro)
             ConsultsQuestionsModel.somaQuestions1(false, id)
         }
+
+
+        if ("tem imagem ".equals("temimagem")){//pegar do banco de dados
+            cad_youtubelink.visibility = View.VISIBLE
+            cad_tvTemLink.visibility = View.VISIBLE
+            cad_youtubelink.setOnClickListener {
+                ControllersUniversais.makeToast(this, "Em breve")
+            }
+        }
+
+
     }
 
     fun queryConvocacoes(){
