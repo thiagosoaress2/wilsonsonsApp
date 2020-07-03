@@ -3,6 +3,7 @@ package com.bino.wilsonsonsapp
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +26,12 @@ import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.listFuncComCertVencendoAdapter
 import com.bino.wilsonsonsapp.Utils.listFuncPorEstadoAdapter
 import com.bumptech.glide.Glide
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.utils.ColorTemplate
+import com.github.mikephil.charting.utils.MPPointF
 import com.google.firebase.database.*
 import java.util.*
 
@@ -337,6 +344,9 @@ class adminActivity : AppCompatActivity() {
         adminModels.validCert.clear()
         adminModels.funcao.clear()
         adminModels.bd.clear()
+        adminModels.skillTec.clear()
+        adminModels.skillSeg.clear()
+        adminModels.skillRel.clear()
 
         ChamaDialog()
         val rootRef = databaseReference.child("funcionarios")
@@ -381,6 +391,15 @@ class adminActivity : AppCompatActivity() {
 
                                         values = querySnapshot.child("img").value.toString()
                                         adminModels.img.add(values)
+
+                                        values = querySnapshot.child("skillrel").value.toString()
+                                        adminModels.skillRel.add(values)
+
+                                        values = querySnapshot.child("skillseg").value.toString()
+                                        adminModels.skillSeg.add(values)
+
+                                        values = querySnapshot.child("skilltec").value.toString()
+                                        adminModels.skillTec.add(values)
                                     }
                                 } else {
                                     //entra aqui se nao tiver filtro
@@ -402,6 +421,15 @@ class adminActivity : AppCompatActivity() {
 
                                     values = querySnapshot.child("img").value.toString()
                                     adminModels.img.add(values)
+
+                                    values = querySnapshot.child("skillrel").value.toString()
+                                    adminModels.skillRel.add(values)
+
+                                    values = querySnapshot.child("skillseg").value.toString()
+                                    adminModels.skillSeg.add(values)
+
+                                    values = querySnapshot.child("skilltec").value.toString()
+                                    adminModels.skillTec.add(values)
                                 }
 
                                 cont++
@@ -531,6 +559,7 @@ class adminActivity : AppCompatActivity() {
             cont++
         }
 
+        mountChart(position)
 
         val btnContato: Button = findViewById(R.id.btnConvocar)
         btnContato.setOnClickListener {
@@ -540,6 +569,38 @@ class adminActivity : AppCompatActivity() {
 
 
 
+
+    }
+
+    fun mountChart(position: Int){
+
+        val pieChart = findViewById<PieChart>(R.id.pieChart)
+
+        val NoOfEmp = ArrayList<PieEntry>()
+
+        var entry1 = adminModels.skillSeg.get(position).toFloat()
+        NoOfEmp.add(PieEntry((entry1), "Segurança"))
+        entry1 = adminModels.skillRel.get(position).toFloat()
+        NoOfEmp.add(PieEntry((entry1), "Relacionamento"))
+        entry1 = adminModels.skillSeg.get(position).toFloat()
+        NoOfEmp.add(PieEntry((entry1), "Técnica"))
+
+        val dataSet = PieDataSet(NoOfEmp, "")
+
+        pieChart.getDescription().setEnabled(false);
+        dataSet.setDrawIcons(false)
+        dataSet.sliceSpace = 3f
+        dataSet.iconsOffset = MPPointF(0F, 40F)
+        dataSet.selectionShift = 5f
+        dataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
+
+        val data = PieData(dataSet)
+        data.setValueTextSize(11f)
+        data.setValueTextColor(Color.WHITE)
+        pieChart.data = data
+        pieChart.highlightValues(null)
+        pieChart.invalidate()
+        pieChart.animateXY(5000, 5000)
 
     }
 

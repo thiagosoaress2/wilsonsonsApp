@@ -21,6 +21,7 @@ import com.bino.wilsonsonsapp.Controllers.adminControllers
 import com.bino.wilsonsonsapp.Controllers.indexControllers
 import com.bino.wilsonsonsapp.Models.ConsultsQuestionsModel
 import com.bino.wilsonsonsapp.Models.ObjectQuestions
+import com.bino.wilsonsonsapp.Models.ObjectUser
 import com.bino.wilsonsonsapp.Models.indexModels
 import com.bino.wilsonsonsapp.Utils.listCursosAdapter
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
@@ -51,6 +52,7 @@ class indexActivity : AppCompatActivity() {
     lateinit var databaseReference: DatabaseReference
 
     lateinit var mySharedPrefs: mySharedPrefs
+    lateinit var objectUser: ObjectUser
 
     private val WRITE_PERMISSION_CODE = 101
     private val READ_PERMISSION_CODE = 102
@@ -77,10 +79,12 @@ class indexActivity : AppCompatActivity() {
 
         loadComponents()
 
+        auth = FirebaseAuth.getInstance()
 
         val situacao = intent.getStringExtra("email")
         if (!situacao.equals("semLogin")){
-            indexModels.uId = auth.currentUser!!.uid.toString()
+            //indexModels.uId = auth.currentUser!!.uid.toString()
+            objectUser.key = auth.currentUser!!.uid.toString()
         }
         if (!indexModels.isverified){ //para carregar uma unica vez
 
@@ -154,6 +158,7 @@ class indexActivity : AppCompatActivity() {
         databaseReference = FirebaseDatabase.getInstance().reference
 
         mySharedPrefs = mySharedPrefs(this)
+        objectUser = ObjectUser()
 
     }
 
@@ -250,6 +255,13 @@ class indexActivity : AppCompatActivity() {
                         mySharedPrefs.addCertificados(certificados, this@indexActivity) //salva no shared para quando estiver offline
                     }
 
+                    //update skills infos
+                    var temp = p0.child("skillrel").value.toString()
+                    //atualizar
+                    temp = p0.child("skilltec").value.toString()
+                    //atuaçizar
+                    temp = p0.child("skillseg").value.toString()
+                    //atualizar
 
                 }
 
@@ -507,6 +519,19 @@ class indexActivity : AppCompatActivity() {
 
     }
 
+    fun afterProblemProcedures(acertou: Boolean){
+
+        //move the player - acertando ou errando ele se move
+        indexModels.posicaoUser++
+        indexModels.moveThePlayer(findViewById(R.id.playerAvatar))
+
+        //agora acertar a imagem que vai ficar e um textview com os pontos
+        if (acertou){
+
+        }
+
+    }
+
     fun queryConvocacoes(){
 
         //databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("userBd")
@@ -657,6 +682,7 @@ class indexActivity : AppCompatActivity() {
         }
 
     }
+
 
 
     fun ChamaDialog() {

@@ -881,6 +881,9 @@ class MainActivity : AppCompatActivity() {
         newCad.child("nome").setValue("nao")
         newCad.child("contato").setValue("nao")
         newCad.child("pontos").setValue("0")
+        newCad.child("skillrel").setValue("0")
+        newCad.child("skilltec").setValue("0")
+        newCad.child("skillseg").setValue("0")
     }
 
     fun ChamaDialog() {

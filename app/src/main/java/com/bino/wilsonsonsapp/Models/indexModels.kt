@@ -48,8 +48,7 @@ object indexModels {
     val arrayCertificados: MutableList<String> = ArrayList()
     val arrayCertificadosValidade: MutableList<String> = ArrayList()
 
-    var uId: String = "nao"
-
+    //var uId: String = "nao"
 
     fun placeBackGroundAsMap(backgroundPlaceHolder: ImageView, activity: Activity, fases: Int, layout: ConstraintLayout, playerAvatar: ImageView){
 
@@ -139,6 +138,17 @@ object indexModels {
 
     }
 
+    fun setTheResultInMap(resultImg: ImageView, activity: Activity, layout: ConstraintLayout, posicaoDoUser: Int){
+
+        val imageView = ImageView(activity)
+        // setting height and width of imageview
+        imageView.layoutParams = LinearLayout.LayoutParams(60, 60)
+
+        imageView.x = arrayPosicoesX.get(posicaoUser-2).toFloat() //setting margin from left
+        imageView.y = arrayPosicoesY.get(posicaoUser-2).toFloat() //setting margin from top
+        
+
+    }
 
     fun openIntroQuest(layIntroQuest: ConstraintLayout, recyclerView: RecyclerView, activity: Activity){
 

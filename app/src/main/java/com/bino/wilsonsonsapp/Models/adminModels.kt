@@ -18,6 +18,10 @@ object adminModels {
     var img: MutableList<String> = ArrayList()  //usado apenas na janela de detalhes
     var whats: MutableList<String> = ArrayList() //usados apenas na janela de detalhes
 
+    var skillSeg: MutableList<String> = ArrayList()
+    var skillTec: MutableList<String> = ArrayList()
+    var skillRel: MutableList<String> = ArrayList()
+
     fun openCloseLay(close: ConstraintLayout, open: ConstraintLayout){
         close.visibility = View.GONE
         open.visibility = View.VISIBLE
