@@ -25,7 +25,7 @@ public class ConsultsQuestionsModel {
     }
 
     public static List<ObjectIntro> selectIntro(int id_intro){
-       return Consults.ConsultIntro("Select * from intro order by ordem where id = "+id_intro+";");
+       return Consults.ConsultIntro("Select * from intro order by ordem where id = "+id_intro+" ;");
     }
 
 }
