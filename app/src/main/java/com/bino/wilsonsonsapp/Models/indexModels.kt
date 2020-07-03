@@ -138,15 +138,24 @@ object indexModels {
 
     }
 
-    fun setTheResultInMap(resultImg: ImageView, activity: Activity, layout: ConstraintLayout, posicaoDoUser: Int){
+    fun setTheResultInMap(resultImg: ImageView, activity: Activity, layout: ConstraintLayout, posicaoDoUser: Int, acertou: Boolean){
 
         val imageView = ImageView(activity)
         // setting height and width of imageview
         imageView.layoutParams = LinearLayout.LayoutParams(60, 60)
 
-        imageView.x = arrayPosicoesX.get(posicaoUser-2).toFloat() //setting margin from left
-        imageView.y = arrayPosicoesY.get(posicaoUser-2).toFloat() //setting margin from top
-        
+        imageView.x = arrayPosicoesX.get(posicaoUser - 2).toFloat() //setting margin from left
+        imageView.y = arrayPosicoesY.get(posicaoUser - 2).toFloat() //setting margin from top
+        layout?.addView(imageView) //adding image to the layout
+
+
+        if (acertou){
+
+            Glide.with(activity).load(R.drawable.acertonomapa).into(imageView)
+        } else {
+
+            Glide.with(activity).load(R.drawable.erronomapa).into(imageView)
+        }
 
     }
 
