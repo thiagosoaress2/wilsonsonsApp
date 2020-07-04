@@ -57,14 +57,14 @@ class DesempenhoActivity  : AppCompatActivity()  {
 
         val NoOfEmp = ArrayList<PieEntry>()
 
-        //var entry1 = (objectStatusUser.skill1_points.toString()+"f").toFloat()
-        var entry1 = (10.toString()+"f").toFloat()
+        var entry1 = (objectStatusUser.skill1_points.toString()+"f").toFloat()
+        //var entry1 = (10.toString()+"f").toFloat()
         NoOfEmp.add(PieEntry((entry1), "Segurança"))
-        //entry1 = (objectStatusUser.skill2_points.toString()+"f").toFloat()
-        entry1 = (20.toString()+"f").toFloat()
+        entry1 = (objectStatusUser.skill2_points.toString()+"f").toFloat()
+        //entry1 = (20.toString()+"f").toFloat()
         NoOfEmp.add(PieEntry((entry1), "Relacionamento"))
-        //entry1 = (objectStatusUser.skill3_points.toString()+"f").toFloat()
-        entry1 = (15.toString()+"f").toFloat()
+        entry1 = (objectStatusUser.skill3_points.toString()+"f").toFloat()
+        //entry1 = (15.toString()+"f").toFloat()
         NoOfEmp.add(PieEntry((entry1), "Técnica"))
 
         val dataSet = PieDataSet(NoOfEmp, "")
