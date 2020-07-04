@@ -8,13 +8,13 @@ import java.util.List;
 
 public class ConsultsQuestionsModel {
 
-    public static ObjectQuestions selectQuestionPerId( int id) {
-        ObjectQuestions objectQuestions = Consults.ConsultQuestions("Select * from questions where id = " + id + ";").get(0);
+    public static ObjectQuestions selectQuestionPerId(Context context, int id) {
+        ObjectQuestions objectQuestions = Consults.ConsultQuestions(context,"Select * from questions where id = " + id + ";").get(0);
         return objectQuestions;
     }
 
-    public static void somaQuestions1(boolean situation, int id) {
-        ObjectQuestions objectQuestions = selectQuestionPerId(id);
+    public static void somaQuestions1(Context context, boolean situation, int id) {
+        ObjectQuestions objectQuestions = selectQuestionPerId(context, id);
 
         int error = objectQuestions.getErros();
         if(error == 0){ error = 1;}
@@ -26,8 +26,8 @@ public class ConsultsQuestionsModel {
         }
     }
 
-    public static List<ObjectIntro> selectIntro(int id_intro){
-       return Consults.ConsultIntro("Select * from intro order by ordem where id = "+id_intro+" ;");
+    public static List<ObjectIntro> selectIntro(Context context, int id_intro){
+       return Consults.ConsultIntro(context,"Select * from intro order by ordem where id = "+id_intro+" ;");
     }
 
 }

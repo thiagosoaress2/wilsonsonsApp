@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.bino.wilsonsonsapp.Models.ObjectCertificate;
 import com.bino.wilsonsonsapp.Models.ObjectIntro;
+import com.bino.wilsonsonsapp.Models.ObjectOccupation;
 import com.bino.wilsonsonsapp.Models.ObjectQuestions;
 import com.bino.wilsonsonsapp.Models.ObjectSkills;
 import com.bino.wilsonsonsapp.Models.ObjectState;
@@ -21,9 +22,8 @@ public class Consults {
     @SuppressLint("WrongConstant")
     public static ObjectUser ConsultUser(String sql) {
         ObjectUser objectUser = new ObjectUser();
-        SQLiteDatabase conection;
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+            SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);
@@ -63,9 +63,9 @@ public class Consults {
     @SuppressLint("WrongConstant")
     public static List<ObjectCertificate> ConsultCertificate(String sql) {
         List<ObjectCertificate> objectCertificate = new ArrayList<>();
-        SQLiteDatabase conection;
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+            SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);
@@ -95,12 +95,42 @@ public class Consults {
         return objectCertificate;
     }
 
+
+    @SuppressLint("WrongConstant")
+    public static List<ObjectOccupation> ConsultOccupation(String sql) {
+        List<ObjectOccupation> objectOccupations = new ArrayList<>();
+        try {
+            SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+            if (conection.isOpen()) {
+
+                Cursor cursor = conection.rawQuery(sql, null);
+                int Colun_id = cursor.getColumnIndex("id");
+                int Colun_name = cursor.getColumnIndex("name");
+
+                cursor.moveToFirst();
+                if (cursor.getCount() > 0) {
+                    do {
+                        ObjectOccupation objectOccupation = new ObjectOccupation();
+                        objectOccupation.setId(cursor.getInt(Colun_id));
+                        objectOccupation.setName(cursor.getString(Colun_name));
+                        objectOccupations.add(objectOccupation);
+                        cursor.moveToNext();
+                    } while (!cursor.isAfterLast());
+                }
+                cursor.close();
+                conection.close();
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+        }
+        return objectOccupations;
+    }
+
     @SuppressLint("WrongConstant")
     public static ObjectSkills ConsultSkills(String sql) {
         ObjectSkills objectSkills = new ObjectSkills();
-        SQLiteDatabase conection;
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+            SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);
@@ -126,7 +156,7 @@ public class Consults {
 
 
     @SuppressLint("WrongConstant")
-    public static List<ObjectQuestions> ConsultQuestions(String sql) {
+    public static List<ObjectQuestions> ConsultQuestions(Context context, String sql) {
 
         List<ObjectQuestions> objectQuestionsArrayList = new ArrayList<>();
         try {
@@ -210,7 +240,7 @@ public class Consults {
 
 
     @SuppressLint("WrongConstant")
-    public static List<ObjectIntro> ConsultIntro(String sql) {
+    public static List<ObjectIntro> ConsultIntro(Context context, String sql) {
         List<ObjectIntro> objectIntroArrayList = new ArrayList<>();
         try {
             SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
@@ -248,9 +278,8 @@ public class Consults {
     @SuppressLint("WrongConstant")
     public static List<ObjectState> ConsultState(String sql) {
         List<ObjectState> objectStates = new ArrayList<>();
-        SQLiteDatabase conection;
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+            SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);
