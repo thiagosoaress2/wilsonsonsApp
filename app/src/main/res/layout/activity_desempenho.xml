@@ -85,11 +85,10 @@
                 android:id="@+id/desempenho_txPorcent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
                 android:textColor="@color/white"
                 android:textSize="40sp"
                 android:textStyle="bold"
-                android:text="20%"
-                android:layout_marginEnd="4dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toBottomOf="@+id/pieChart" />
 
@@ -105,9 +104,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:textSize="25sp"
-                android:text="Técnica"
                 android:textColor="@color/white"
+                android:textSize="25sp"
                 app:layout_constraintBottom_toBottomOf="@+id/desempenho_txPorcent"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toTopOf="@+id/desempenho_txPorcent" />

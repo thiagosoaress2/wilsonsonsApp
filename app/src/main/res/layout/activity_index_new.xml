@@ -354,7 +354,7 @@
         android:id="@+id/lay_resultado"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
+        android:background="@drawable/background_end_question"
         android:elevation="10dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -363,54 +363,116 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="gone">
 
-        <TextView
-            android:id="@+id/resultado_txt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="TextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/resultado_img" />
-
-        <TextView
-            android:id="@+id/resultado_mensagem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="Mensagem"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/resultado_txt" />
-
-        <ImageView
-            android:id="@+id/cad_youtubelink"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/logoyoutube"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#D9ffffff"
+            android:elevation="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/resultado_mensagem" />
-
-        <TextView
-            android:id="@+id/cad_tvTemLink"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Esta questão tem um video de suporte."
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cad_youtubelink" />
-
-        <ImageView
-            android:id="@+id/resultado_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.85"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintWidth_percent="0.85">
+
+            <TextView
+                android:id="@+id/resultado_txt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/resultado_img" />
+
+            <TextView
+                android:id="@+id/resultado_mensagem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="Mensagem"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/resultado_txt" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+            <ImageView
+                android:id="@+id/cad_youtubelink"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:src="@drawable/youtubeicon"
+                app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                app:layout_constraintTop_toBottomOf="@+id/resultado_mensagem" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="24dp"
+                app:layout_constraintBottom_toBottomOf="@+id/cad_youtubelink"
+                app:layout_constraintStart_toStartOf="@+id/guideline12"
+                app:srcCompat="@drawable/fileicon" />
+
+            <TextView
+                android:id="@+id/cad_tvTemLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Esta questão tem um video de suporte."
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cad_youtubelink" />
+
+            <ImageView
+                android:id="@+id/resultado_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <Button
+                android:id="@+id/resultaldo_btnProxima"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@color/yellow_btn"
+                android:text="Próxima"
+                android:textAllCaps="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline12"
+                app:layout_constraintTop_toTopOf="@+id/resultado_btnSalvarMat" />
+
+            <Button
+                android:id="@+id/resultado_btnSalvarMat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:background="@drawable/xml_rounded_button_branco_noborder"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:text="Salvar material"
+                android:textAllCaps="false"
+                android:textColor="@color/grey"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline12"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cad_tvTemLink" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -437,20 +499,25 @@
 
             <Button
                 android:id="@+id/lista_itens_btnVoltar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="voltar"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/closesimbolblue"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/lista_items_tvTitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lista de cursos"
+                android:paddingStart="45dp"
+                android:textSize="20sp"
+                android:textColor="@color/blue_light"
+                android:text="Cursos"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/lista_itens_btnVoltar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>

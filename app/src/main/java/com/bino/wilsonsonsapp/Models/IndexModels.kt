@@ -125,7 +125,7 @@ object IndexModels {
     }
 
     fun moveThePlayer(playerAvatar: ImageView){
-
+        posicaoUser++
         if (posicaoUser<arrayPosicoesX.size) {
             playerAvatar.animate().translationX(arrayPosicoesX.get(posicaoUser).toFloat()).translationY(
                 arrayPosicoesY.get(posicaoUser).toFloat())

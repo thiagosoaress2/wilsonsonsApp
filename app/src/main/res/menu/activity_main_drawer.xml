@@ -7,37 +7,37 @@
 
         <item
             android:id="@+id/nav_perfil"
-            android:title="Meu Perfil"
-            android:icon="@drawable/barquinho"/>
+            android:icon="@drawable/perfilicon"
+            android:title="Meu Perfil" />
 
         <item
             android:id="@+id/nav_course"
-            android:title="Novo Curso"
-            android:icon="@drawable/barquinho"/>
+            android:icon="@drawable/addcursoicon"
+            android:title="Novo Curso" />
 
         <item
             android:id="@+id/nav_certificate"
-            android:title="Certificados"
-            android:icon="@drawable/barquinho"/>
+            android:icon="@drawable/certificadoicon"
+            android:title="Certificados" />
 
         <item
             android:id="@+id/nav_skills"
-            android:title="Minhas Skills"
-            android:icon="@drawable/barquinho"/>
+            android:icon="@drawable/skillsicon"
+            android:title="Minhas Skills" />
 
         <item
             android:id="@+id/nav_links"
-            android:title="Meus Links"
-            android:icon="@drawable/barquinho"/>
+            android:icon="@drawable/linksicon"
+            android:title="Meus Links" />
 
         <item
             android:id="@+id/nav_gestion"
-            android:title="Área dos Gestores"
-            android:icon="@drawable/barquinho"/>
+            android:icon="@drawable/rhicon"
+            android:title="Área dos Gestores" />
 
         <item
             android:id="@+id/nav_config"
-            android:title="Configurações"
-            android:icon="@drawable/barquinho"/>
+            android:icon="@drawable/configicon"
+            android:title="Configurações" />
     </group>
 </menu>

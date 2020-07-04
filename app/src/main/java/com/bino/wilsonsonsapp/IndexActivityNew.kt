@@ -46,6 +46,7 @@ class IndexActivityNew : AppCompatActivity() {
     lateinit var layListas: ConstraintLayout
     lateinit var btnteste: Button
     lateinit var btnTesteProblema: Button
+    lateinit var userAvatar: ImageView
 
     lateinit var auth: FirebaseAuth
     lateinit var databaseReference: DatabaseReference
@@ -113,8 +114,7 @@ class IndexActivityNew : AppCompatActivity() {
         }
 
         btnteste.setOnClickListener {
-            IndexModels.posicaoUser++
-            IndexModels.moveThePlayer(findViewById(R.id.playerAvatar))
+            IndexModels.moveThePlayer(userAvatar)
         }
 
         btnTesteProblema.setOnClickListener {
@@ -157,6 +157,7 @@ class IndexActivityNew : AppCompatActivity() {
         btnteste = findViewById(R.id.btnteste)
         btnTesteProblema = findViewById(R.id.btnTesteProblema)
         layListas = findViewById(R.id.lay_listas)
+        userAvatar = findViewById(R.id.playerAvatar)
 
         //apaguei no merge
         databaseReference = FirebaseDatabase.getInstance().reference
@@ -211,8 +212,7 @@ class IndexActivityNew : AppCompatActivity() {
                     true
                 }
                 R.id.nav_links -> {
-                    val intent = Intent(this, AdminActivityNew::class.java)
-                    startActivity(intent)
+                    ControllersUniversais.makeToast(this, "Dosponível em breve")
                     true
                 }
                 R.id.nav_gestion -> {
@@ -221,8 +221,7 @@ class IndexActivityNew : AppCompatActivity() {
                     true
                 }
                 R.id.nav_config -> {
-                    val intent = Intent(this, AdminActivityNew::class.java)
-                    startActivity(intent)
+                    ControllersUniversais.makeToast(this, "Dosponível em breve")
                     true
                 }
                 else -> false
@@ -491,6 +490,17 @@ class IndexActivityNew : AppCompatActivity() {
         val txt: TextView = findViewById(R.id.resultado_txt)
         val imgAcertoErro: ImageView = findViewById(R.id.resultado_img)
         val msg: TextView = findViewById(R.id.resultado_mensagem)
+        val btnSalvarMat: Button = findViewById(R.id.resultado_btnSalvarMat)
+        val btnProxima: Button = findViewById(R.id.resultaldo_btnProxima)
+
+        btnSalvarMat.setOnClickListener {
+            ControllersUniversais.makeToast(this, "Recurso disponível em breve")
+        }
+
+        btnProxima.setOnClickListener {
+            //andar com o player
+            IndexModels.moveThePlayer(userAvatar)
+        }
 
         layProblema.visibility = View.GONE
         layResultado.visibility = View.VISIBLE
@@ -507,7 +517,7 @@ class IndexActivityNew : AppCompatActivity() {
             Glide.with(this).load(R.drawable.errosimbol).into(imgAcertoErro)
             ConsultsQuestionsModel.somaQuestions1(applicationContext, false, id)
             IndexModels.setTheResultInMap(this, layInicial, true)
-            IndexModels.moveThePlayer(findViewById(R.id.playerAvatar))
+            IndexModels.moveThePlayer(userAvatar)
         }
 
 
@@ -517,7 +527,7 @@ class IndexActivityNew : AppCompatActivity() {
             cad_youtubelink.setOnClickListener {
                 ControllersUniversais.makeToast(this, "Em breve")
             }
-            IndexModels.moveThePlayer(findViewById(R.id.playerAvatar))
+            IndexModels.moveThePlayer(userAvatar)
         }
 
 
@@ -617,10 +627,10 @@ class IndexActivityNew : AppCompatActivity() {
 
         if (tipo.equals("curso")){
             IndexModels.loadCourses()
-            textView.setText("Lista de cursos")
+            textView.setText("Cursos")
 
         } else {
-            textView.setText("Seus certificados")
+            textView.setText("Certificados")
         }
 
         mountRecyclerViewCourses(recyclerView, tipo)
