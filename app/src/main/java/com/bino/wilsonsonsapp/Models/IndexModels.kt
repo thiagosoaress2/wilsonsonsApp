@@ -43,6 +43,11 @@ object IndexModels {
     val arrayCertificados: MutableList<String> = ArrayList()
     val arrayCertificadosValidade: MutableList<String> = ArrayList()
 
+    val MAX_FASE_NUMBER = 4
+
+    lateinit var objectQuestionsList: List<ObjectQuestions>
+    lateinit var objectQuestions: ObjectQuestions
+
     var pontos: Int = 0
 
     //var uId: String = "nao"
@@ -215,6 +220,28 @@ object IndexModels {
 
     }
 
+    fun checkUserCheckpoint(userAvatar: ImageView){
+        objectQuestionsList = ConsultsQuestionsModel.selectQuestionsRespondidas()
+        objectQuestions= ObjectQuestions()
+        
+        Log.d("teste", "o tamanho de objsectlist é "+ objectQuestionsList.size)
+
+        if (objectQuestionsList.size < IndexModels.MAX_FASE_NUMBER && objectQuestionsList.size!=0) {
+
+
+            objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(objectQuestionsList.get(objectQuestionsList.size).id)
+
+            //verifica a ultima fase do user
+            IndexModels.posicaoUser = objectQuestions.id
+
+            //coloca ele na fase
+            if (IndexModels.posicaoUser != 0) {
+                IndexModels.moveThePlayer(userAvatar)
+            }
+
+        }
+    }
+
     fun placeImage(imageView: ImageView, activity: Activity){
 
         if (userImg.equals("nao")){
@@ -346,6 +373,8 @@ object IndexModels {
             return true
         }
     }
+
+
 
 
 

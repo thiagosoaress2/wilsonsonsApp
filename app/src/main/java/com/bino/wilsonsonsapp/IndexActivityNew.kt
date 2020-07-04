@@ -53,6 +53,9 @@ class IndexActivityNew : AppCompatActivity() {
     lateinit var mySharedPrefs: mySharedPrefs
     lateinit var objectUser: ObjectUser
 
+    lateinit var objectQuestionsList: List<ObjectQuestions>
+    lateinit var objectQuestions: ObjectQuestions
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +68,7 @@ class IndexActivityNew : AppCompatActivity() {
             openPopUpCadInfo("Completar", "Fazer depois")
         }
 
+        /* como pegar o int das imagens
         var bmp = R.drawable.intro1img1
         Log.d("teste", "o valor de intro1img1 "+bmp)
         bmp = R.drawable.intro1img2
@@ -76,6 +80,8 @@ class IndexActivityNew : AppCompatActivity() {
         //intro1img1 2131165344
         //intro1img2 2131165345
         //intro1img3 2131165346
+
+         */
     }
 
     override fun onStart() {
@@ -118,7 +124,7 @@ class IndexActivityNew : AppCompatActivity() {
 
         btnTesteProblema.setOnClickListener {
             val objectQuestionsList: List<ObjectQuestions> =
-                ConsultsQuestionsModel.selectQuestionsRespondidas();
+                ConsultsQuestionsModel.selectQuestionsRespondidas()
 
             if (objectQuestionsList.size < 4) {
                 var objectQuestions: ObjectQuestions = ObjectQuestions()
@@ -127,7 +133,7 @@ class IndexActivityNew : AppCompatActivity() {
                         objectQuestionsList.get(
                             objectQuestionsList.size
                         ).id
-                    );
+                    )
                 openIntroQuest(objectQuestions)
             }else{
                 //zera as questoes respondidas e exibe mensagem
@@ -154,6 +160,10 @@ class IndexActivityNew : AppCompatActivity() {
         val nuvem2: ImageView = findViewById(R.id.imgnuvem2)
         val movenuvem2 = AnimationUtils.loadAnimation(this, R.anim.movenuvem2)
         nuvem2.startAnimation(movenuvem2)
+
+        //verificar a fase do user e coloca no lugar certo
+        IndexModels.checkUserCheckpoint(userAvatar)
+
     }
 
     fun loadComponents(){
@@ -278,7 +288,6 @@ class IndexActivityNew : AppCompatActivity() {
         mySharedPrefs.loadCertificates() //carrega os dados nos arrays
         //showListedItems("cert")
     }
-
 
     fun openIntroQuest(objectQuestions: ObjectQuestions) {
 
