@@ -31,7 +31,6 @@ import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.activity_index.*
 
 class IndexActivityNew : AppCompatActivity() {
 
@@ -520,8 +519,9 @@ class IndexActivityNew : AppCompatActivity() {
             IndexModels.moveThePlayer(userAvatar)
         }
 
-
-        if ("tem imagem ".equals("temimagem")){//pegar do banco de dados
+        /*
+        if ("tem video ".equals("tem video")){//pegar do banco de dados
+            val cad_youtubelink: ImageView = findViewById(R.id.cad_youtubelink)
             cad_youtubelink.visibility = View.VISIBLE
             cad_tvTemLink.visibility = View.VISIBLE
             cad_youtubelink.setOnClickListener {
@@ -529,6 +529,7 @@ class IndexActivityNew : AppCompatActivity() {
             }
             IndexModels.moveThePlayer(userAvatar)
         }
+         */
     }
 
     fun queryConvocacoes(){
