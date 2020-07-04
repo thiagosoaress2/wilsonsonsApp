@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Switch
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,7 @@ import com.bino.wilsonsonsapp.Controllers.IndexControllers
 import com.bino.wilsonsonsapp.R
 import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.IntroQuestAdapter
+import com.bino.wilsonsonsapp.Utils.startSound
 import com.bumptech.glide.Glide
 import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList
@@ -173,6 +175,12 @@ object IndexModels {
         layIntroQuest.visibility = View.VISIBLE
 
         var objectIntro: List<ObjectIntro> = ConsultsQuestionsModel.selectIntro(objectQuestions.id_intro)
+
+        when(objectQuestions.id_intro) {
+            1 -> startSound(activity, R.raw.intro1)
+            2 -> startSound(activity, R.raw.intro2)
+            else -> startSound(activity, R.raw.intro1)
+        }
 
      /*   val arrayTitulo: MutableList<String> = ArrayList()
         arrayTitulo.add("Olaaaa")
