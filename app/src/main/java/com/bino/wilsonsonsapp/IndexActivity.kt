@@ -259,7 +259,7 @@ class indexActivity : AppCompatActivity() {
     fun openIntroQuest(){
 
         var objectQuestions: ObjectQuestions = ObjectQuestions()
-        objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(0);
+        objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(applicationContext,0);
 
         IndexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this, objectQuestions)
         val btnAbrePergunta: Button = findViewById(R.id.questionIntro_btn)
@@ -474,14 +474,14 @@ class indexActivity : AppCompatActivity() {
 
         if (correct){
             txt.setText("Acertou!")
-            ConsultsQuestionsModel.somaQuestions1(true, id)
+            ConsultsQuestionsModel.somaQuestions1(applicationContext, true, id)
             msg.setText("Mensagem de acerto")
             Glide.with(this).load(R.drawable.acertosimbol).into(imgAcertoErro)
         } else {
             txt.setText("Errou")
             msg.setText("Menagem de erro")
             Glide.with(this).load(R.drawable.errosimbol).into(imgAcertoErro)
-            ConsultsQuestionsModel.somaQuestions1(false, id)
+            ConsultsQuestionsModel.somaQuestions1(applicationContext, false, id)
         }
 
 

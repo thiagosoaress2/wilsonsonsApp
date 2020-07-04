@@ -296,7 +296,7 @@ class IndexActivityNew : AppCompatActivity() {
         lay_problema.visibility = View.VISIBLE
 
         var objectQuestions: ObjectQuestions = ObjectQuestions()
-        objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(id);
+        objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(applicationContext, id);
 
         val layRespostas: ConstraintLayout = findViewById(R.id.lay_respostaMultipla)
 
@@ -497,7 +497,7 @@ class IndexActivityNew : AppCompatActivity() {
 
         if (correct){
             txt.setText("Acertou!")
-            ConsultsQuestionsModel.somaQuestions1(true, id)
+            ConsultsQuestionsModel.somaQuestions1(applicationContext, true, id)
             msg.setText("Mensagem de acerto")
             Glide.with(this).load(R.drawable.acertosimbol).into(imgAcertoErro)
             IndexModels.setTheResultInMap(this, layInicial, true)
@@ -505,7 +505,7 @@ class IndexActivityNew : AppCompatActivity() {
             txt.setText("Errou")
             msg.setText("Menagem de erro")
             Glide.with(this).load(R.drawable.errosimbol).into(imgAcertoErro)
-            ConsultsQuestionsModel.somaQuestions1(false, id)
+            ConsultsQuestionsModel.somaQuestions1(applicationContext, false, id)
             IndexModels.setTheResultInMap(this, layInicial, true)
             IndexModels.moveThePlayer(findViewById(R.id.playerAvatar))
         }

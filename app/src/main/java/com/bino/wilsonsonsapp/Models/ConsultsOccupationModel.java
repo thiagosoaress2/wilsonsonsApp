@@ -6,23 +6,19 @@ import java.util.List;
 
 public class ConsultsOccupationModel {
 
-    public static List<ObjectCertificate> selectCertificatePerKey(String firebase_key_user) {
-        return Consults.ConsultCertificate("SELECT * FROM certificate WHERE firebase_key_user = "+firebase_key_user+";");
+    public static List<ObjectOccupation> selectOccupationPerId(int id) {
+        return Consults.ConsultOccupation("SELECT * FROM occupation WHERE id = "+id+";");
     }
 
-    public static List<ObjectCertificate> selectCertificatePerId(int id) {
-        return Consults.ConsultCertificate("SELECT * FROM certificate WHERE id = "+id+";");
+    public static void insertOccupation( String name) {
+        Consults.ExecSql("INSERT INTO occupation (name) VALUES ('"+name+"');");
     }
 
-    public static void insertCertificate(String firebase_key_user, String name, String validade) {
-        Consults.ExecSql("INSERT INTO certificate (firebase_key_user, name, validade) VALUES ('"+firebase_key_user+"', '"+name+"', '"+validade+"');");
+    public static void updateOccupation(int id, String name) {
+        Consults.ExecSql("UPDATE occupation SET name ='"+name+"' WHERE id = "+id+";");
     }
 
-    public static void updateCertificate(int id, String name, String validade) {
-        Consults.ExecSql("UPDATE certificate SET name ='"+name+"', validade = '"+validade+"' WHERE id = "+id+";");
-    }
-
-    public static void deleteCertificate(int id) {
-        Consults.ExecSql("DELETE FROM certificate WHERE id = "+id+";");
+    public static void deleteOccupation(int id) {
+        Consults.ExecSql("DELETE FROM occupation WHERE id = "+id+";");
     }
 }

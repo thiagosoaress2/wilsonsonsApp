@@ -1,5 +1,7 @@
 package com.bino.wilsonsonsapp.Models;
 
+import android.content.Context;
+
 import com.bino.wilsonsonsapp.Controllers.Consults;
 
 import java.util.List;
@@ -24,10 +26,10 @@ public class ConsultsUserModel {
         Consults.ExecSql("DELETE FROM user;");
     }
 
-    public static ObjectStatusUser selectPoints() {
+    public static ObjectStatusUser selectPoints(Context context) {
 
         ObjectStatusUser objectStatusUser = null;
-        List<ObjectQuestions> objectQuestionsList = Consults.ConsultQuestions("Select * from questions where respondida = " + true + ";");
+        List<ObjectQuestions> objectQuestionsList = Consults.ConsultQuestions(context,"Select * from questions where respondida = " + true + ";");
         for(int i = 0; i < objectQuestionsList.size(); i++){
 
            switch (objectQuestionsList.get(i).getId_skills()){

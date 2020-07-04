@@ -167,7 +167,7 @@ object IndexModels {
         //layInicial.visibility = View.GONE
         layIntroQuest.visibility = View.VISIBLE
 
-        var objectIntro: List<ObjectIntro> = ConsultsQuestionsModel.selectIntro(objectQuestions.id_intro)
+        var objectIntro: List<ObjectIntro> = ConsultsQuestionsModel.selectIntro(activity, objectQuestions.id_intro)
 
      /*   val arrayTitulo: MutableList<String> = ArrayList()
         arrayTitulo.add("Olaaaa")
