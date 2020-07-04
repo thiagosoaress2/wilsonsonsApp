@@ -12,7 +12,7 @@ public class ObjectQuestions {
     private String multiplad;
     private String multiplae;
     private String alternativacorreta;
-    private String imagem;
+    private int imagem;
     private int acertos;
     private int erros;
     private String largura;
@@ -112,11 +112,11 @@ public class ObjectQuestions {
         this.alternativacorreta = alternativacorreta;
     }
 
-    public String getImagem() {
+    public Integer getImagem() {
         return imagem;
     }
 
-    public void setImagem(String imagem) {
+    public void setImagem(Integer imagem) {
         this.imagem = imagem;
     }
 

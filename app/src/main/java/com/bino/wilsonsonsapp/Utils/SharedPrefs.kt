@@ -125,5 +125,18 @@ class mySharedPrefs (val context: Context) {
         editor.apply()
     }
 
+
+
+    fun setCopyDatabase(){
+        val editor = sharedPref.edit()
+        editor.putBoolean("database", true)
+        editor.apply()
+    }
+
+
+    fun getCopyDatabase(): Boolean {
+        return sharedPref.getBoolean("database", false)
+    }
+
 }
 

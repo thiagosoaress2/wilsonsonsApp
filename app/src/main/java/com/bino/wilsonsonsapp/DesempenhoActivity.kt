@@ -6,7 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.bino.wilsonsonsapp.Models.ObjectStatusUser
+import com.bino.wilsonsonsapp.Models.*
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
@@ -43,6 +43,11 @@ class DesempenhoActivity  : AppCompatActivity()  {
 
 
     fun mountChart(){
+
+        //aqui seta os valores no gráfico
+        var objectStatusUser: ObjectStatusUser = ObjectStatusUser()
+        objectStatusUser = ConsultsUserModel.selectPoints(this);
+       //assim pega os valores -> objectStatusUser.skill1_points
 
         val desempenho_txPorcent: TextView = findViewById(R.id.desempenho_txPorcent)
         val desempenho_txCat: TextView = findViewById(R.id.desempenho_txCat)

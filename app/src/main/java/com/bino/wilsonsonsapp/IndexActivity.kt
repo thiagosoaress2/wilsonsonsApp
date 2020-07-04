@@ -238,13 +238,8 @@ class indexActivity : AppCompatActivity() {
                         IndexModels.arrayCertificadosValidade.add(validade)
                         mySharedPrefs.addCertificados(certificados, this@indexActivity) //salva no shared para quando estiver offline
                     }
-
-
                 }
-
             }
-
-
         })
 
     }
@@ -278,7 +273,8 @@ class indexActivity : AppCompatActivity() {
 
         val layRespostas: ConstraintLayout = findViewById(R.id.lay_respostaMultipla)
 
-        Glide.with(this).load(objectQuestions.imagem).into(findViewById(R.id.problema_image))//imagem principal
+        val imageView: ImageView = findViewById(R.id.problema_image)
+        imageView.setImageResource(objectQuestions.imagem)//imagem principal
 
         //1 - multipla  //2 - clicavel //3 - AB
 

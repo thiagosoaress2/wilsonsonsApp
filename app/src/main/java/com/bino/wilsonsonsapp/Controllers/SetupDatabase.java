@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bino.wilsonsonsapp.Utils.mySharedPrefs;
+
 public class SetupDatabase extends SQLiteOpenHelper {
 
     private SQLiteDatabase currentDatabase;
@@ -110,10 +112,6 @@ public class SetupDatabase extends SQLiteOpenHelper {
         this.currentDatabase.execSQL(SQL_CREATE_QUESTIONS_TABLE);
         this.currentDatabase.execSQL(SQL_CREATE_INTRO_TABLE);
 
-        //  if() {
-        //createTable
-
-
         //insertOccupation
         this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION1);
         this.currentDatabase.execSQL(SQL_INSERT_OCCUPATION2);
@@ -153,16 +151,11 @@ public class SetupDatabase extends SQLiteOpenHelper {
         this.currentDatabase.execSQL(SQL_INSERT_STATE26);
         this.currentDatabase.execSQL(SQL_INSERT_STATE27);
 
-
-        //    }
-
-
         //insertQuestions - intro
         this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS1);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_1_2);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_1_3);
-
 
         this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS2);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_1);
@@ -170,13 +163,13 @@ public class SetupDatabase extends SQLiteOpenHelper {
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_3);
 
         this.currentDatabase.close();
+        new mySharedPrefs(activityRef).setCopyDatabase();
 
       /*
       this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
       this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
       this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
       this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
-
 
       this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS4);
       this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL1);

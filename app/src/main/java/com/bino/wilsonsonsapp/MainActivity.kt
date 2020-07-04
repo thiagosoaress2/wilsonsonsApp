@@ -2,6 +2,7 @@ package com.bino.wilsonsonsapp
 
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
@@ -22,6 +23,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.SetupDatabase
+import com.bino.wilsonsonsapp.Utils.mySharedPrefs
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -44,7 +46,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        SetupDatabase(this)
+
+        if(!mySharedPrefs(this).getCopyDatabase()){SetupDatabase(this)}
         auth = FirebaseAuth.getInstance()
         loadComponents()
 

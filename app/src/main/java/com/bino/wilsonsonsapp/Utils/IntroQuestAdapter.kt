@@ -32,35 +32,35 @@ class IntroQuestAdapter(private var context: Context, private var listObjectIntr
             Log.d("teste", "O valor de arrayImg é " + listObjectIntro.get(position).img)
 
             holder.layout.visibility = View.VISIBLE
-            if (!listObjectIntro.get(position).title.equals("nao")){
+            if (!(listObjectIntro.get(position).title.equals("")) || listObjectIntro.get(position).title == null){
                 holder.textViewTit.visibility = View.VISIBLE
                 holder.textViewTit.text = listObjectIntro.get(position).title
             }
-            if (!listObjectIntro.get(position).text.equals("nao")){
+            if (!(listObjectIntro.get(position).text.equals("")) || listObjectIntro.get(position).text == null){
                 holder.textViewTexto.visibility = View.VISIBLE
                 //holder.textViewTexto.text = arrayTexto.get(position)
                 holder.textViewTexto.setText(listObjectIntro.get(position).text)
             }
-            if (!listObjectIntro.get(position).img.equals("nao")){
+            if (!(listObjectIntro.get(position).img.equals("")) || listObjectIntro.get(position).img == null){
                 holder.img.visibility = View.VISIBLE
-                Glide.with(context).load(listObjectIntro.get(position).img).into(holder.img)
+                holder.img.setImageResource(listObjectIntro.get(position).img)
             }
 
         } else {
 
             holder.layout2.visibility = View.VISIBLE
-            if (!listObjectIntro.get(position).title.equals("nao")){
+            if (!(listObjectIntro.get(position).title.equals("")) || listObjectIntro.get(position).title == null){
                 holder.textViewTit2.visibility = View.VISIBLE
                 holder.textViewTit2.text = listObjectIntro.get(position).title
             }
-            if (!listObjectIntro.get(position).text.equals("nao")){
+            if (!(listObjectIntro.get(position).text.equals("")) || listObjectIntro.get(position).text == null){
                 holder.textViewTexto2.visibility = View.VISIBLE
                 //holder.textViewTexto2.text = arrayTexto.get(position)
                 holder.textViewTexto2.setText(listObjectIntro.get(position).text)
             }
-            if (!listObjectIntro.get(position).img.equals("nao")){
+            if (!(listObjectIntro.get(position).img.equals("")) || listObjectIntro.get(position).img == null){
                 holder.img2.visibility = View.VISIBLE
-                Glide.with(context).load(listObjectIntro.get(position).img).into(holder.img2)
+                holder.img2.setImageResource(listObjectIntro.get(position).img)
             }
         }
     }
