@@ -23,7 +23,7 @@ class ListFuncComCertVencendoAdapter (private var context: Context, private var 
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        //aqui você define os valores em cada elemento
+
         holder.tvNome.text = arrayNome.get(position);
         holder.tvFunc.text = arrayFuncao.get(position)
         var quantidade=0
@@ -46,11 +46,11 @@ class ListFuncComCertVencendoAdapter (private var context: Context, private var 
                 //holder.tvCertf.text = certificado+" - val: "+arrayValidade.get(cont)
                 if (AdminControllers.checkCertificateValidit(arrayValidade.get(indexes.get(cont)))){
                     Log.d("teste", "entrou no vermelho na primeira")
-                    val valvencida = " <font color='#FF0000'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+"</font>"
+                    val valvencida = " <font color='#FF0000'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+" - vencido. </font>"
                     holder.tvCertf.setText(Html.fromHtml(valvencida));
                     //holder.tvCertf.text = valvencida
                 } else if (AdminControllers.checkCertificateAboutToExpire(arrayValidade.get(indexes.get(cont)))){
-                    val valvencida = " <font color='#FCFF33'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+" - vence em 30 dias. </font>"
+                    val valvencida = " <font color='#edef74'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+" - vence em 30 dias. </font>"
                     holder.tvCertf.setText(Html.fromHtml(valvencida));
                 } else {
                     holder.tvCertf.text = certificado+" - val: "+arrayValidade.get(indexes.get(cont))
@@ -59,7 +59,7 @@ class ListFuncComCertVencendoAdapter (private var context: Context, private var 
                 val textoInicial = holder.tvCertf.text.toString()
                 if (AdminControllers.checkCertificateValidit(arrayValidade.get(indexes.get(cont)))){
                     Log.d("teste", "entrou no vermelho")
-                    val valvencida = " <font color='#FF0000'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+"</font>"
+                    val valvencida = " <font color='#FF0000'>"+certificado+" - val: "+arrayValidade.get(indexes.get(cont)).toString()+" - vencido. </font>"
                     //holder.tvCertf.text = textoInicial+"\n"+valvencida
                     holder.tvCertf.setText(Html.fromHtml(textoInicial+"\n"+valvencida));
                 } else if (AdminControllers.checkCertificateAboutToExpire(arrayValidade.get(indexes.get(cont)))){

@@ -41,6 +41,10 @@ class AdminActivityNew : AppCompatActivity() {
     lateinit var paginaDetails: ConstraintLayout
     lateinit var paginainfo1: ConstraintLayout
     lateinit var paginainfo2: ConstraintLayout
+    lateinit var paginaValidades: ConstraintLayout
+    lateinit var btnOpenCertfsList: Button
+    lateinit var btnOpenConsultColab: Button
+    lateinit var btnFecharActivity: Button
 
     lateinit var databaseReference: DatabaseReference
     lateinit var objectUser: ObjectUser
@@ -51,11 +55,21 @@ class AdminActivityNew : AppCompatActivity() {
 
         loadComponents()
 
-        queryInicialCertVencendo()
+    }
 
-        val btn: Button = findViewById(R.id.btnConsultColaboradoresAptos)
-        btn.setOnClickListener {
+    override fun onStart() {
+        super.onStart()
+
+        btnOpenConsultColab.setOnClickListener {
             paginaColabAptos()
+        }
+
+        btnOpenCertfsList.setOnClickListener {
+            openListCertfs()
+        }
+
+        btnFecharActivity.setOnClickListener {
+            finish()
         }
 
     }
@@ -66,14 +80,38 @@ class AdminActivityNew : AppCompatActivity() {
         paginaDetails = findViewById(R.id.layInfosDetalhadas)
         paginainfo1 = findViewById(R.id.layInfo2)
         paginainfo2 = findViewById(R.id.layInfo2)
+        paginaValidades = findViewById(R.id.layValidadColabs)
         databaseReference = FirebaseDatabase.getInstance().reference
+        btnOpenCertfsList = findViewById(R.id.btnListValidt)
+        btnOpenConsultColab = findViewById(R.id.btnConsultColaboradoresAptos)
+        btnFecharActivity = findViewById(R.id.indexBtnFechar)
 
         objectUser = ObjectUser()
     }
 
+    fun openListCertfs(){
+        paginaValidades.visibility = View.VISIBLE
+        paginaIndex.visibility = View.GONE
+
+        val btnVoltar: Button = findViewById(R.id.validad_btnVoltar)
+        val btnFechar: Button = findViewById(R.id.validad_btnFechar)
+
+        btnFechar.setOnClickListener {
+            finish()
+        }
+
+        btnVoltar.setOnClickListener {
+            paginaValidades.visibility = View.GONE
+            paginaIndex.visibility = View.VISIBLE
+        }
+
+        queryInicialCertVencendo()
+
+    }
 
     fun queryInicialCertVencendo(){
 
+        ChamaDialog()
         val rootRef = databaseReference.child("funcionarios")
         rootRef.orderByChild("tipo").equalTo("colaborador")
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -124,6 +162,7 @@ class AdminActivityNew : AppCompatActivity() {
 
                     }
 
+                    EncerraDialog()
                     montaRecyclerListaCertifsVencendo()
 
                 }
@@ -272,6 +311,21 @@ class AdminActivityNew : AppCompatActivity() {
     }
 
     fun paginaColabAptos(){
+
+        val btnVoltar: Button = findViewById(R.id.aptos_btnVoltar)
+        val btnFechar: Button = findViewById(R.id.aptos_btnFechar)
+
+        paginaColabAptos.visibility = View.VISIBLE
+
+        btnFechar.setOnClickListener {
+            finish()
+        }
+
+        btnVoltar.setOnClickListener {
+            paginaIndex.visibility = View.VISIBLE
+            paginaColabAptos.visibility = View.GONE
+        }
+
 
         AdminModels.openCloseLay(paginaIndex, paginaColabAptos)
 

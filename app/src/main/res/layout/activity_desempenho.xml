@@ -27,20 +27,25 @@
 
             <Button
                 android:id="@+id/desempenho_btnVoltar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="voltar"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@drawable/closesimbolwhite"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/skillsdesempenhotxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:layout_marginStart="45dp"
                 android:text="Minhas skills"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/desempenho_btnVoltar"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -80,6 +85,10 @@
                 android:id="@+id/desempenho_txPorcent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:text="20%"
                 android:layout_marginEnd="4dp"
                 app:layout_constraintEnd_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toBottomOf="@+id/pieChart" />
@@ -96,14 +105,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:textSize="25sp"
+                android:text="Técnica"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="@+id/desempenho_txPorcent"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toTopOf="@+id/desempenho_txPorcent" />
 
             <TextView
                 android:id="@+id/desempenho_txExplicacao"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:textAlignment="textStart"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/desempenho_txPorcent" />
