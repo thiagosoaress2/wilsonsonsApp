@@ -14,12 +14,12 @@ public class ConsultsUserModel {
     }
 
     public static void insertUser(String firebase_key, String name, String number, int cargo, String date_nascimento, String photo) {
-        Consults.ExecSql("INSERT INTO user (firebase_key, name, number, cargo, date_nascimento, photo) VALUES" +
+        Consults.ExecSql("INSERT INTO user (firebase_key, name, number, occupation_id, date_nascimento, photo) VALUES" +
                 " ('" + firebase_key + "', '" + name + "', '" + number + "', '" + cargo + "', '" + date_nascimento + "', '" + photo + "');");
     }
 
     public static void updateUser(int id, String name, String number, String cargo, String date_nascimento, String photo) {
-        Consults.ExecSql("UPDATE user SET name ='" + name + "', number = '" + number + "', cargo = '" + cargo + "', date_nascimento = '" + date_nascimento + "', photo = '" + photo + "';");
+        Consults.ExecSql("UPDATE user SET name ='" + name + "', number = '" + number + "', occupation_id = '" + cargo + "', date_nascimento = '" + date_nascimento + "', photo = '" + photo + "';");
     }
 
     public static void deleteUser() {

@@ -19,5 +19,8 @@
     <string name="main_layInicial_etsenha">    Senha</string>
     <string name="main_layInicial_txtesqueceu">Esqueceu a senha?</string>
 
+    <string name="layPerfil_txt1">Cadastro</string>
+    <string name="layPerfil_txtBtn">Finalizar</string>
+
 
 </resources>

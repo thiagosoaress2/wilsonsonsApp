@@ -33,8 +33,8 @@
 
     <Button
         android:id="@+id/perfil_voltar"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginStart="4dp"
         android:background="@drawable/ic_arrow_back_white_24"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,6 +45,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Upload"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/perfil_iv"
         app:layout_constraintStart_toEndOf="@+id/perfil_iv" />
 
@@ -86,7 +87,7 @@
 
     <Button
         android:id="@+id/perfil_btnEditar"
-        android:layout_width="50dp"
+        android:layout_width="35dp"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -118,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <ScrollView
             android:id="@+id/scrollView3"
@@ -145,8 +146,8 @@
 
                     <Button
                         android:id="@+id/cad_btnVoltar"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:layout_marginStart="8dp"
                         android:background="@drawable/ic_arrow_back_white_24"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -155,8 +156,8 @@
 
                     <Button
                         android:id="@+id/cad_btnFechar"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:layout_marginEnd="8dp"
                         android:background="@drawable/closesimbolwhite"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -167,9 +168,9 @@
                         android:id="@+id/textView11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Cadastro"
-                        android:textSize="20sp"
+                        android:text="@string/layPerfil_txt1"
                         android:textColor="@color/white"
+                        android:textSize="20sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -285,10 +286,10 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="16dp"
+                    android:background="@drawable/rounded_btn_yellow"
+                    android:text="@string/layPerfil_txtBtn"
                     android:textSize="18sp"
                     android:textStyle="bold"
-                    android:background="@drawable/rounded_btn_yellow"
-                    android:text="Finalizar"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />

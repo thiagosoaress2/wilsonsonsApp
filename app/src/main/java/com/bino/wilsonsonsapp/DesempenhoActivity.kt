@@ -3,9 +3,11 @@ package com.bino.wilsonsonsapp
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.bino.wilsonsonsapp.Controllers.perfilController
 import com.bino.wilsonsonsapp.Models.*
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
@@ -22,15 +24,17 @@ class DesempenhoActivity  : AppCompatActivity()  {
 
     lateinit var objectStatusUser: ObjectStatusUser
 
-    val DESC_TECNICA = "Texto da técnica"
-    val DESC_SEGURANCA = "Texto da segurança"
-    val DESC_RELACIONAMENTO = "Texto do relacionamento"
+    val DESC_TECNICA = "A técnica está relacionada aos seus conhecimentos técnicos gerais sobre as embarcações. Para melhorar esta skill, recomenda-se assistir vídeos ou ler livros relacionados a rebocadores e embarcações em geral. Você também pode fazer nossos cursos no Marin."
+    val DESC_SEGURANCA = "Segurança está relacionada a prevenção de acidentes, cumprindo normas regulamentadoras fazendo a manutenção preventiva dos equipamentos para garantir a segurança da embarcação e a sua própria."
+    val DESC_RELACIONAMENTO = "Relacionamento é a relação interpessoal, a ética existente entre funcionários bem como uma boa comunicação entre eles."
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_desempenho)
 
         objectStatusUser = ObjectStatusUser()
+
+        perfilController.loadData()
 
         mountChart()
 
@@ -58,14 +62,22 @@ class DesempenhoActivity  : AppCompatActivity()  {
         val NoOfEmp = ArrayList<PieEntry>()
 
         var entry1 = (objectStatusUser.skill1_points.toString()+"f").toFloat()
+        var entry2 = (objectStatusUser.skill2_points.toString()+"f").toFloat()
+        var entry3 = (objectStatusUser.skill3_points.toString()+"f").toFloat()
+
+        if (entry1 < 1 && entry2 < 1 && entry3 < 1){
+            val desempenho_msg_nograph: TextView = findViewById(R.id.desempenho_msg_nograph)
+            desempenho_msg_nograph.visibility = View.VISIBLE
+            pieChart.visibility = View.GONE
+        }
         //var entry1 = (10.toString()+"f").toFloat()
         NoOfEmp.add(PieEntry((entry1), "Segurança"))
-        entry1 = (objectStatusUser.skill2_points.toString()+"f").toFloat()
+        //entry1 = (objectStatusUser.skill2_points.toString()+"f").toFloat()
         //entry1 = (20.toString()+"f").toFloat()
-        NoOfEmp.add(PieEntry((entry1), "Relacionamento"))
-        entry1 = (objectStatusUser.skill3_points.toString()+"f").toFloat()
+        NoOfEmp.add(PieEntry((entry2), "Relacionamento"))
+        //entry1 = (objectStatusUser.skill3_points.toString()+"f").toFloat()
         //entry1 = (15.toString()+"f").toFloat()
-        NoOfEmp.add(PieEntry((entry1), "Técnica"))
+        NoOfEmp.add(PieEntry((entry3), "Técnica"))
 
         val dataSet = PieDataSet(NoOfEmp, "")
 

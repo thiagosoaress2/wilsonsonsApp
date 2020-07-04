@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -18,6 +19,7 @@ import com.bino.wilsonsonsapp.R
 import com.bino.wilsonsonsapp.Utils.CircleTransform
 import com.bino.wilsonsonsapp.Utils.IntroQuestAdapter
 import com.bumptech.glide.Glide
+import java.text.FieldPosition
 import java.text.SimpleDateFormat
 import kotlin.collections.ArrayList
 
@@ -47,6 +49,8 @@ object IndexModels {
 
     lateinit var objectQuestionsList: List<ObjectQuestions>
     lateinit var objectQuestions: ObjectQuestions
+
+    lateinit var btnPlayTheLevel: ImageView
 
     var pontos: Int = 0
 
@@ -129,14 +133,24 @@ object IndexModels {
 
     }
 
+
+
     fun moveThePlayer(playerAvatar: ImageView){
         posicaoUser++
         if (posicaoUser<arrayPosicoesX.size) {
             playerAvatar.animate().translationX(arrayPosicoesX.get(posicaoUser).toFloat()).translationY(
                 arrayPosicoesY.get(posicaoUser).toFloat())
+                placePlayButtonInSpot(btnPlayTheLevel)
         } else {
            finishTheLevel()
         }
+
+    }
+
+    private fun placePlayButtonInSpot (button: ImageView){
+
+        button.x = IndexModels.arrayPosicoesX.get(IndexModels.posicaoUser).toFloat()+50
+        button.y = IndexModels.arrayPosicoesY.get(IndexModels.posicaoUser).toFloat()+50
 
     }
 

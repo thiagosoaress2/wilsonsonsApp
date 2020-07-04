@@ -657,7 +657,7 @@ class AdminActivityNew : AppCompatActivity() {
         pieChart.data = data
         pieChart.highlightValues(null)
         pieChart.invalidate()
-        pieChart.animateXY(5000, 5000)
+        pieChart.animateXY(1000, 1000)
 
     }
 

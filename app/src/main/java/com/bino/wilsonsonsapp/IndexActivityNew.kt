@@ -1,5 +1,6 @@
 package com.bino.wilsonsonsapp
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -149,6 +150,7 @@ class IndexActivityNew : AppCompatActivity() {
 
 
         IndexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
+        placePlayButtonInitialy(findViewById(R.id.layIndex))
 
         setupMenu()
 
@@ -288,6 +290,23 @@ class IndexActivityNew : AppCompatActivity() {
         mySharedPrefs.loadCertificates() //carrega os dados nos arrays
         //showListedItems("cert")
     }
+
+    private fun placePlayButtonInitialy (layout: ConstraintLayout){
+
+        IndexModels.btnPlayTheLevel = ImageView(this)
+        IndexModels.btnPlayTheLevel.layoutParams = LinearLayout.LayoutParams(45,45)
+        IndexModels.btnPlayTheLevel.x = IndexModels.arrayPosicoesX.get(IndexModels.posicaoUser).toFloat()+50
+        IndexModels.btnPlayTheLevel.y = IndexModels.arrayPosicoesY.get(IndexModels.posicaoUser).toFloat()+50
+        IndexModels.btnPlayTheLevel.elevation = 45f
+        layout?.addView(IndexModels.btnPlayTheLevel) //adding image to the layout
+        Glide.with(this).load(R.drawable.ic_baseline_play_circle_filled_24).into(IndexModels.btnPlayTheLevel)
+
+        IndexModels.btnPlayTheLevel.setOnClickListener {
+            openIntroQuest(objectQuestions)
+        }
+
+    }
+
 
     fun openIntroQuest(objectQuestions: ObjectQuestions) {
 

@@ -27,11 +27,10 @@
 
             <Button
                 android:id="@+id/desempenho_btnVoltar"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:background="@drawable/closesimbolwhite"
-                android:layout_marginTop="8dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginEnd="8dp"
+                android:background="@drawable/closesimbolwhite"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -59,11 +58,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
 
+            <TextView
+                android:id="@+id/desempenho_msg_nograph"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:text="Você ainda não tem experiência suficiente no app para exibirmos um gráfico de suas skills. Jogue mais e volte aqui para este feedback."
+                android:textColor="#ffffff"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/pieChart" />
+
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
                 android:layout_width="0dp"
-                android:layout_height="300dp"
+                android:layout_height="200dp"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -105,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:textColor="@color/white"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/desempenho_txPorcent"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
                 app:layout_constraintTop_toTopOf="@+id/desempenho_txPorcent" />
@@ -113,11 +128,13 @@
             <TextView
                 android:id="@+id/desempenho_txExplicacao"
                 android:layout_width="0dp"
-                android:textAlignment="textStart"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="32dp"
+                android:layout_marginEnd="32dp"
+                android:textAlignment="textStart"
                 android:textColor="@color/white"
-                android:textSize="18sp"
+                android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/desempenho_txPorcent" />

@@ -30,8 +30,8 @@
 
         <Button
             android:id="@+id/indexBtnFechar"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/closesimbolblue"
@@ -97,12 +97,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible">
+        tools:visibility="gone">
 
         <Button
             android:id="@+id/validad_btnVoltar"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/ic_arrow_back"
@@ -111,8 +111,8 @@
 
         <Button
             android:id="@+id/validad_btnFechar"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/closesimbolblue"
             app:layout_constraintBottom_toBottomOf="@+id/validad_btnVoltar"
@@ -166,7 +166,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintWidth_percent="0.85"
-            tools:visibility="gone">
+            tools:visibility="visible">
 
             <ImageView
                 android:id="@+id/details_img"
@@ -234,8 +234,8 @@
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/pieChart"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -368,8 +368,8 @@
 
         <Button
             android:id="@+id/aptos_btnFechar"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/closesimbolblue"
@@ -378,8 +378,8 @@
 
         <Button
             android:id="@+id/aptos_btnVoltar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/ic_arrow_back"
