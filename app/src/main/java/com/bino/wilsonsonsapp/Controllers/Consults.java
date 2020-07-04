@@ -156,7 +156,7 @@ public class Consults {
 
 
     @SuppressLint("WrongConstant")
-    public static List<ObjectQuestions> ConsultQuestions(Context context, String sql) {
+    public static List<ObjectQuestions> ConsultQuestions( String sql) {
 
         List<ObjectQuestions> objectQuestionsArrayList = new ArrayList<>();
         try {
@@ -240,7 +240,7 @@ public class Consults {
 
 
     @SuppressLint("WrongConstant")
-    public static List<ObjectIntro> ConsultIntro(Context context, String sql) {
+    public static List<ObjectIntro> ConsultIntro( String sql) {
         List<ObjectIntro> objectIntroArrayList = new ArrayList<>();
         try {
             SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, 1);

@@ -4,7 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -15,11 +18,13 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.AdminControllers
+import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.IndexControllers
-import com.bino.wilsonsonsapp.Controllers.SetupDatabase
-import com.bino.wilsonsonsapp.Models.*
+import com.bino.wilsonsonsapp.Models.ConsultsQuestionsModel
+import com.bino.wilsonsonsapp.Models.IndexModels
+import com.bino.wilsonsonsapp.Models.ObjectQuestions
+import com.bino.wilsonsonsapp.Models.ObjectUser
 import com.bino.wilsonsonsapp.Utils.ListCursosAdapter
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
 import com.bumptech.glide.Glide
@@ -31,7 +36,7 @@ import kotlinx.android.synthetic.main.activity_index.*
 
 class indexActivity : AppCompatActivity() {
 
-    val LOGD : String = "teste"
+    val LOGD: String = "teste"
 
     lateinit var toolbar: Toolbar
     lateinit var drawer: DrawerLayout
@@ -64,17 +69,17 @@ class indexActivity : AppCompatActivity() {
 
 
         val situacao = intent.getStringExtra("email")
-        if (!situacao.equals("semLogin")){
+        if (!situacao.equals("semLogin")) {
             //IndexModels.uId = auth.currentUser!!.uid.toString()
             objectUser.key = auth.currentUser!!.uid.toString()
         }
-        if (!IndexModels.isverified){ //para carregar uma unica vez
+        if (!IndexModels.isverified) { //para carregar uma unica vez
 
-            IndexModels.isverified=true
+            IndexModels.isverified = true
 
-            if (IndexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
+            if (IndexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")) {
                 //   openPopUp("Opa! Você está conectado na internet", "Você agora possui internet e ainda não fez login. Vamos fazer o login para salvar poder salvar seus dados?", true, "Sim, fazer login", "Não", "login")
-            } else if (IndexControllers.isNetworkAvailable(this)){
+            } else if (IndexControllers.isNetworkAvailable(this)) {
                 //verificar se tem novos mundos para baixar
                 //chamar um método para baixar os conteudos e em seguida informar ao usuário que existem atualizações e novas fases
 
@@ -87,8 +92,6 @@ class indexActivity : AppCompatActivity() {
                 verificaAlertaTreinamento()
                 updateCertificatesOffLine()
             }
-
-
         }
 
         btnteste.setOnClickListener {
@@ -97,20 +100,31 @@ class indexActivity : AppCompatActivity() {
         }
 
         btnTesteProblema.setOnClickListener {
-            openIntroQuest()
+
+            val objectQuestionsList: List<ObjectQuestions> =
+                ConsultsQuestionsModel.selectQuestionsRespondidas();
+
+            if (objectQuestionsList.size < 4) {
+                var objectQuestions: ObjectQuestions = ObjectQuestions()
+                objectQuestions =
+                    ConsultsQuestionsModel.selectQuestionPerId(
+                        objectQuestionsList.get(
+                            objectQuestionsList.size
+                        ).id
+                    );
+                openIntroQuest(objectQuestions)
+            }else{
+                //zera as questoes respondidas e exibe mensagem
+            }
         }
 
-        /*
-        val btnMeusCertificados: Button = findViewById(R.id.btnCertificados)
-        btnMeusCertificados.setOnClickListener {
-            showListedItems("cert")
-        }
-         */
-
-
-        IndexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
-
-
+        IndexModels.placeBackGroundAsMap(
+            findViewById(R.id.backgroundPlaceHolder),
+            this,
+            5,
+            findViewById(R.id.layIndex),
+            findViewById(R.id.playerAvatar)
+        )
 
         setupMenu()
 
@@ -122,11 +136,9 @@ class indexActivity : AppCompatActivity() {
         val nuvem2: ImageView = findViewById(R.id.imgnuvem2)
         val movenuvem2 = AnimationUtils.loadAnimation(this, R.anim.movenuvem2)
         nuvem2.startAnimation(movenuvem2)
-
-
     }
 
-    fun loadComponents(){
+    fun loadComponents() {
 
         //drawer = findViewById(R.id.drawer_layout)
         //toolbar = findViewById(R.id.toolbar)
@@ -137,7 +149,7 @@ class indexActivity : AppCompatActivity() {
         btnteste = findViewById(R.id.btnteste)
         btnTesteProblema = findViewById(R.id.btnTesteProblema)
         layListas = findViewById(R.id.lay_listas)
-        
+
         //apaguei no merge
         databaseReference = FirebaseDatabase.getInstance().reference
 
@@ -146,7 +158,7 @@ class indexActivity : AppCompatActivity() {
 
     }
 
-    fun setupMenu(){
+    fun setupMenu() {
 
         val toggle =
             ActionBarDrawerToggle(
@@ -208,7 +220,7 @@ class indexActivity : AppCompatActivity() {
         }
     }
 
-    fun updateCertificatesOnLine(){
+    fun updateCertificatesOnLine() {
 
         val rootRef = databaseReference.child("funcionarios").child(IndexModels.userBd)
         rootRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -219,24 +231,27 @@ class indexActivity : AppCompatActivity() {
 
             override fun onDataChange(p0: DataSnapshot) {
 
-                if (p0.exists()){
+                if (p0.exists()) {
 
                     //TODO("Not yet implemented")
                     var values: String
-                    var cont=0
+                    var cont = 0
 
                     values = p0.child("certificados").value.toString()
                     val certificados = values.toInt()
 
-                    while (cont<certificados){
+                    while (cont < certificados) {
                         cont++
-                        var field = "certificado"+cont.toString()
+                        var field = "certificado" + cont.toString()
                         val certificado = p0.child(field).value.toString()
                         IndexModels.arrayCertificados.add(certificado)
-                        field = "valcert"+cont.toString()
+                        field = "valcert" + cont.toString()
                         val validade = p0.child(field).value.toString()
                         IndexModels.arrayCertificadosValidade.add(validade)
-                        mySharedPrefs.addCertificados(certificados, this@indexActivity) //salva no shared para quando estiver offline
+                        mySharedPrefs.addCertificados(
+                            certificados,
+                            this@indexActivity
+                        ) //salva no shared para quando estiver offline
                     }
                 }
             }
@@ -244,7 +259,7 @@ class indexActivity : AppCompatActivity() {
 
     }
 
-    fun updateCertificatesOffLine(){
+    fun updateCertificatesOffLine() {
 
         mySharedPrefs.loadCertificates() //carrega os dados nos arrays
 
@@ -252,22 +267,24 @@ class indexActivity : AppCompatActivity() {
 
     }
 
-    fun openIntroQuest(){
+    fun openIntroQuest(objectQuestions: ObjectQuestions) {
 
-        var objectQuestions: ObjectQuestions = ObjectQuestions()
-        objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(applicationContext,0);
-
-        IndexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this, objectQuestions)
+        IndexModels.openIntroQuest(
+            findViewById<ConstraintLayout>(R.id.LayQuestion_intro),
+            findViewById<RecyclerView>(R.id.question_intro_recyclerView),
+            this,
+            objectQuestions
+        )
         val btnAbrePergunta: Button = findViewById(R.id.questionIntro_btn)
         btnAbrePergunta.setOnClickListener {
-            openProblema( objectQuestions)
+            openProblema(objectQuestions)
         }
     }
 
-    fun openProblema(objectQuestions: ObjectQuestions){
+    fun openProblema(objectQuestions: ObjectQuestions) {
 
         layIntroQuest.visibility = View.GONE
-       // layInicial.visibility = View.GONE
+        // layInicial.visibility = View.GONE
         lay_problema.visibility = View.VISIBLE
 
 
@@ -278,7 +295,7 @@ class indexActivity : AppCompatActivity() {
 
         //1 - multipla  //2 - clicavel //3 - AB
 
-        if (objectQuestions.type == 1){
+        if (objectQuestions.type == 1) {
 
             val btnAbreRespostas: Button = findViewById(R.id.problema_btnAbreRespostas)
             btnAbreRespostas.visibility = View.VISIBLE
@@ -297,7 +314,7 @@ class indexActivity : AppCompatActivity() {
             val btnE: Button = findViewById(R.id.resposta_E)
 
             btnA.setOnClickListener {
-                if (IndexControllers.isCorrectAnswer("a", objectQuestions.alternativacorreta)){
+                if (IndexControllers.isCorrectAnswer("a", objectQuestions.alternativacorreta)) {
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     afterProblem(true, objectQuestions.id)
                 } else {
@@ -306,7 +323,7 @@ class indexActivity : AppCompatActivity() {
                 }
             }
             btnB.setOnClickListener {
-                if (IndexControllers.isCorrectAnswer("b", objectQuestions.alternativacorreta)){
+                if (IndexControllers.isCorrectAnswer("b", objectQuestions.alternativacorreta)) {
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     afterProblem(true, objectQuestions.id)
                 } else {
@@ -315,7 +332,7 @@ class indexActivity : AppCompatActivity() {
                 }
             }
             btnC.setOnClickListener {
-                if (IndexControllers.isCorrectAnswer("c", objectQuestions.alternativacorreta)){
+                if (IndexControllers.isCorrectAnswer("c", objectQuestions.alternativacorreta)) {
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     afterProblem(true, objectQuestions.id)
                 } else {
@@ -324,7 +341,7 @@ class indexActivity : AppCompatActivity() {
                 }
             }
             btnD.setOnClickListener {
-                if (IndexControllers.isCorrectAnswer("d", objectQuestions.alternativacorreta)){
+                if (IndexControllers.isCorrectAnswer("d", objectQuestions.alternativacorreta)) {
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     afterProblem(true, objectQuestions.id)
                 } else {
@@ -333,7 +350,7 @@ class indexActivity : AppCompatActivity() {
                 }
             }
             btnE.setOnClickListener {
-                if (IndexControllers.isCorrectAnswer("e", objectQuestions.alternativacorreta)){
+                if (IndexControllers.isCorrectAnswer("e", objectQuestions.alternativacorreta)) {
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                     afterProblem(true, objectQuestions.id)
                 } else {
@@ -342,7 +359,7 @@ class indexActivity : AppCompatActivity() {
                 }
             }
 
-        } else if (objectQuestions.type == 2){
+        } else if (objectQuestions.type == 2) {
 
             val altura = 80 // isto vai vir do bd
             val largura = 80 //vai vir do bd
@@ -435,7 +452,7 @@ class indexActivity : AppCompatActivity() {
             txtB.setText(objectQuestions.multiplab)
 
             txtA.setOnClickListener {
-                if (objectQuestions.alternativacorreta =="a"){
+                if (objectQuestions.alternativacorreta == "a") {
                     afterProblem(true, objectQuestions.id)
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                 } else {
@@ -445,7 +462,7 @@ class indexActivity : AppCompatActivity() {
             }
 
             txtB.setOnClickListener {
-                if (objectQuestions.alternativacorreta == "b"){
+                if (objectQuestions.alternativacorreta == "b") {
                     afterProblem(true, objectQuestions.id)
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                 } else {
@@ -458,7 +475,7 @@ class indexActivity : AppCompatActivity() {
 
     }
 
-    fun afterProblem(correct: Boolean, id: Int){
+    fun afterProblem(correct: Boolean, id: Int) {
 
         val layResultado: ConstraintLayout = findViewById(R.id.lay_resultado)
         val layProblema: ConstraintLayout = findViewById(R.id.lay_problema)
@@ -469,20 +486,20 @@ class indexActivity : AppCompatActivity() {
         layProblema.visibility = View.GONE
         layResultado.visibility = View.VISIBLE
 
-        if (correct){
+        if (correct) {
             txt.setText("Acertou!")
-            ConsultsQuestionsModel.somaQuestions1(applicationContext, true, id)
+            ConsultsQuestionsModel.somaQuestions1(true, id)
             msg.setText("Mensagem de acerto")
             Glide.with(this).load(R.drawable.acertosimbol).into(imgAcertoErro)
         } else {
             txt.setText("Errou")
             msg.setText("Menagem de erro")
             Glide.with(this).load(R.drawable.errosimbol).into(imgAcertoErro)
-            ConsultsQuestionsModel.somaQuestions1(applicationContext, false, id)
+            ConsultsQuestionsModel.somaQuestions1(false, id)
         }
 
 
-        if ("tem imagem ".equals("temimagem")){//pegar do banco de dados
+        if ("tem imagem ".equals("temimagem")) {//pegar do banco de dados
             cad_youtubelink.visibility = View.VISIBLE
             cad_tvTemLink.visibility = View.VISIBLE
             cad_youtubelink.setOnClickListener {
@@ -493,7 +510,7 @@ class indexActivity : AppCompatActivity() {
 
     }
 
-    fun queryConvocacoes(){
+    fun queryConvocacoes() {
 
         //databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("userBd")
 
@@ -506,13 +523,13 @@ class indexActivity : AppCompatActivity() {
 
             override fun onDataChange(p0: DataSnapshot) {
 
-                if (p0.exists()){
+                if (p0.exists()) {
 
                     //TODO("Not yet implemented")
                     var values: String
 
                     values = p0.child("dataEmbarque").value.toString()
-                    if (AdminControllers.checkCertificateValidit(values)){
+                    if (AdminControllers.checkCertificateValidit(values)) {
                         //esta vencido. N precisa pegar nenhum dado e pode apagar o alerta
                         rootRef.child("convocacoes").child(IndexModels.userBd).removeValue()
                         mySharedPrefs.removeAlert()
@@ -520,7 +537,7 @@ class indexActivity : AppCompatActivity() {
                     } else {
 
                         val recebido = p0.child("recebido").value.toString()
-                        if (recebido.equals("nao")){ //se for == sim é porque já está salvo no sharedPrefs
+                        if (recebido.equals("nao")) { //se for == sim é porque já está salvo no sharedPrefs
 
                             //pegar os dados
                             values = p0.child("embarcacao").value.toString()
@@ -529,7 +546,10 @@ class indexActivity : AppCompatActivity() {
                             IndexModels.alertaDataEmbarque = values
                             rootRef.child("recebido").setValue("sim")
 
-                            mySharedPrefs.setAlertInfo(IndexModels.alertaDataEmbarque, IndexModels.alertaEmbarcacao)
+                            mySharedPrefs.setAlertInfo(
+                                IndexModels.alertaDataEmbarque,
+                                IndexModels.alertaEmbarcacao
+                            )
 
                         }
 
@@ -547,12 +567,12 @@ class indexActivity : AppCompatActivity() {
 
     }
 
-    fun verificaAlertaTreinamento(){
+    fun verificaAlertaTreinamento() {
 
         mySharedPrefs.getAlertInfo()
-        if (!IndexModels.alertaEmbarcacao.equals("nao")){ //se for diferente de não é porque tem alerta
+        if (!IndexModels.alertaEmbarcacao.equals("nao")) { //se for diferente de não é porque tem alerta
 
-            if (AdminControllers.checkCertificateValidit(IndexModels.alertaDataEmbarque)){
+            if (AdminControllers.checkCertificateValidit(IndexModels.alertaDataEmbarque)) {
                 //esta vencido. N precisa pegar nenhum dado e pode apagar o alerta
                 //nao fazer nada. Nao vai exibir o botão mas tb nao apaga no bd. Vai apagar quando tiver internet
             } else {
@@ -569,7 +589,7 @@ class indexActivity : AppCompatActivity() {
 
     }
 
-    fun showListedItems(tipo: String){
+    fun showListedItems(tipo: String) {
 
         //ControllersUniversais.openCloseLay(layInicial, layListas)
         layListas.visibility = View.VISIBLE
@@ -577,7 +597,7 @@ class indexActivity : AppCompatActivity() {
 
         val btnVoltar: Button = findViewById(R.id.lista_itens_btnVoltar)
         btnVoltar.setOnClickListener {
-          //ControllersUniversais.openCloseLay(layListas, layInicial)
+            //ControllersUniversais.openCloseLay(layListas, layInicial)
             layListas.visibility = View.GONE
             toolbar.visibility = View.VISIBLE
         }
@@ -585,7 +605,7 @@ class indexActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.listaCurso_recyclerView)
         val textView: TextView = findViewById(R.id.lista_items_tvTitulo)
 
-        if (tipo.equals("curso")){
+        if (tipo.equals("curso")) {
             IndexModels.loadCourses()
             textView.setText("Lista de cursos")
 
@@ -595,28 +615,48 @@ class indexActivity : AppCompatActivity() {
 
         mountRecyclerViewCourses(recyclerView, tipo)
 
-        recyclerView.addOnItemTouchListener(RecyclerTouchListener(this, recyclerView!!, object: ClickListener{
+        recyclerView.addOnItemTouchListener(
+            RecyclerTouchListener(
+                this,
+                recyclerView!!,
+                object : ClickListener {
 
-            override fun onClick(view: View, position: Int) {
-                Log.d("teste", IndexModels.arrayCursos.get(position))
+                    override fun onClick(view: View, position: Int) {
+                        Log.d("teste", IndexModels.arrayCursos.get(position))
 
-            }
+                    }
 
-            override fun onLongClick(view: View?, position: Int) {
+                    override fun onLongClick(view: View?, position: Int) {
 
-            }
-        }))
+                    }
+                })
+        )
 
     }
 
-    private fun mountRecyclerViewCourses(recyclerView: RecyclerView, tipo: String){
+    private fun mountRecyclerViewCourses(recyclerView: RecyclerView, tipo: String) {
 
-        var adapter: ListCursosAdapter= ListCursosAdapter(this, IndexModels.arrayCursos, IndexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
+        var adapter: ListCursosAdapter = ListCursosAdapter(
+            this,
+            IndexModels.arrayCursos,
+            IndexModels.arrayCertificadosValidade,
+            tipo
+        ) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
 
-        if (tipo.equals("curso")){
-            adapter = ListCursosAdapter(this, IndexModels.arrayCursos, IndexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
+        if (tipo.equals("curso")) {
+            adapter = ListCursosAdapter(
+                this,
+                IndexModels.arrayCursos,
+                IndexModels.arrayCertificadosValidade,
+                tipo
+            ) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
         } else {
-            adapter = ListCursosAdapter(this, IndexModels.arrayCertificados, IndexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
+            adapter = ListCursosAdapter(
+                this,
+                IndexModels.arrayCertificados,
+                IndexModels.arrayCertificadosValidade,
+                tipo
+            ) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
         }
 
 
@@ -660,23 +700,28 @@ class indexActivity : AppCompatActivity() {
         fun onLongClick(view: View?, position: Int)
     }
 
-    internal class RecyclerTouchListener(context: Context, recyclerView: RecyclerView, private val clickListener: ClickListener?) : RecyclerView.OnItemTouchListener {
+    internal class RecyclerTouchListener(
+        context: Context,
+        recyclerView: RecyclerView,
+        private val clickListener: ClickListener?
+    ) : RecyclerView.OnItemTouchListener {
 
         private val gestureDetector: GestureDetector
 
         init {
-            gestureDetector = GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
-                override fun onSingleTapUp(e: MotionEvent): Boolean {
-                    return true
-                }
-
-                override fun onLongPress(e: MotionEvent) {
-                    val child = recyclerView.findChildViewUnder(e.x, e.y)
-                    if (child != null && clickListener != null) {
-                        clickListener.onLongClick(child, recyclerView.getChildPosition(child))
+            gestureDetector =
+                GestureDetector(context, object : GestureDetector.SimpleOnGestureListener() {
+                    override fun onSingleTapUp(e: MotionEvent): Boolean {
+                        return true
                     }
-                }
-            })
+
+                    override fun onLongPress(e: MotionEvent) {
+                        val child = recyclerView.findChildViewUnder(e.x, e.y)
+                        if (child != null && clickListener != null) {
+                            clickListener.onLongClick(child, recyclerView.getChildPosition(child))
+                        }
+                    }
+                })
         }
 
         override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent): Boolean {

@@ -118,7 +118,21 @@ class IndexActivityNew : AppCompatActivity() {
         }
 
         btnTesteProblema.setOnClickListener {
-            openIntroQuest()
+            val objectQuestionsList: List<ObjectQuestions> =
+                ConsultsQuestionsModel.selectQuestionsRespondidas();
+
+            if (objectQuestionsList.size < 4) {
+                var objectQuestions: ObjectQuestions = ObjectQuestions()
+                objectQuestions =
+                    ConsultsQuestionsModel.selectQuestionPerId(
+                        objectQuestionsList.get(
+                            objectQuestionsList.size
+                        ).id
+                    );
+                openIntroQuest(objectQuestions)
+            }else{
+                //zera as questoes respondidas e exibe mensagem
+            }
         }
 
         /*
@@ -131,8 +145,6 @@ class IndexActivityNew : AppCompatActivity() {
 
         IndexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
 
-
-
         setupMenu()
 
         //anima nuvem
@@ -143,7 +155,6 @@ class IndexActivityNew : AppCompatActivity() {
         val nuvem2: ImageView = findViewById(R.id.imgnuvem2)
         val movenuvem2 = AnimationUtils.loadAnimation(this, R.anim.movenuvem2)
         nuvem2.startAnimation(movenuvem2)
-
     }
 
     fun loadComponents(){
@@ -164,7 +175,6 @@ class IndexActivityNew : AppCompatActivity() {
 
         mySharedPrefs = mySharedPrefs(this)
         objectUser = ObjectUser()
-
     }
 
     fun setupMenu(){
@@ -259,31 +269,26 @@ class IndexActivityNew : AppCompatActivity() {
                         IndexModels.arrayCertificadosValidade.add(validade)
                         mySharedPrefs.addCertificados(certificados, this@IndexActivityNew) //salva no shared para quando estiver offline
                     }
-
-
                 }
-
             }
-
-
         })
-
     }
 
     fun updateCertificatesOffLine(){
 
         mySharedPrefs.loadCertificates() //carrega os dados nos arrays
-
         //showListedItems("cert")
-
     }
 
 
-    fun openIntroQuest(){
-        var objectQuestions: ObjectQuestions = ObjectQuestions()
-        objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(applicationContext, 1);
+    fun openIntroQuest(objectQuestions: ObjectQuestions) {
 
-        IndexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this, objectQuestions)
+        IndexModels.openIntroQuest(
+            findViewById<ConstraintLayout>(R.id.LayQuestion_intro),
+            findViewById<RecyclerView>(R.id.question_intro_recyclerView),
+            this,
+            objectQuestions
+        )
         val btnAbrePergunta: Button = findViewById(R.id.questionIntro_btn)
         btnAbrePergunta.setOnClickListener {
             openProblema(objectQuestions)
@@ -441,11 +446,8 @@ class IndexActivityNew : AppCompatActivity() {
                         Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                     }
                 }
+            }*/
 
-            }
-
-
-             */
         } else {
             //codigo AB
             val layAB: ConstraintLayout = findViewById(R.id.lay_tipoSimNao)
@@ -478,9 +480,7 @@ class IndexActivityNew : AppCompatActivity() {
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
-
         }
-
     }
 
     fun afterProblem(correct: Boolean, id: Int){
@@ -507,7 +507,7 @@ class IndexActivityNew : AppCompatActivity() {
 
         if (correct){
             txt.setText("Acertou!")
-            ConsultsQuestionsModel.somaQuestions1(applicationContext, true, id)
+            ConsultsQuestionsModel.somaQuestions1( true, id)
             msg.setText("Mensagem de acerto")
             Glide.with(this).load(R.drawable.acertosimbol).into(imgAcertoErro)
             IndexModels.setTheResultInMap(this, layInicial, true)
@@ -515,7 +515,7 @@ class IndexActivityNew : AppCompatActivity() {
             txt.setText("Errou")
             msg.setText("Menagem de erro")
             Glide.with(this).load(R.drawable.errosimbol).into(imgAcertoErro)
-            ConsultsQuestionsModel.somaQuestions1(applicationContext, false, id)
+            ConsultsQuestionsModel.somaQuestions1(false, id)
             IndexModels.setTheResultInMap(this, layInicial, true)
             IndexModels.moveThePlayer(userAvatar)
         }
@@ -529,8 +529,6 @@ class IndexActivityNew : AppCompatActivity() {
             }
             IndexModels.moveThePlayer(userAvatar)
         }
-
-
     }
 
     fun queryConvocacoes(){
@@ -540,8 +538,6 @@ class IndexActivityNew : AppCompatActivity() {
         val rootRef = databaseReference.child("convocacoes").child(IndexModels.userBd)
         rootRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError) {
-
-
             }
 
             override fun onDataChange(p0: DataSnapshot) {
@@ -572,19 +568,13 @@ class IndexActivityNew : AppCompatActivity() {
                             mySharedPrefs.setAlertInfo(IndexModels.alertaDataEmbarque, IndexModels.alertaEmbarcacao)
 
                         }
-
                         verificaAlertaTreinamento()
                     }
 
                     EncerraDialog()
-
                 }
-
             }
-
-
         })
-
     }
 
     fun verificaAlertaTreinamento(){
@@ -602,11 +592,9 @@ class IndexActivityNew : AppCompatActivity() {
                 btnAlerta.setOnClickListener {
                     //abrir procedimentos de treino
                     showListedItems("curso") //neste momento vai abrir a lista de cursos
-
                 }
             }
         }
-
     }
 
     fun showListedItems(tipo: String){
@@ -639,14 +627,12 @@ class IndexActivityNew : AppCompatActivity() {
 
             override fun onClick(view: View, position: Int) {
                 Log.d("teste", IndexModels.arrayCursos.get(position))
-
             }
 
             override fun onLongClick(view: View?, position: Int) {
 
             }
         }))
-
     }
 
     private fun mountRecyclerViewCourses(recyclerView: RecyclerView, tipo: String){
@@ -659,7 +645,6 @@ class IndexActivityNew : AppCompatActivity() {
             adapter = ListCursosAdapter(this, IndexModels.arrayCertificados, IndexModels.arrayCertificadosValidade, tipo) //arrayCertificadosValidade não será usado aqui. Está apenas preenchendo parametro
         }
 
-
         //define o tipo de layout (linerr, grid)
         var linearLayoutManager: LinearLayoutManager = LinearLayoutManager(this)
 
@@ -670,7 +655,6 @@ class IndexActivityNew : AppCompatActivity() {
 
         // Notify the adapter for data change.
         adapter.notifyDataSetChanged()
-
     }
 
     fun openPopUpCadInfo (btnSim: String, btnNao: String) {
@@ -699,10 +683,7 @@ class IndexActivityNew : AppCompatActivity() {
             val intent = Intent(this, perfilActivity::class.java)
             intent.putExtra("infos", "sim")
             startActivity(intent)
-
-
         }
-
     }
 
     fun ChamaDialog() {

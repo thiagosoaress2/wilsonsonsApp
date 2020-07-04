@@ -36,7 +36,7 @@ public class ConsultsUserModel {
         objectStatusUser.setSkill1_points(0);
         objectStatusUser.setSkill1_total_points(0);
 
-        List<ObjectQuestions> objectQuestionsList = Consults.ConsultQuestions(context, "Select * from questions where respondida = 'true';");
+        List<ObjectQuestions> objectQuestionsList = Consults.ConsultQuestions("Select * from questions where respondida = 'true';");
         for (int i = 0; i < objectQuestionsList.size(); i++) {
 
             switch (objectQuestionsList.get(i).getId_skills()) {
