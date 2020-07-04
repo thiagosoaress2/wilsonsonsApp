@@ -26,9 +26,9 @@ public class SetupDatabase extends SQLiteOpenHelper {
     private static final String SQL_INSERT_INTO_SKILL2 = "INSERT INTO skills (id, name) VALUES (2, 'Técnica');";
     private static final String SQL_INSERT_INTO_SKILL3 = "INSERT INTO skills (id, name) VALUES (3, 'Relacionamento');";
 
-    private static final String SQL_INSERT_OCCUPATION1 = "INSERT INTO occupation (id, name) VALUES (1, 'Mecânico');";
+    private static final String SQL_INSERT_OCCUPATION1 = "INSERT INTO occupation (id, name) VALUES (1, 'Chefe de Máquinas');";
     private static final String SQL_INSERT_OCCUPATION2 = "INSERT INTO occupation (id, name) VALUES (2, 'Mecânico');";
-    private static final String SQL_INSERT_OCCUPATION3 = "INSERT INTO occupation (id, name) VALUES (3, 'Mecânico');";
+    private static final String SQL_INSERT_OCCUPATION3 = "INSERT INTO occupation (id, name) VALUES (3, 'Cozinheiro');";
 
     private static final String SQL_INSERT_STATE1 = "INSERT INTO state (id, name) VALUES (1, 'AC');";
     private static final String SQL_INSERT_STATE2 = "INSERT INTO state (id, name) VALUES (2, 'AL');";
