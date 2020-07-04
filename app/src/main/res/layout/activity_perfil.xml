@@ -216,15 +216,15 @@
                 <EditText
                     android:id="@+id/cad_etNome"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
                     android:background="@drawable/rounded_edittext"
-                    android:paddingStart="14dp"
                     android:ems="10"
                     android:hint="Nome completo"
                     android:inputType="textPersonName"
+                    android:paddingStart="14dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView13" />
@@ -232,7 +232,7 @@
                 <EditText
                     android:id="@+id/cad_etNascimento"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="42dp"
                     android:background="@drawable/rounded_edittext"
@@ -257,13 +257,13 @@
                 <EditText
                     android:id="@+id/cad_cel"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_marginTop="16dp"
-                    android:ems="10"
                     android:background="@drawable/rounded_edittext"
-                    android:paddingStart="14dp"
+                    android:ems="10"
                     android:hint="Número celular"
                     android:inputType="textPersonName"
+                    android:paddingStart="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintStart_toStartOf="@+id/cad_etNascimento"
                     app:layout_constraintTop_toBottomOf="@+id/cad_etNascimento" />

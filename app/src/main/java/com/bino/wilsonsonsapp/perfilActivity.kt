@@ -23,10 +23,8 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.perfilController
-import com.bino.wilsonsonsapp.Models.ConsultsOccupationModel
-import com.bino.wilsonsonsapp.Models.IndexModels
-import com.bino.wilsonsonsapp.Models.ObjectOccupation
-import com.bino.wilsonsonsapp.Models.ObjectUser
+import com.bino.wilsonsonsapp.Controllers.perfilController.objectsUser
+import com.bino.wilsonsonsapp.Models.*
 import com.bino.wilsonsonsapp.Utils.*
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Continuation
@@ -134,7 +132,6 @@ class perfilActivity : AppCompatActivity() {
 
 
     }
-
 
 
     fun openEditLay(){

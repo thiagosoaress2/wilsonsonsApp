@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.ViewAnimator
 import com.bino.wilsonsonsapp.Models.ConsultsOccupationModel
+import com.bino.wilsonsonsapp.Models.ConsultsUserModel
 import com.bino.wilsonsonsapp.Models.ObjectOccupation
 import com.bino.wilsonsonsapp.Models.ObjectUser
 import com.bino.wilsonsonsapp.R
@@ -22,7 +23,7 @@ object perfilController {
     var objectOccupation: ObjectOccupation = ObjectOccupation()
 
     fun loadData(){
-        objectsUser = ObjectUser()
+        objectsUser = ConsultsUserModel.selectUser()
     }
 
     fun loadImage(activity: Activity, imageView: ImageView, hasPic: Boolean){
