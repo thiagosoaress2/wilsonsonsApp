@@ -81,9 +81,6 @@ object perfilController {
         objectsUser.cargo = data
     }
 
-    fun getOcupation(valor: Int): String{
-        consultOcupation.
-    }
 
 
 }
