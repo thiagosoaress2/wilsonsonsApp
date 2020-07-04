@@ -258,21 +258,22 @@ class indexActivity : AppCompatActivity() {
 
     fun openIntroQuest(){
 
-        IndexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this, ObjectQuestions())
+        var objectQuestions: ObjectQuestions = ObjectQuestions()
+        objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(0);
+
+        IndexModels.openIntroQuest(findViewById<ConstraintLayout>(R.id.LayQuestion_intro), findViewById<RecyclerView>(R.id.question_intro_recyclerView), this, objectQuestions)
         val btnAbrePergunta: Button = findViewById(R.id.questionIntro_btn)
         btnAbrePergunta.setOnClickListener {
-            openProblema(0)
+            openProblema( objectQuestions)
         }
     }
 
-    fun openProblema(id: Int){
+    fun openProblema(objectQuestions: ObjectQuestions){
 
         layIntroQuest.visibility = View.GONE
        // layInicial.visibility = View.GONE
         lay_problema.visibility = View.VISIBLE
 
-        var objectQuestions: ObjectQuestions = ObjectQuestions()
-        objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(id);
 
         val layRespostas: ConstraintLayout = findViewById(R.id.lay_respostaMultipla)
 
@@ -301,45 +302,45 @@ class indexActivity : AppCompatActivity() {
             btnA.setOnClickListener {
                 if (IndexControllers.isCorrectAnswer("a", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    afterProblem(true, id)
+                    afterProblem(true, objectQuestions.id)
                 } else {
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
-                    afterProblem(false, id)
+                    afterProblem(false, objectQuestions.id)
                 }
             }
             btnB.setOnClickListener {
                 if (IndexControllers.isCorrectAnswer("b", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    afterProblem(true, id)
+                    afterProblem(true, objectQuestions.id)
                 } else {
-                    afterProblem(false, id)
+                    afterProblem(false, objectQuestions.id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
             btnC.setOnClickListener {
                 if (IndexControllers.isCorrectAnswer("c", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    afterProblem(true, id)
+                    afterProblem(true, objectQuestions.id)
                 } else {
-                    afterProblem(false, id)
+                    afterProblem(false, objectQuestions.id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
             btnD.setOnClickListener {
                 if (IndexControllers.isCorrectAnswer("d", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    afterProblem(true, id)
+                    afterProblem(true, objectQuestions.id)
                 } else {
-                    afterProblem(false, id)
+                    afterProblem(false, objectQuestions.id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
             btnE.setOnClickListener {
                 if (IndexControllers.isCorrectAnswer("e", objectQuestions.alternativacorreta)){
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    afterProblem(true, id)
+                    afterProblem(true, objectQuestions.id)
                 } else {
-                    afterProblem(false, id)
+                    afterProblem(false, objectQuestions.id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -362,12 +363,12 @@ class indexActivity : AppCompatActivity() {
             //a imagem pode vir dentro de opção A
 
             imageView.setOnClickListener {
-                afterProblem(true, id)
+                afterProblem(true, objectQuestions.id)
                 Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
             }
 
             layProblema.setOnClickListener {
-                afterProblem(false, id)
+                afterProblem(false, objectQuestions.id)
                 Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
             }
 
@@ -438,20 +439,20 @@ class indexActivity : AppCompatActivity() {
 
             txtA.setOnClickListener {
                 if (objectQuestions.alternativacorreta =="a"){
-                    afterProblem(true, id)
+                    afterProblem(true, objectQuestions.id)
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                 } else {
-                    afterProblem(false, id)
+                    afterProblem(false, objectQuestions.id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }
 
             txtB.setOnClickListener {
                 if (objectQuestions.alternativacorreta == "b"){
-                    afterProblem(true, id)
+                    afterProblem(true, objectQuestions.id)
                     Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
                 } else {
-                    afterProblem(false, id)
+                    afterProblem(false, objectQuestions.id)
                     Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
                 }
             }

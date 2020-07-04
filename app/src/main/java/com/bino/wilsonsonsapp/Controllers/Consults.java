@@ -130,7 +130,6 @@ public class Consults {
 
         List<ObjectQuestions> objectQuestionsArrayList = new ArrayList<>();
         try {
-     
             SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
                 Cursor cursor = conection.rawQuery(sql, null);
@@ -213,9 +212,8 @@ public class Consults {
     @SuppressLint("WrongConstant")
     public static List<ObjectIntro> ConsultIntro(String sql) {
         List<ObjectIntro> objectIntroArrayList = new ArrayList<>();
-        SQLiteDatabase conection;
         try {
-            conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+            SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);
