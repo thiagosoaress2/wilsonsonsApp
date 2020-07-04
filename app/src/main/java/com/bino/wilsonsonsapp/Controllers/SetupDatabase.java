@@ -168,7 +168,7 @@ public class SetupDatabase {
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_3);
 
         this.currentDatabase.close();
-
+        System.out.println("look database");
       /*
       this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
       this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
