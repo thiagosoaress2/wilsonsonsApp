@@ -6,7 +6,6 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -23,16 +22,11 @@ import android.view.WindowManager
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
+import com.bino.wilsonsonsapp.Controllers.perfilController
 import com.bino.wilsonsonsapp.Models.IndexModels
-import com.bino.wilsonsonsapp.Utils.CircleTransform
-import com.bino.wilsonsonsapp.Utils.CameraPermissions
-import com.bino.wilsonsonsapp.Utils.readFilesPermissions
-import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
+import com.bino.wilsonsonsapp.Models.ObjectUser
+import com.bino.wilsonsonsapp.Utils.*
 import com.bumptech.glide.Glide
-import com.github.mikephil.charting.charts.PieChart
-import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.utils.ColorTemplate
-import com.github.mikephil.charting.utils.MPPointF
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
@@ -40,9 +34,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import kotlinx.android.synthetic.main.activity_perfil.*
 import java.io.*
+import java.lang.ref.WeakReference
 import java.util.*
-import kotlin.collections.ArrayList
 
 class perfilActivity : AppCompatActivity() {
 
@@ -57,15 +52,19 @@ class perfilActivity : AppCompatActivity() {
 
     lateinit var databaseReference: DatabaseReference
 
+    //lateinit var objectsUser : ObjectUser
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_perfil)
 
+        perfilController.loadData()
     }
 
     override fun onStart() {
         super.onStart()
+
+        //objectsUser = ObjectUser()
 
         //pede priemiro a camera e depois vai pedindo um por um
         CameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
@@ -90,6 +89,11 @@ class perfilActivity : AppCompatActivity() {
 
         IndexModels.placeImage(findViewById(R.id.perfil_iv), this)
 
+        val btnVoltar: Button = findViewById(R.id.perfil_voltar)
+        btnVoltar.setOnClickListener {
+            finish()
+        }
+
         val btnEditar: Button = findViewById(R.id.perfil_btnEditar)
         btnEditar.setOnClickListener {
             openEditLay()
@@ -100,20 +104,55 @@ class perfilActivity : AppCompatActivity() {
         if (situacao!=null){
             btnEditar.performClick()
         }
+
+        val etNome: TextView = findViewById(R.id.perfil_tvNome)
+        val etFuncao: TextView = findViewById(R.id.perfil_etFuncao)
+        val etContato: TextView = findViewById(R.id.perfil_etContato)
+
+        if (perfilController.objectsUser.name != null){
+            etNome.setText(perfilController.objectsUser.name)
+        }
+        if (perfilController.objectsUser.cargo != 0) {
+            etFuncao.setText(perfilController.objectsUser.cargo)
+        }
+        if (perfilController.objectsUser.number != null){
+            etContato.setText(perfilController.objectsUser.number)
+        }
+
+
     }
 
+
+
     fun openEditLay(){
+
         val layCad: ConstraintLayout = findViewById(R.id.layEditInfo)
         layCad.visibility = View.VISIBLE
 
         val editNascimento: EditText = findViewById(R.id.cad_etNascimento)
-        dateWatcher(editNascimento)
+        val imgEdit: ImageView = findViewById(R.id.cad_img)
+        val btnUpload: Button = findViewById(R.id.cad_btnUpload)
+        val cad_etNome: EditText = findViewById(R.id.cad_etNome)
+        val cad_cel: EditText = findViewById(R.id.cad_cel)
 
+
+        btnUpload.setOnClickListener {
+            if (CameraPermissions.hasPermissions(this) && readFilesPermissions.hasPermissions(this) && writeFilesPermissions.hasPermissions(this)){
+                openPopUp("Upload de foto", "Como você vai enviar a foto?", true, "Tirar foto", "Escolher foto")
+            } else if (!CameraPermissions.hasPermissions(this)){
+                CameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
+            } else if (!readFilesPermissions.hasPermissions(this)){
+                readFilesPermissions.checkPermission(this, READ_PERMISSION_CODE)
+            } else if (!writeFilesPermissions.hasPermissions(this)){
+                writeFilesPermissions.checkPermission(this, WRITE_PERMISSION_CODE)
+            }
+
+        }
+
+        dateWatcher(editNascimento)
 
         var list_of_items = arrayOf(
             "Selecione Estado",
-            "RJ",
-            "SP",
             "AC",
             "AL",
             "AP",
@@ -141,7 +180,7 @@ class perfilActivity : AppCompatActivity() {
             "SP",
             "SE",
             "TO")
-        var estadoSelecionado = "Selecione Estado"
+        var estadoSelecionado = 0
         val spinnerEstado: Spinner = findViewById(R.id.cad_spinner_estado)
         spinnerEstado.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_of_items)
         spinnerEstado.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -151,12 +190,12 @@ class perfilActivity : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?,  position: Int, id: Long
             ) {
-                estadoSelecionado = list_of_items[position]
+                estadoSelecionado = position
             }
         }
 
         var list_of_items2 = arrayOf(
-            "Selecione Estado",
+            "Selecione Função",
             "RJ",
             "SP",
             "AC",
@@ -186,7 +225,7 @@ class perfilActivity : AppCompatActivity() {
             "SP",
             "SE",
             "TO")
-        var funcaoSelecionada = "Selecione função"
+        var funcaoSelecionada = 0
         val spinner: Spinner = findViewById(R.id.cad_spinnerFuncao)
         spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_of_items)
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -196,16 +235,46 @@ class perfilActivity : AppCompatActivity() {
 
             override fun onItemSelected(parent: AdapterView<*>?, view: View?,  position: Int, id: Long
             ) {
-                funcaoSelecionada = list_of_items2[position]
+                funcaoSelecionada = position
             }
         }
 
 
+        perfilController.loadCelFormater(this, cad_cel)
 
 
-        val btnVoltar: Button = findViewById(R.id.cad_btnFechar)
+        if (perfilController.objectsUser.photo==null){
+            perfilController.loadImage(this, imgEdit, true)
+        } else {
+            perfilController.loadImage(this, imgEdit, false)
+        }
+
+
+        val btnVoltar: Button = findViewById(R.id.cad_btnVoltar)
         btnVoltar.setOnClickListener {
             layCad.visibility = View.GONE
+        }
+
+        val btnSalvar: Button = findViewById(R.id.cad_btnSalvar)
+        btnSalvar.setOnClickListener {
+            if (!urifinal.equals("nao")){
+                perfilController.savePhoto(urifinal)
+            }
+            if (!editNascimento.text.isEmpty()){
+                perfilController.saveNasc(editNascimento.text.toString())
+            }
+            if (!cad_etNome.text.isEmpty()){
+                perfilController.saveName(cad_etNome.text.toString())
+            }
+            if (!cad_cel.text.isEmpty()){
+                perfilController.saveCel(cad_cel.text.toString())
+            }
+            if (estadoSelecionado!=0){
+                perfilController.saveEstado(estadoSelecionado)
+            }
+            if (funcaoSelecionada!=0){
+                perfilController.saveFuncao(funcaoSelecionada)
+            }
         }
     }
 
@@ -438,6 +507,7 @@ class perfilActivity : AppCompatActivity() {
 
         //image provisoria pode ser colocada no imageview pois já é pequena suficiente.
         val imageviewBanne: ImageView = findViewById(R.id.perfil_iv)
+        val imageviewInThisPage: ImageView = findViewById(R.id.cad_img)
         //imageviewBanne.setImageBitmap(imageProvisoria)
         try {
             Glide.with(applicationContext)
@@ -446,6 +516,17 @@ class perfilActivity : AppCompatActivity() {
                 .skipMemoryCache(true)
                 .transform(CircleTransform(this@perfilActivity)) // applying the image transformer
                 .into(imageviewBanne)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+        try {
+            Glide.with(applicationContext)
+                .load(imageProvisoria)
+                .thumbnail(0.9f)
+                .skipMemoryCache(true)
+                .transform(CircleTransform(this@perfilActivity)) // applying the image transformer
+                .into(imageviewInThisPage)
         } catch (e: Exception) {
             e.printStackTrace()
         }

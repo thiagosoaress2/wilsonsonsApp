@@ -4,18 +4,41 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layPai"
     android:layout_width="match_parent"
+    android:background="@color/blue_light"
     android:layout_height="match_parent"
     tools:context=".perfilActivity">
 
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Meu Perfil"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/perfil_voltar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/perfil_iv"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView16"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <Button
+        android:id="@+id/perfil_voltar"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:background="@drawable/ic_arrow_back_white_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/perfil_btnUpload"
@@ -24,6 +47,20 @@
         android:text="Upload"
         app:layout_constraintBottom_toBottomOf="@+id/perfil_iv"
         app:layout_constraintStart_toEndOf="@+id/perfil_iv" />
+
+    <TextView
+        android:id="@+id/perfil_tvNome"
+        android:layout_width="0dp"
+        android:textAlignment="center"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_marginTop="24dp"
+        android:text="Nome"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/perfil_iv" />
 
     <TextView
         android:id="@+id/textView"
@@ -35,51 +72,40 @@
         app:layout_constraintStart_toEndOf="@+id/perfil_iv"
         app:layout_constraintTop_toBottomOf="@+id/perfil_btnEditar" />
 
-    <ProgressBar
-        android:id="@+id/perfil_progressbarSeguranca"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/perfil_etFuncao"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:text="funcao"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_iv" />
-
-    <ProgressBar
-        android:id="@+id/perfil_progressbarTecnica"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_progressbarSeguranca" />
+        app:layout_constraintTop_toBottomOf="@+id/perfil_tvNome" />
 
     <Button
         android:id="@+id/perfil_btnEditar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="0dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="editar"
+        android:background="@drawable/editbtn"
+        app:layout_constraintBottom_toBottomOf="@+id/perfil_voltar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/perfil_progressbarSocial"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/perfil_etContato"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="50dp"
+        android:layout_marginTop="16dp"
+        android:text="contato"
+        android:textSize="18sp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/perfil_progressbarTecnica" />
+        app:layout_constraintTop_toBottomOf="@+id/perfil_etFuncao" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layEditInfo"
@@ -91,7 +117,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible">
 
         <ScrollView
             android:id="@+id/scrollView3"
@@ -117,12 +144,23 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <Button
-                        android:id="@+id/cad_btnFechar"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/cad_btnVoltar"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:text="fechar"
+                        android:layout_marginStart="8dp"
+                        android:background="@drawable/ic_arrow_back_white_24"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <Button
+                        android:id="@+id/cad_btnFechar"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/closesimbolwhite"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
@@ -130,6 +168,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cadastro"
+                        android:textSize="20sp"
+                        android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -148,9 +188,9 @@
 
                 <Button
                     android:id="@+id/cad_btnUpload"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="upp"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/addsimbol"
                     app:layout_constraintBottom_toBottomOf="@+id/cad_img"
                     app:layout_constraintEnd_toEndOf="@+id/cad_img"
                     app:layout_constraintStart_toEndOf="@+id/cad_img"
@@ -168,6 +208,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Adicionar foto"
+                    android:textColor="@color/white"
                     app:layout_constraintEnd_toEndOf="@+id/cad_img"
                     app:layout_constraintStart_toStartOf="@+id/cad_img"
                     app:layout_constraintTop_toBottomOf="@+id/cad_btnUpload" />
@@ -179,6 +220,8 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="24dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:paddingStart="14dp"
                     android:ems="10"
                     android:hint="Nome completo"
                     android:inputType="textPersonName"
@@ -192,9 +235,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="42dp"
+                    android:background="@drawable/rounded_edittext"
                     android:ems="10"
-                    android:hint="Data de nascimento"
+                    android:hint="Data de nasc."
                     android:inputType="textPersonName"
+                    android:paddingStart="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintStart_toStartOf="@+id/cad_etNome"
                     app:layout_constraintTop_toBottomOf="@+id/cad_etNome" />
@@ -215,6 +260,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:ems="10"
+                    android:background="@drawable/rounded_edittext"
+                    android:paddingStart="14dp"
                     android:hint="Número celular"
                     android:inputType="textPersonName"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -231,35 +278,17 @@
                     app:layout_constraintStart_toStartOf="@+id/guideline4"
                     app:layout_constraintTop_toTopOf="@+id/cad_cel" />
 
-                <EditText
-                    android:id="@+id/cad_formacao"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:ems="10"
-                    android:hint="Formação"
-                    android:inputType="textPersonName"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline4"
-                    app:layout_constraintStart_toStartOf="@+id/cad_cel"
-                    app:layout_constraintTop_toBottomOf="@+id/cad_cel" />
-
-                <Button
-                    android:id="@+id/cad_btnAddFormacao"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:text="Button"
-                    app:layout_constraintBottom_toBottomOf="@+id/cad_formacao"
-                    app:layout_constraintStart_toEndOf="@+id/cad_formacao"
-                    app:layout_constraintTop_toTopOf="@+id/cad_formacao" />
-
                 <Button
                     android:id="@+id/cad_btnSalvar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
                     android:layout_marginEnd="24dp"
-                    android:text="Salvar"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/rounded_btn_yellow"
+                    android:text="Finalizar"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
