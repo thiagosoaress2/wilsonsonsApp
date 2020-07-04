@@ -6,8 +6,8 @@ import java.util.List;
 
 public class ConsultsOccupationModel {
 
-    public static List<ObjectOccupation> selectOccupationPerId(int id) {
-        return Consults.ConsultOccupation("SELECT * FROM occupation WHERE id = "+id+";");
+    public static ObjectOccupation selectOccupationPerId(int id) {
+        return Consults.ConsultOccupation("SELECT * FROM occupation WHERE id = "+id+";").get(0);
     }
 
     public static void insertOccupation( String name) {
