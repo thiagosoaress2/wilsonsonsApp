@@ -28,6 +28,7 @@ import com.bino.wilsonsonsapp.Models.ObjectQuestions
 import com.bino.wilsonsonsapp.Models.ObjectUser
 import com.bino.wilsonsonsapp.Utils.ListCursosAdapter
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
+import com.bino.wilsonsonsapp.Utils.startSound
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -69,7 +70,7 @@ class IndexActivityNew : AppCompatActivity() {
             openPopUpCadInfo("Completar", "Fazer depois")
         }
 
-        /* como pegar o int das imagens
+        // como pegar o int das imagens
         var bmp = R.drawable.intro1img1
         Log.d("teste", "o valor de intro1img1 "+bmp)
         bmp = R.drawable.intro1img2
@@ -78,11 +79,11 @@ class IndexActivityNew : AppCompatActivity() {
         Log.d("teste", "o valor de intro1img3 "+bmp)
 
         //codigos
-        //intro1img1 2131165344
-        //intro1img2 2131165345
-        //intro1img3 2131165346
+        //intro1img1 2131165353
+        //intro1img2 2131165354
+        //intro1img3 2131165355
 
-         */
+
     }
 
     override fun onStart() {
@@ -123,31 +124,6 @@ class IndexActivityNew : AppCompatActivity() {
             IndexModels.moveThePlayer(userAvatar)
         }
 
-        btnTesteProblema.setOnClickListener {
-            val objectQuestionsList: List<ObjectQuestions> =
-                ConsultsQuestionsModel.selectQuestionsRespondidas()
-
-            if (objectQuestionsList.size < 4) {
-                var objectQuestions: ObjectQuestions = ObjectQuestions()
-                objectQuestions =
-                    ConsultsQuestionsModel.selectQuestionPerId(
-                        objectQuestionsList.get(
-                            objectQuestionsList.size
-                        ).id
-                    )
-                openIntroQuest(objectQuestions)
-            }else{
-                //zera as questoes respondidas e exibe mensagem
-            }
-        }
-
-        /*
-        val btnMeusCertificados: Button = findViewById(R.id.btnCertificados)
-        btnMeusCertificados.setOnClickListener {
-            showListedItems("cert")
-        }
-         */
-
 
         IndexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
         placePlayButtonInitialy(findViewById(R.id.layIndex))
@@ -165,7 +141,6 @@ class IndexActivityNew : AppCompatActivity() {
 
         //verificar a fase do user e coloca no lugar certo
         IndexModels.checkUserCheckpoint(userAvatar)
-
     }
 
     fun loadComponents(){
@@ -328,6 +303,11 @@ class IndexActivityNew : AppCompatActivity() {
         // layInicial.visibility = View.GONE
         lay_problema.visibility = View.VISIBLE
 
+        when(objectQuestions.id_intro) {
+            1 -> startSound(this, R.raw.question1)
+            2 -> startSound(this, R.raw.question1)
+            else -> startSound(this, R.raw.question1)
+        }
 
         val layRespostas: ConstraintLayout = findViewById(R.id.lay_respostaMultipla)
 
