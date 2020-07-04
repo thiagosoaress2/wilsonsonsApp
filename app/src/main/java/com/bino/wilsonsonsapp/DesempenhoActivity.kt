@@ -71,7 +71,7 @@ class DesempenhoActivity  : AppCompatActivity()  {
         dataSet.iconsOffset = MPPointF(0F, 40F)
         dataSet.selectionShift = 5f
         //dataSet.setColors(*ColorTemplate.COLORFUL_COLORS)
-        dataSet.setColors(Color.RED, Color.GREEN, Color.BLUE)
+        dataSet.setColors(Color.parseColor("#105FE8"), Color.parseColor("#B4E4FF"), Color.parseColor("#98FCF6"))
 
         val data = PieData(dataSet)
         data.setValueTextSize(11f)

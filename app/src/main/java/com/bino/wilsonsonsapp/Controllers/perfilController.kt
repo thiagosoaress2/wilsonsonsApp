@@ -1,9 +1,13 @@
 package com.bino.wilsonsonsapp.Controllers
 
 import android.app.Activity
+import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
+import android.widget.ViewAnimator
 import com.bino.wilsonsonsapp.Models.ConsultsOccupationModel
+import com.bino.wilsonsonsapp.Models.ObjectOccupation
 import com.bino.wilsonsonsapp.Models.ObjectUser
 import com.bino.wilsonsonsapp.R
 import com.bino.wilsonsonsapp.Utils.CircleTransform
@@ -15,11 +19,10 @@ import java.lang.ref.WeakReference
 object perfilController {
 
     lateinit var objectsUser : ObjectUser
-    lateinit var consultOcupation: ConsultsOccupationModel
+    var objectOccupation: ObjectOccupation = ObjectOccupation()
 
     fun loadData(){
         objectsUser = ObjectUser()
-        consultOcupation = ConsultsOccupationModel()
     }
 
     fun loadImage(activity: Activity, imageView: ImageView, hasPic: Boolean){
@@ -81,6 +84,32 @@ object perfilController {
         objectsUser.cargo = data
     }
 
+    fun getfunction(value: Int): String {
+
+        return ConsultsOccupationModel.selectOccupationPerId(value).toString()
+
+    }
+
+    fun setBasicInfos(textViewNome: TextView, textViewFuncao: TextView, textViewCel: TextView) {
+
+        if (perfilController.objectsUser.name != null){
+            textViewNome.setText(perfilController.objectsUser.name)
+        } else {
+            textViewNome.visibility = View.INVISIBLE
+        }
+        if (perfilController.objectsUser.cargo != 0) {
+            textViewFuncao.setText(perfilController.getfunction(perfilController.objectsUser.cargo))
+
+        } else {
+            textViewFuncao.visibility = View.INVISIBLE
+        }
+        if (perfilController.objectsUser.number != null){
+            textViewCel.setText(perfilController.objectsUser.number)
+        } else {
+            textViewCel.visibility = View.INVISIBLE
+        }
+
+    }
 
 
 }

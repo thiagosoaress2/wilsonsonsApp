@@ -23,7 +23,9 @@ import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.perfilController
+import com.bino.wilsonsonsapp.Models.ConsultsOccupationModel
 import com.bino.wilsonsonsapp.Models.IndexModels
+import com.bino.wilsonsonsapp.Models.ObjectOccupation
 import com.bino.wilsonsonsapp.Models.ObjectUser
 import com.bino.wilsonsonsapp.Utils.*
 import com.bumptech.glide.Glide
@@ -59,6 +61,8 @@ class perfilActivity : AppCompatActivity() {
         setContentView(R.layout.activity_perfil)
 
         perfilController.loadData()
+
+
     }
 
     override fun onStart() {
@@ -109,14 +113,23 @@ class perfilActivity : AppCompatActivity() {
         val etFuncao: TextView = findViewById(R.id.perfil_etFuncao)
         val etContato: TextView = findViewById(R.id.perfil_etContato)
 
+        //perfilController.setBasicInfos(etNome, etFuncao, etContato)
+        //aqui atualiza a pagina anterior
         if (perfilController.objectsUser.name != null){
             etNome.setText(perfilController.objectsUser.name)
+        } else {
+            etNome.visibility = View.INVISIBLE
         }
         if (perfilController.objectsUser.cargo != 0) {
-            etFuncao.setText(perfilController.objectsUser.cargo)
+            etFuncao.setText(perfilController.getfunction(perfilController.objectsUser.cargo))
+
+        } else {
+            etFuncao.visibility = View.INVISIBLE
         }
         if (perfilController.objectsUser.number != null){
             etContato.setText(perfilController.objectsUser.number)
+        } else {
+            etContato.visibility = View.INVISIBLE
         }
 
 
@@ -255,6 +268,10 @@ class perfilActivity : AppCompatActivity() {
             layCad.visibility = View.GONE
         }
 
+        val etNome: TextView = findViewById(R.id.perfil_tvNome)
+        val etFuncao: TextView = findViewById(R.id.perfil_etFuncao)
+        val etContato: TextView = findViewById(R.id.perfil_etContato)
+
         val btnSalvar: Button = findViewById(R.id.cad_btnSalvar)
         btnSalvar.setOnClickListener {
             if (!urifinal.equals("nao")){
@@ -273,8 +290,34 @@ class perfilActivity : AppCompatActivity() {
                 perfilController.saveEstado(estadoSelecionado)
             }
             if (funcaoSelecionada!=0){
-                perfilController.saveFuncao(funcaoSelecionada)
+                perfilController.saveFuncao(estadoSelecionado)
+                //var objectOccupation: ObjectOccupation = ObjectOccupation()
+                //val teste = ConsultsOccupationModel.selectOccupationPerId(funcaoSelecionada)
             }
+            //aqui atualiza a pagina anterior
+            if (perfilController.objectsUser.name != null){
+                etNome.setText(perfilController.objectsUser.name)
+            } else {
+                etNome.visibility = View.INVISIBLE
+            }
+            if (perfilController.objectsUser.cargo != 0) {
+                etFuncao.setText(perfilController.getfunction(perfilController.objectsUser.cargo))
+
+            } else {
+                etFuncao.visibility = View.INVISIBLE
+            }
+            if (perfilController.objectsUser.number != null){
+                etContato.setText(perfilController.objectsUser.number)
+            } else {
+                etContato.visibility = View.INVISIBLE
+            }
+            ControllersUniversais.makeToast(this, "As informações foram salvas.")
+        }
+
+
+        val btnFechar: Button = findViewById(R.id.cad_btnFechar)
+        btnFechar.setOnClickListener {
+            finish()
         }
     }
 
