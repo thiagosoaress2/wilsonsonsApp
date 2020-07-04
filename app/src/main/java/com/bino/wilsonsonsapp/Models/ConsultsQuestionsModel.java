@@ -14,7 +14,7 @@ public class ConsultsQuestionsModel {
     }
 
     public static List<ObjectQuestions> selectQuestionsRespondidas() {
-        List<ObjectQuestions> objectQuestions = Consults.ConsultQuestions("Select * from questions WHERE  where respondida = 'true' order by id;");
+        List<ObjectQuestions> objectQuestions = Consults.ConsultQuestions("Select * from questions WHERE respondida = 'true' order by id;");
         return objectQuestions;
     }
 

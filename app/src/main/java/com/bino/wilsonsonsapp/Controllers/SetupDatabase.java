@@ -82,7 +82,7 @@ public class SetupDatabase extends SQLiteOpenHelper {
 
     private static final String SQL_INSERT_INTO_QUESTIONS3 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
             " multiplaa, multiplab, multiplac, multiplad, multiplae, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 1, 3,2131165344,'a','a','a','a','a', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
+            "VALUES ( 0, 1, 1, 3,'a',2131165344,'a','a','a','a','a', 700, 700, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
     private static final String SQL_INSERT_INTO_3_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo intro 3', 'drescription intro 3', 2131165344, 0);";
     private static final String SQL_INSERT_INTO_3_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo intro 3', 'drescription intro 3', 2131165344, 1);";
@@ -91,7 +91,7 @@ public class SetupDatabase extends SQLiteOpenHelper {
 
     private static final String SQL_INSERT_INTO_QUESTIONS4 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
             "multiplaa, multiplab, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 3, 4, 'a',2131165344,'a','a', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
+            "VALUES ( 0, 1, 3, 4, 'a',2131165344,'a','a', 700, 700,'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
 
     private static final String SQL_INSERT_INTO_4_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (4, 'tituloooo intro 4', 'drescription intro 4', 2131165344, 0);";
