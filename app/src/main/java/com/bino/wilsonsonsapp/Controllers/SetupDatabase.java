@@ -65,9 +65,9 @@ public class SetupDatabase extends SQLiteOpenHelper {
             " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, movie, moviesugest, totalpontos, respondida)" +
             "VALUES ( 0, 1, 2, 1, 'a', 2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
-    private static final String SQL_INSERT_INTO_1_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro', 'drescription intro', 2131165344, 0);";
-    private static final String SQL_INSERT_INTO_1_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro', 'drescription intro', 2131165345, 1);";
-    private static final String SQL_INSERT_INTO_1_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro', 'drescription intro', 2131165346, 2);";
+    private static final String SQL_INSERT_INTO_1_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'drescription intro 1', 2131165344, 0);";
+    private static final String SQL_INSERT_INTO_1_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'drescription intro 1', 2131165345, 1);";
+    private static final String SQL_INSERT_INTO_1_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'drescription intro 1', 2131165346, 2);";
 
 
     private static final String SQL_INSERT_INTO_QUESTIONS2 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
@@ -75,29 +75,28 @@ public class SetupDatabase extends SQLiteOpenHelper {
             "VALUES ( 1, 1, 2, 2, 'a', 2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
 
-    private static final String SQL_INSERT_INTO_2_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro', 'drescription intro', 2131165344, 0);";
-    private static final String SQL_INSERT_INTO_2_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro', 'drescription intro', 2131165345, 1);";
-    private static final String SQL_INSERT_INTO_2_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro', 'drescription intro', 2131165346, 2);";
+    private static final String SQL_INSERT_INTO_2_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro 2', 'drescription intro 2', 2131165344, 0);";
+    private static final String SQL_INSERT_INTO_2_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro 2', 'drescription intro 2', 2131165345, 1);";
+    private static final String SQL_INSERT_INTO_2_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro 2', 'drescription intro 2', 2131165346, 2);";
 
 
     private static final String SQL_INSERT_INTO_QUESTIONS3 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
-            " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 1, 1, 'a',2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, https://www.youtube.com/watch?v=_Awvrochhvk, https://www.youtube.com/watch?v=_Awvrochhvk, 100, 'false');";
+            " multiplaa, multiplab, multiplac, multiplad, multiplae, largura, altura, movie, moviesugest, totalpontos, respondida)" +
+            "VALUES ( 0, 1, 1, 3,2131165344,'a','a','a','a','a', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
-    private static final String SQL_INSERT_INTO_3_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo', 2131165344, 0);";
-    private static final String SQL_INSERT_INTO_3_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo', 2131165345, 1);";
-    private static final String SQL_INSERT_INTO_3_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo', 2131165346, 2);";
+    private static final String SQL_INSERT_INTO_3_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo intro 3', 'drescription intro 3', 2131165344, 0);";
+    private static final String SQL_INSERT_INTO_3_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo intro 3', 'drescription intro 3', 2131165344, 1);";
+    private static final String SQL_INSERT_INTO_3_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo intro 3', 'drescription intro 3', 2131165344, 2);";
 
 
     private static final String SQL_INSERT_INTO_QUESTIONS4 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
-            " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 3, 1, 'a',2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, https://www.youtube.com/watch?v=_Awvrochhvk, https://www.youtube.com/watch?v=_Awvrochhvk, 100, 'false');";
+            "multiplaa, multiplab, largura, altura, movie, moviesugest, totalpontos, respondida)" +
+            "VALUES ( 0, 1, 3, 4, 'a',2131165344,'a','a', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
 
-    private static final String SQL_INSERT_INTO_4_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo', 2131165344, 0);";
-    private static final String SQL_INSERT_INTO_4_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo', 2131165345, 1);";
-    private static final String SQL_INSERT_INTO_4_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo', 2131165346, 2);";
-
+    private static final String SQL_INSERT_INTO_4_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (4, 'tituloooo intro 4', 'drescription intro 4', 2131165344, 0);";
+    private static final String SQL_INSERT_INTO_4_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (4, 'tituloooo intro 4', 'drescription intro 4', 2131165344, 1);";
+    private static final String SQL_INSERT_INTO_4_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (4, 'tituloooo intro 4', 'drescription intro 4', 2131165344, 2);";
 
     public SetupDatabase(AppCompatActivity activityRef) {
         super(activityRef, Constants.DATABASE_NAME, null, 1);
@@ -161,6 +160,16 @@ public class SetupDatabase extends SQLiteOpenHelper {
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_1);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_2);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_3);
+
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_3_1);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_3_2);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_3_3);
+
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS4);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_4_1);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_4_2);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_4_3);
 
         this.currentDatabase.close();
         new mySharedPrefs(activityRef).setCopyDatabase();
