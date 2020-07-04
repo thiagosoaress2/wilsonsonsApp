@@ -243,7 +243,7 @@ public class Consults {
     public static List<ObjectIntro> ConsultIntro(Context context, String sql) {
         List<ObjectIntro> objectIntroArrayList = new ArrayList<>();
         try {
-            SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+            SQLiteDatabase conection = SQLiteDatabase.openDatabase(Constants.DatabasePATH + Constants.DATABASE_NAME, null, 1);
             if (conection.isOpen()) {
 
                 Cursor cursor = conection.rawQuery(sql, null);

@@ -3,10 +3,11 @@ package com.bino.wilsonsonsapp.Controllers;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class SetupDatabase {
+public class SetupDatabase extends SQLiteOpenHelper {
 
     private SQLiteDatabase currentDatabase;
     private Context currentContext;
@@ -97,6 +98,7 @@ public class SetupDatabase {
 
 
     public SetupDatabase(AppCompatActivity activityRef) {
+        super(activityRef, Constants.DATABASE_NAME, null, 1);
         this.currentContext = activityRef;
         this.currentDatabase = this.currentContext.openOrCreateDatabase(Constants.DATABASE_NAME, 0, null, null);
 
@@ -168,7 +170,7 @@ public class SetupDatabase {
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_3);
 
         this.currentDatabase.close();
-        System.out.println("look database");
+
       /*
       this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
       this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
@@ -184,4 +186,13 @@ public class SetupDatabase {
 
     }
 
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
 }

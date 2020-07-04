@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.AdminControllers
 import com.bino.wilsonsonsapp.Controllers.IndexControllers
+import com.bino.wilsonsonsapp.Controllers.SetupDatabase
 import com.bino.wilsonsonsapp.Models.*
 import com.bino.wilsonsonsapp.Utils.ListCursosAdapter
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
