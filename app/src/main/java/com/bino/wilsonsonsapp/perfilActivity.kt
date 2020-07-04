@@ -271,6 +271,7 @@ class perfilActivity : AppCompatActivity() {
 
         val btnSalvar: Button = findViewById(R.id.cad_btnSalvar)
         btnSalvar.setOnClickListener {
+
             if (!urifinal.equals("nao")){
                 perfilController.savePhoto(urifinal)
             }
@@ -291,7 +292,10 @@ class perfilActivity : AppCompatActivity() {
                 //var objectOccupation: ObjectOccupation = ObjectOccupation()
                 //val teste = ConsultsOccupationModel.selectOccupationPerId(funcaoSelecionada)
             }
-            //aqui atualiza a pagina anterior
+//aqui ele insere
+            ConsultsUserModel.insertUser(objectsUser.key, objectsUser.name, objectsUser.number, objectsUser.cargo, objectsUser.datenascimento, objectsUser.photo);
+        //aqui atualiza a pagina anterior
+            perfilController.loadData()
             if (perfilController.objectsUser.name != null){
                 etNome.setText(perfilController.objectsUser.name)
             } else {

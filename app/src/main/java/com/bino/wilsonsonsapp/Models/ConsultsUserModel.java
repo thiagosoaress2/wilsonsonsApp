@@ -13,7 +13,7 @@ public class ConsultsUserModel {
         return objectUser;
     }
 
-    public static void insertUser(String firebase_key, String name, String number, String cargo, String date_nascimento, String photo) {
+    public static void insertUser(String firebase_key, String name, String number, int cargo, String date_nascimento, String photo) {
         Consults.ExecSql("INSERT INTO user (firebase_key, name, number, cargo, date_nascimento, photo) VALUES" +
                 " ('" + firebase_key + "', '" + name + "', '" + number + "', '" + cargo + "', '" + date_nascimento + "', '" + photo + "');");
     }
