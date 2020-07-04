@@ -2,12 +2,12 @@ package com.bino.wilsonsonsapp
 
 import android.content.Context
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
-import android.transition.Slide
-import android.transition.TransitionManager
 import android.util.Log
-import android.view.*
+import android.view.GestureDetector
+import android.view.MotionEvent
+import android.view.View
+import android.view.WindowManager
 import android.view.animation.AnimationUtils
 import android.widget.*
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -18,10 +18,13 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.AdminControllers
+import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.IndexControllers
-import com.bino.wilsonsonsapp.Models.*
+import com.bino.wilsonsonsapp.Models.ConsultsQuestionsModel
+import com.bino.wilsonsonsapp.Models.IndexModels
+import com.bino.wilsonsonsapp.Models.ObjectQuestions
+import com.bino.wilsonsonsapp.Models.ObjectUser
 import com.bino.wilsonsonsapp.Utils.ListCursosAdapter
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
 import com.bumptech.glide.Glide
@@ -61,6 +64,18 @@ class IndexActivityNew : AppCompatActivity() {
         if (!IndexModels.checkCadInfo()){
             openPopUpCadInfo("Completar", "Fazer depois")
         }
+
+        var bmp = R.drawable.intro1img1
+        Log.d("teste", "o valor de intro1img1 "+bmp)
+        bmp = R.drawable.intro1img2
+        Log.d("teste", "o valor de intro1img2 "+bmp)
+        bmp = R.drawable.intro1img3
+        Log.d("teste", "o valor de intro1img3 "+bmp)
+
+        //codigos
+        //intro1img1 2131165344
+        //intro1img2 2131165345
+        //intro1img3 2131165346
     }
 
     override fun onStart() {

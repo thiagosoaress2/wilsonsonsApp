@@ -775,19 +775,8 @@ class MainActivity : AppCompatActivity() {
         val emailVerifyCheck =
             findViewById<Button>(R.id.verifyEmailButtonCheck) //botao que o user aperta quando ja vericou o email
         val verifyEmailButton = findViewById<Button>(R.id.verifyEmailButton) //botão para reenviar
-        val verifyHelp = findViewById<Button>(R.id.verification_btnHelp)
         val verifyVoltar = findViewById<Button>(R.id.verification_btnVoltar)
 
-        verifyHelp.setOnClickListener {
-            openPopUp(
-                "Ajuda",
-                "Por que você precisa verificar seu e-mail?\n\nCom a verificação de e-mail garantimos que é o dono do e-mail que está acessando. Assim impedimos terceiros de se aproveitarem de dados de outras pessoas. É para a segurança de toda comunidade.\n\nO que eu devo fazer?\n\nVocê precisa esperar chegar o e-mail de confirmação e clicar no link confirmando.\n\nNão chegou nenhum e-mail. O que eu faço?\n\nVocê pode procurar na pasta de spam ou lixo do seu e-mail. Ou clicar no botão abaixo para reenviar.",
-                false,
-                "n",
-                "n",
-                "n"
-            )
-        }
 
         verifyVoltar.setOnClickListener {
 

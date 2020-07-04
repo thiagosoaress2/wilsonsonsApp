@@ -80,7 +80,7 @@
                     <Button
                         android:id="@+id/layInicial_btnLoginGoogle"
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/login_rounded_bg_transparent_btn"
                         android:drawableLeft="@drawable/g"
@@ -116,15 +116,15 @@
                         android:layout_height="40dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="16dp"
-                        android:textStyle="bold"
                         android:layout_marginEnd="8dp"
                         android:layout_weight="1"
-                        android:background="@color/yellow_btn"
+                        android:background="@drawable/rounded_btn_yellow"
                         android:elevation="15dp"
                         android:text="@string/main_layInicial_btn1"
                         android:textAllCaps="false"
                         android:textColor="#000000"
                         android:textSize="14sp"
+                        android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="@+id/textView12"
                         app:layout_constraintStart_toStartOf="@+id/textView12"
                         app:layout_constraintTop_toBottomOf="@+id/tvPerdeuSenha" />
@@ -174,7 +174,7 @@
                     <Button
                         android:id="@+id/layInicial_btnSignWithFace"
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/login_rounded_bg_transparent_btn"
                         android:drawableLeft="@drawable/f"
@@ -204,7 +204,7 @@
                     <Button
                         android:id="@+id/btnLoginDepois"
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:background="@drawable/login_rounded_bg_transparent_btn"
                         android:paddingStart="14dp"
@@ -218,16 +218,23 @@
                         app:layout_constraintStart_toStartOf="@+id/layInicial_btnLoginGoogle"
                         app:layout_constraintTop_toBottomOf="@+id/layInicial_btnSignWithEmail" />
 
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="163dp" />
+
                     <EditText
                         android:id="@+id/fieldPassword"
                         android:layout_width="0dp"
                         android:layout_height="40dp"
                         android:layout_marginTop="16dp"
                         android:layout_weight="1"
-                        android:paddingStart="10dp"
                         android:background="@drawable/rounded_edittext"
                         android:hint="@string/main_layInicial_etsenha"
                         android:inputType="textPassword"
+                        android:paddingStart="10dp"
                         app:layout_constraintEnd_toEndOf="@+id/fieldEmail"
                         app:layout_constraintStart_toStartOf="@+id/fieldEmail"
                         app:layout_constraintTop_toBottomOf="@+id/fieldEmail" />
@@ -238,10 +245,10 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="16dp"
                         android:layout_weight="1"
-                        android:paddingStart="10dp"
                         android:background="@drawable/rounded_edittext"
                         android:hint="@string/main_layInicial_etmail"
                         android:inputType="textEmailAddress"
+                        android:paddingStart="10dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/textView5"
@@ -254,19 +261,21 @@
                         android:text="@string/main_layInicial_txt_cadestrese"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/btnLoginDepois"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+                        app:layout_constraintStart_toStartOf="@+id/guideline8"
                         app:layout_constraintTop_toBottomOf="@+id/btnLoginDepois" />
 
                     <TextView
                         android:id="@+id/textView15"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
                         android:text="@string/main_layInicial_txt_cadestrese2"
                         android:textColor="@color/white"
-                        android:textStyle="bold"
 
+                        android:textStyle="bold"
                         app:layout_constraintBottom_toBottomOf="@+id/layInicial_tvNovoUsuario"
-                        app:layout_constraintEnd_toEndOf="@+id/btnLoginDepois"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/layInicial_tvNovoUsuario"
                         app:layout_constraintTop_toTopOf="@+id/layInicial_tvNovoUsuario" />
 
@@ -288,7 +297,7 @@
                     android:id="@+id/layLoginWithEmail_newUser"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:background="#CABBBB"
+                    android:background="@drawable/login_background"
                     android:elevation="2dp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -302,7 +311,7 @@
                         android:id="@+id/textView7"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Bem vindo"
+                        android:text="Vamos cadastrar?"
                         android:textAlignment="center"
                         android:textColor="#ffffff"
                         android:textSize="25sp"
@@ -320,8 +329,10 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:layout_weight="1"
+                        android:background="@drawable/rounded_edittext"
                         android:hint="  E-mail"
                         android:inputType="textEmailAddress"
+                        android:paddingStart="14dp"
                         app:layout_constraintBottom_toTopOf="@+id/fieldPassword_newUser"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -341,8 +352,10 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="16dp"
                         android:layout_weight="1"
+                        android:background="@drawable/rounded_edittext"
                         android:hint="  Senha de 6 dígitos"
                         android:inputType="textPassword"
+                        android:paddingStart="14dp"
                         app:layout_constraintEnd_toEndOf="@+id/fieldEmail_newUser"
                         app:layout_constraintStart_toStartOf="@+id/fieldEmail_newUser"
                         app:layout_constraintTop_toBottomOf="@+id/fieldEmail_newUser" />
@@ -350,25 +363,25 @@
                     <Button
                         android:id="@+id/emailCreateAccountButton"
                         android:layout_width="0dp"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="50dp"
                         android:layout_marginEnd="16dp"
+                        android:background="@drawable/rounded_btn_yellow"
                         android:elevation="15dp"
                         android:text="Criar conta"
                         android:textColor="#000000"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/fieldPasswordConfirmation_newUser"
-                        app:layout_constraintWidth_percent="0.40" />
+                        app:layout_constraintTop_toBottomOf="@+id/fieldPasswordConfirmation_newUser" />
 
                     <Button
                         android:id="@+id/createWithEmail_btnCancel"
                         android:layout_width="75dp"
                         android:layout_height="65dp"
                         android:layout_marginTop="32dp"
-                        android:text="Cancelar"
                         android:elevation="15dp"
+                        android:text="Cancelar"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/emailCreateAccountButton"
@@ -380,8 +393,10 @@
                         android:layout_height="40dp"
                         android:layout_marginTop="16dp"
                         android:layout_weight="1"
+                        android:background="@drawable/rounded_edittext"
                         android:hint="  Confirme a senha"
                         android:inputType="textPassword"
+                        android:paddingStart="14dp"
                         app:layout_constraintEnd_toEndOf="@+id/fieldPassword_newUser"
                         app:layout_constraintStart_toStartOf="@+id/fieldPassword_newUser"
                         app:layout_constraintTop_toBottomOf="@+id/fieldPassword_newUser" />
@@ -393,6 +408,7 @@
                     android:id="@+id/layLoginWithMail_VerificationMail"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:background="@color/blue_light"
                     android:elevation="2dp"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -407,6 +423,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         android:text="Verificação do e-mail"
+                        android:textColor="@color/white"
                         android:textSize="22sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -417,22 +434,11 @@
                         android:layout_width="65dp"
                         android:layout_height="60dp"
                         android:layout_marginTop="50dp"
+                        android:background="@drawable/ic_arrow_back_white_24"
                         android:elevation="15dp"
-                        android:text="Voltar"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/verifyEmailButton" />
-
-                    <Button
-                        android:id="@+id/verification_btnHelp"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:text=" ? "
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView58"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/textView58"
-                        app:layout_constraintTop_toTopOf="@+id/textView58" />
 
                     <TextView
                         android:id="@+id/layLoginWithMail_VerificationMailtv1"
@@ -441,7 +447,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         android:layout_marginEnd="16dp"
-                        android:text="Acabamos de enviar um e-mail de confirmação. Clique no link para autenticar"
+                        android:text="Acabamos de enviar um e-mail de confirmação. Clique no link para autenticar e confirme no botão abaixo"
                         android:textSize="18sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -449,18 +455,17 @@
 
                     <Button
                         android:id="@+id/verifyEmailButtonCheck"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
                         android:layout_marginTop="45dp"
-                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/rounded_btn_yellow"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="Já verifiquei"
                         android:textAllCaps="false"
                         android:textColor="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/verifyEmailButton"
+                        app:layout_constraintStart_toStartOf="@+id/verifyEmailButton"
                         app:layout_constraintTop_toBottomOf="@+id/layLoginWithMail_VerificationMailtv1" />
 
                     <Button
@@ -472,11 +477,12 @@
                         android:layout_marginTop="50dp"
                         android:layout_marginEnd="16dp"
                         android:layout_weight="1.0"
+                        android:background="@drawable/xml_rounded_button_branco"
                         android:paddingStart="16dp"
                         android:paddingEnd="16dp"
                         android:text="Reenviar e-mail"
                         android:textAllCaps="false"
-                        android:textColor="#ffffff"
+                        android:textColor="@color/blue_light"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/verifyEmailButtonCheck" />

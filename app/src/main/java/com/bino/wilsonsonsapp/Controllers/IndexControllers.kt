@@ -3,6 +3,7 @@ package com.bino.wilsonsonsapp.Controllers
 import android.app.Activity
 import android.content.Context
 import android.graphics.Point
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
@@ -58,5 +59,7 @@ object IndexControllers {
             return false
         }
     }
+
+    //pera pegar o codigo do int use: val codigo = R.drawable.nomearquivo
 
 }
