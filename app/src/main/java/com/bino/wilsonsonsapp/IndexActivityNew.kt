@@ -701,7 +701,7 @@ class IndexActivityNew : AppCompatActivity() {
         recyclerView.addOnItemTouchListener(RecyclerTouchListener(this, recyclerView!!, object: ClickListener{
 
             override fun onClick(view: View, position: Int) {
-                Log.d("teste", IndexModels.arrayCursos.get(position))
+
             }
 
             override fun onLongClick(view: View?, position: Int) {

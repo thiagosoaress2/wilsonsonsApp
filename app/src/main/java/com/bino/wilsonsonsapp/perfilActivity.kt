@@ -121,8 +121,6 @@ class perfilActivity : AppCompatActivity() {
         //aqui atualiza a pagina anterior
 
         val imageView: ImageView = findViewById(R.id.perfil_iv)
-        println("perfilController.objectsUser.photo" + perfilController.objectsUser.photo)
-        Log.d("teste", "valor de foto é "+perfilController.objectsUser.photo)
         Glide.with(this).load(perfilController.objectsUser.photo).into(imageView)
 
 
@@ -751,15 +749,12 @@ class perfilActivity : AppCompatActivity() {
         }.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val downloadUri = task.result
-                Log.d("teste", "funcionou "+downloadUri)
                 urifinal = downloadUri.toString()
                 perfilController.savePhoto(urifinal)
                 databaseReference.child("usuarios").child(IndexModels.userBd).child("img").setValue(urifinal)
                 EncerraDialog()
 
             } else {
-                // Handle failures
-                Log.d("teste", "erro outravez")
                 EncerraDialog()
                 // ...
             }
@@ -770,61 +765,6 @@ class perfilActivity : AppCompatActivity() {
 
     }
 
-    /*
-    fun uploadImage(){
-
-        mFireBaseStorage = FirebaseStorage.getInstance()
-        mphotoStorageReference = mFireBaseStorage.reference
-
-        //mphotoStorageReference =mFireBaseStorage.getReference().child(ControllersUniversais.getDate()+ControllersUniversais.rand(0, 1000))
-        //mphotoStorageReference =mFireBaseStorage.getReference().child(ControllersUniversais.getDate().toString()).child(ControllersUniversais.rand(1, 1000).toString())
-        val teste = ControllersUniversais.getHour()
-        mphotoStorageReference = mFireBaseStorage.reference.child("usuarios").child(teste)
-
-        val bmp: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath)
-        val baos: ByteArrayOutputStream = ByteArrayOutputStream()
-        bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos)
-
-        //get the uri from the bitmap
-        val tempUri: Uri = getImageUri(this, bmp)
-        //transform the new compressed bmp in filepath uri
-        filePath = tempUri
-
-        //var file = Uri.fromFile(bitmap)
-        var uploadTask = mphotoStorageReference.putFile(filePath)
-
-        val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
-                    EncerraDialog()
-
-                }
-            }
-            return@Continuation mphotoStorageReference.downloadUrl
-        }).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val downloadUri = task.result
-                urifinal = downloadUri.toString()
-                //se quiser salvar, é o urifinal que é o link
-                //pra salvar no bd e carregar com glide.
-                databaseReference.child("usuarios").child(IndexModels.userBd).child("img").setValue(urifinal)
-                EncerraDialog()
-
-
-            } else {
-                val teste = task.exception
-                Log.d("teste", "deu erro na foto"+ teste)
-                EncerraDialog()
-                // ...
-            }
-
-        }
-
-
-
-         }
-     */
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 
