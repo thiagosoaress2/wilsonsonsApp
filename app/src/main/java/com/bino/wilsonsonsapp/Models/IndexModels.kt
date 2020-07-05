@@ -251,7 +251,7 @@ object IndexModels {
 
         if (objectQuestionsListRespondida.size < IndexModels.MAX_FASE_NUMBER && objectQuestionsListRespondida.size!=0) {
 
-            objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(objectQuestionsListRespondida.get(objectQuestionsListRespondida.size).id)
+            objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(objectQuestionsListRespondida.get(objectQuestionsListRespondida.size-1).id)
 
         }else{
             objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(0)
