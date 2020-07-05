@@ -52,7 +52,7 @@ object IndexModels {
     lateinit var objectQuestionsList: List<ObjectQuestions>
     lateinit var objectQuestions: ObjectQuestions
 
-    lateinit var btnPlayTheLevel: ImageView
+    lateinit var btnPlayTheLevel: ImageView //vai ser invisivel. Será o mesmo formato da fase comum
 
     var pontos: Int = 0
 
@@ -151,8 +151,8 @@ object IndexModels {
 
     private fun placePlayButtonInSpot (button: ImageView){
 
-        button.x = IndexModels.arrayPosicoesX.get(IndexModels.posicaoUser).toFloat()+50
-        button.y = IndexModels.arrayPosicoesY.get(IndexModels.posicaoUser).toFloat()+50
+        button.x = IndexModels.arrayPosicoesX.get(IndexModels.posicaoUser).toFloat()
+        button.y = IndexModels.arrayPosicoesY.get(IndexModels.posicaoUser).toFloat()
 
     }
 

@@ -644,7 +644,7 @@ class AdminActivityNew : AppCompatActivity() {
 
         val dataSet = PieDataSet(NoOfEmp, "")
 
-        pieChart.getDescription().setEnabled(false);
+        pieChart.getDescription().setEnabled(false)
         dataSet.setDrawIcons(false)
         dataSet.sliceSpace = 3f
         dataSet.iconsOffset = MPPointF(0F, 40F)

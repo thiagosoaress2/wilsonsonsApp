@@ -64,6 +64,8 @@ class IndexActivityNew : AppCompatActivity() {
         //setContentView(R.layout.activity_index_new)
         setContentView(R.layout.activity_menu)
 
+        objectQuestions = ObjectQuestions()
+
         auth = FirebaseAuth.getInstance()
 
         if (!IndexModels.checkCadInfo()){
@@ -269,15 +271,19 @@ class IndexActivityNew : AppCompatActivity() {
     private fun placePlayButtonInitialy (layout: ConstraintLayout){
 
         IndexModels.btnPlayTheLevel = ImageView(this)
-        IndexModels.btnPlayTheLevel.layoutParams = LinearLayout.LayoutParams(45,45)
-        IndexModels.btnPlayTheLevel.x = IndexModels.arrayPosicoesX.get(IndexModels.posicaoUser).toFloat()+50
-        IndexModels.btnPlayTheLevel.y = IndexModels.arrayPosicoesY.get(IndexModels.posicaoUser).toFloat()+50
+        IndexModels.btnPlayTheLevel.layoutParams = LinearLayout.LayoutParams(80,80)
+        IndexModels.btnPlayTheLevel.x = IndexModels.arrayPosicoesX.get(IndexModels.posicaoUser).toFloat()
+        IndexModels.btnPlayTheLevel.y = IndexModels.arrayPosicoesY.get(IndexModels.posicaoUser).toFloat()
         IndexModels.btnPlayTheLevel.elevation = 45f
         layout?.addView(IndexModels.btnPlayTheLevel) //adding image to the layout
-        Glide.with(this).load(R.drawable.ic_baseline_play_circle_filled_24).into(IndexModels.btnPlayTheLevel)
+        Glide.with(this).load(R.drawable.pontovermelho).into(IndexModels.btnPlayTheLevel)
 
         IndexModels.btnPlayTheLevel.setOnClickListener {
             openIntroQuest(objectQuestions)
+        }
+
+        userAvatar.setOnClickListener {
+            IndexModels.btnPlayTheLevel.performClick()
         }
 
     }
