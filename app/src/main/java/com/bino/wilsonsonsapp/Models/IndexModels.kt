@@ -2,6 +2,7 @@ package com.bino.wilsonsonsapp.Models
 
 import android.app.Activity
 import android.content.Context
+import android.media.MediaPlayer
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -51,6 +52,8 @@ object IndexModels {
 
     lateinit var objectQuestionsListRespondida: List<ObjectQuestions>
     lateinit var objectQuestions: ObjectQuestions
+
+    lateinit var Sound: MediaPlayer;
 
     lateinit var btnPlayTheLevel: ImageView //vai ser invisivel. Será o mesmo formato da fase comum
 
@@ -184,6 +187,12 @@ object IndexModels {
 
     }
 
+    fun stopSoundIntro(){
+        if (Sound.isPlaying()) {
+            Sound.stop();
+        }
+    }
+
     fun openIntroQuest(layIntroQuest: ConstraintLayout, recyclerView: RecyclerView, activity: Activity, objectQuestions: ObjectQuestions){
 
         //layInicial.visibility = View.GONE
@@ -192,10 +201,11 @@ object IndexModels {
         var objectIntro: List<ObjectIntro> = ConsultsQuestionsModel.selectIntro(objectQuestions.id_intro)
 
         when(objectQuestions.id_intro) {
-            1 -> startSound(activity, R.raw.intro1)
-            2 -> startSound(activity, R.raw.intro2)
-            else -> startSound(activity, R.raw.intro1)
+            1 -> Sound = MediaPlayer.create(activity, R.raw.intro1)
+            2 -> Sound = MediaPlayer.create(activity, R.raw.intro2)
+            else -> Sound = MediaPlayer.create(activity, R.raw.intro1)
         }
+        Sound.start()
 
      /*   val arrayTitulo: MutableList<String> = ArrayList()
         arrayTitulo.add("Olaaaa")
