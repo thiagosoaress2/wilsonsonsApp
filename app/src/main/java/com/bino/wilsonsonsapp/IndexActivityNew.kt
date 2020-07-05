@@ -467,10 +467,6 @@ var objectUser: ObjectUser =  ObjectUser()
             val altura = 160 // isto vai vir do bd
             val largura = 160 //vai vir do bd
 
-            val btntesteclick :Button = findViewById(R.id.btntesteclicks)
-
-            btntesteclick.x = 75f
-            btntesteclick.y = 925f
 
             val layProblema: ConstraintLayout = findViewById(R.id.lay_problema)
 
@@ -481,7 +477,7 @@ var objectUser: ObjectUser =  ObjectUser()
             imageView.y = objectQuestions.item1Y.toFloat() //setting margin from top
 
             layProblema.addView(imageView) //adding image to the layout
-            Glide.with(this).load(R.drawable.navio).into(imageView)
+           // Glide.with(this).load(R.drawable.navio).into(imageView)
             //a imagem pode vir dentro de opção A
 
             imageView.setOnClickListener {
