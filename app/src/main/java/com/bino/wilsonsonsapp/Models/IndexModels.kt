@@ -141,12 +141,13 @@ object IndexModels {
     }
 
 
-    fun moveThePlayer(playerAvatar: ImageView) {
-        posicaoUser++
+    fun moveThePlayer(playerAvatar: ImageView, position: Int) {
+
+        Log.d("teste", "posicaoUser é "+ posicaoUser)
         if (posicaoUser < arrayPosicoesX.size) {
-            playerAvatar.animate().translationX(arrayPosicoesX.get(posicaoUser).toFloat())
+            playerAvatar.animate().translationX(arrayPosicoesX.get(position).toFloat())
                 .translationY(
-                    arrayPosicoesY.get(posicaoUser).toFloat()
+                    arrayPosicoesY.get(position).toFloat()
                 )
             placePlayButtonInSpot(btnPlayTheLevel)
         } else {
@@ -164,12 +165,10 @@ object IndexModels {
 
     fun setTheResultInMap(activity: Activity, layout: ConstraintLayout, acertou: Boolean) {
 
+        posicaoUser++
         val imageView = ImageView(activity)
         // setting height and width of imageview
-        imageView.layoutParams = LinearLayout.LayoutParams(60, 60)
-        if (posicaoUser == 0) {
-            posicaoUser = 1
-        }
+        imageView.layoutParams = LinearLayout.LayoutParams(100, 100)
         imageView.x = arrayPosicoesX.get(posicaoUser - 1).toFloat() //setting margin from left
         imageView.y = arrayPosicoesY.get(posicaoUser - 1).toFloat() //setting margin from top
         layout?.addView(imageView) //adding image to the layout
@@ -177,7 +176,7 @@ object IndexModels {
         val textView = TextView(activity)
         textView.layoutParams = LinearLayout.LayoutParams(80, 40)
         textView.x = arrayPosicoesX.get(posicaoUser - 1).toFloat()
-        textView.y = arrayPosicoesY.get(posicaoUser - 1).toFloat() - 25
+        textView.y = arrayPosicoesY.get(posicaoUser - 1).toFloat() - 150
         layout?.addView(textView)
 
         if (acertou) {
@@ -287,7 +286,7 @@ object IndexModels {
 
         //coloca ele na fase
         if (IndexModels.posicaoUser != 0) {
-            IndexModels.moveThePlayer(userAvatar)
+            IndexModels.moveThePlayer(userAvatar, posicaoUser)
         }
     }
 
