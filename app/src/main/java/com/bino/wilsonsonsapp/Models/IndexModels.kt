@@ -66,9 +66,9 @@ object IndexModels {
 
         placeMapOnScreen(activity, R.drawable.gamebackground1, backgroundPlaceHolder)
 
-        val screenHeight = IndexControllers.calculateTheScreenSizeH(activity, backgroundPlaceHolder)
+        val screenHeight = IndexControllers.calculateTheScreenSizeH(activity)
         var screenWidth =
-            IndexControllers.calculateTheScreenSizeW(activity, backgroundPlaceHolder) - 100
+            IndexControllers.calculateTheScreenSizeW(activity) - 100
 
         val intervalX =
             screenWidth / (fases / 2)  //pega a quantidade de fases e divide por 2. Digamos, se for 6 fases, vai dividir por 3. Assim teremos uma variação pequena
