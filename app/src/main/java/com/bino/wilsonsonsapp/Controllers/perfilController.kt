@@ -87,7 +87,7 @@ object perfilController {
 
     fun getfunction(value: Int): String {
 
-        return ConsultsOccupationModel.selectOccupationPerId(value).toString()
+        return ConsultsOccupationModel.selectOccupationPerId(value).name
 
     }
 
