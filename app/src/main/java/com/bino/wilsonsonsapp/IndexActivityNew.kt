@@ -281,13 +281,24 @@ class IndexActivityNew : AppCompatActivity() {
         Glide.with(this).load(R.drawable.pontovermelho).into(IndexModels.btnPlayTheLevel)
 
         IndexModels.btnPlayTheLevel.setOnClickListener {
+
+            val objectQuestionsList: List<ObjectQuestions>
+            val objectQuestions: ObjectQuestions
+            objectQuestionsList = ConsultsQuestionsModel.selectQuestionsRespondidas()
+
+            if(objectQuestionsList.size > 0) {
+                objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(
+                    objectQuestionsList.get(objectQuestionsList.size).id
+                )
+            }else{
+                objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(0)
+            }
             openIntroQuest(objectQuestions)
         }
 
         userAvatar.setOnClickListener {
             IndexModels.btnPlayTheLevel.performClick()
         }
-
     }
 
 

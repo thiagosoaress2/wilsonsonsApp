@@ -65,9 +65,9 @@ public class SetupDatabase extends SQLiteOpenHelper {
             " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, movie, moviesugest, totalpontos, respondida)" +
             "VALUES ( 0, 1, 2, 1, 'a', 2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 700, 700, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
-    private static final String SQL_INSERT_INTO_1_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'drescription intro 1', 2131165353, 0);";
-    private static final String SQL_INSERT_INTO_1_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'drescription intro 1', 2131165354, 1);";
-    private static final String SQL_INSERT_INTO_1_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'drescription intro 1', 2131165355, 2);";
+    private static final String SQL_INSERT_INTO_1_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'Um navio cargueiro está sendo rebocado e você está no rebocador.', 2131165355, 0);";
+    private static final String SQL_INSERT_INTO_1_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'A corrente está oscilando, fazendo a corda do rebocador tensionar em alguns momentos.', 2131165356, 1);";
+    private static final String SQL_INSERT_INTO_1_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'Se a corda ficar tensionada por muito tempo, o barco rebocador pode a qualquer hora emborcar.', 2131165357, 2);";
 
 
     private static final String SQL_INSERT_INTO_QUESTIONS2 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +

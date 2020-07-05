@@ -51,7 +51,7 @@ object IndexModels {
 
     val MAX_FASE_NUMBER = 4
 
-    lateinit var objectQuestionsList: List<ObjectQuestions>
+    lateinit var objectQuestionsListRespondida: List<ObjectQuestions>
     lateinit var objectQuestions: ObjectQuestions
 
     lateinit var btnPlayTheLevel: ImageView //vai ser invisivel. Será o mesmo formato da fase comum
@@ -251,24 +251,25 @@ object IndexModels {
     }
 
     fun checkUserCheckpoint(userAvatar: ImageView){
-        objectQuestionsList = ConsultsQuestionsModel.selectQuestionsRespondidas()
+        objectQuestionsListRespondida = ConsultsQuestionsModel.selectQuestionsRespondidas()
         objectQuestions= ObjectQuestions()
         
-        Log.d("teste", "o tamanho de objsectlist é "+ objectQuestionsList.size)
+        Log.d("teste", "o tamanho de objsectlistRespondidas é "+ objectQuestionsListRespondida.size)
 
-        if (objectQuestionsList.size < IndexModels.MAX_FASE_NUMBER && objectQuestionsList.size!=0) {
+        if (objectQuestionsListRespondida.size < IndexModels.MAX_FASE_NUMBER && objectQuestionsListRespondida.size!=0) {
 
+            objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(objectQuestionsListRespondida.get(objectQuestionsListRespondida.size).id)
 
-            objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(objectQuestionsList.get(objectQuestionsList.size).id)
+        }else{
+            objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(0)
+        }
 
-            //verifica a ultima fase do user
-            IndexModels.posicaoUser = objectQuestions.id
+        //verifica a ultima fase do user
+        IndexModels.posicaoUser = objectQuestions.id
 
-            //coloca ele na fase
-            if (IndexModels.posicaoUser != 0) {
-                IndexModels.moveThePlayer(userAvatar)
-            }
-
+        //coloca ele na fase
+        if (IndexModels.posicaoUser != 0) {
+            IndexModels.moveThePlayer(userAvatar)
         }
     }
 
