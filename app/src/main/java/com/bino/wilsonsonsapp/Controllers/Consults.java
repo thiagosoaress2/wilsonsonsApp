@@ -188,6 +188,7 @@ public class Consults {
                 int Colun_item5Y = cursor.getColumnIndex("item5Y");
                 int Colun_largura = cursor.getColumnIndex("largura");
                 int Colun_altura = cursor.getColumnIndex("altura");
+                int Colun_msgfinal = cursor.getColumnIndex("msgfinal");
                 int Colun_movie = cursor.getColumnIndex("movie");
                 int Colun_movie_sugest = cursor.getColumnIndex("moviesugest");
                 int Colun_pontos = cursor.getColumnIndex("pontos");
@@ -221,6 +222,7 @@ public class Consults {
                         objectQuestions.setItem5Y(cursor.getString(Colun_item5Y));
                         objectQuestions.setLargura(cursor.getString(Colun_largura));
                         objectQuestions.setAltura(cursor.getString(Colun_altura));
+                        objectQuestions.setMsgFinal(cursor.getString(Colun_msgfinal));
                         objectQuestions.setMovie(cursor.getString(Colun_movie));
                         objectQuestions.setMoviesSugest(cursor.getString(Colun_movie_sugest));
                         objectQuestions.setPontos(cursor.getInt(Colun_pontos));
