@@ -14,6 +14,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.transition.Slide
 import android.transition.TransitionManager
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -209,38 +210,12 @@ class perfilActivity : AppCompatActivity() {
 
         var list_of_items2 = arrayOf(
             "Selecione Função",
-            "RJ",
-            "SP",
-            "AC",
-            "AL",
-            "AP",
-            "AM",
-            "BA",
-            "CE",
-            "DF",
-            "ES",
-            "GO",
-            "MA",
-            "MT",
-            "MS",
-            "MG",
-            "PA",
-            "PB",
-            "PR",
-            "PE",
-            "PI",
-            "RJ",
-            "RN",
-            "RS",
-            "RO",
-            "RR",
-            "SC",
-            "SP",
-            "SE",
-            "TO")
+            "Chefe de máquinas",
+                "Marinheiro",
+            "Cozinheiro")
         var funcaoSelecionada = 0
         val spinner: Spinner = findViewById(R.id.cad_spinnerFuncao)
-        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_of_items)
+        spinner.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_of_items2)
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(p0: AdapterView<*>?) {
 
@@ -728,9 +703,7 @@ class perfilActivity : AppCompatActivity() {
 
 
             } else {
-                // Handle failures
-                Toast.makeText(this, "um erro ocorreu.", Toast.LENGTH_SHORT).show()
-
+                EncerraDialog()
                 // ...
             }
         }
@@ -772,16 +745,6 @@ class perfilActivity : AppCompatActivity() {
         spinner.visibility = View.GONE
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE) //libera os clicks
     }
-
-    // [START storage_custom_failure_listener]
-    internal inner class MyFailureListener : OnFailureListener {
-        override fun onFailure(exception: Exception) {
-            val errorCode = (exception as StorageException).errorCode
-            val errorMessage = exception.message
-            // test the errorCode and errorMessage, and handle accordingly
-        }
-    }
-    // [END storage_custom_failure_listener]
 
 
 }

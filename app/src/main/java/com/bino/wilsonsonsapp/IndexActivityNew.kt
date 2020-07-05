@@ -59,7 +59,7 @@ class IndexActivityNew : AppCompatActivity() {
     lateinit var objectUser: ObjectUser
 
     lateinit var objectQuestions: ObjectQuestions
-    lateinit var Sound: MediaPlayer;
+    lateinit var Sound: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -160,10 +160,13 @@ class IndexActivityNew : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+        /*
         if (Sound.isPlaying()) {
             Sound.stop();
         }
         stopSoundIntro()
+
+         */
     }
 
     fun loadComponents(){
