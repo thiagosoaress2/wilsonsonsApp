@@ -2,6 +2,7 @@ package com.bino.wilsonsonsapp.Models
 
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.util.Log
 import android.view.GestureDetector
@@ -168,7 +169,7 @@ object IndexModels {
         posicaoUser++
         val imageView = ImageView(activity)
         // setting height and width of imageview
-        imageView.layoutParams = LinearLayout.LayoutParams(100, 100)
+        imageView.layoutParams = LinearLayout.LayoutParams(120, 120)
         imageView.x = arrayPosicoesX.get(posicaoUser - 1).toFloat() //setting margin from left
         imageView.y = arrayPosicoesY.get(posicaoUser - 1).toFloat() //setting margin from top
         layout?.addView(imageView) //adding image to the layout
@@ -176,7 +177,8 @@ object IndexModels {
         val textView = TextView(activity)
         textView.layoutParams = LinearLayout.LayoutParams(80, 40)
         textView.x = arrayPosicoesX.get(posicaoUser - 1).toFloat()
-        textView.y = arrayPosicoesY.get(posicaoUser - 1).toFloat() - 150
+        textView.setTextColor(Color.YELLOW)
+        textView.y = arrayPosicoesY.get(posicaoUser - 1).toFloat() - 100
         layout?.addView(textView)
 
         if (acertou) {

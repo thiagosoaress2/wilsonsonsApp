@@ -172,11 +172,12 @@ class IndexActivityNew : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
 
+        /*
         if (Sound.isPlaying()) {
             Sound.stop();
         }
         stopSoundIntro()
-
+         */
     }
 
     fun loadComponents(){
