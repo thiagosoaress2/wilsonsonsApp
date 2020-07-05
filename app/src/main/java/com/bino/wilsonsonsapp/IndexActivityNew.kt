@@ -83,11 +83,17 @@ class IndexActivityNew : AppCompatActivity() {
         Log.d("teste", "o valor de intro1img2 "+bmp)
         bmp = R.drawable.intro1img3
         Log.d("teste", "o valor de intro1img3 "+bmp)
+        bmp = R.drawable.intro2img1
+        Log.d("teste", "o valor de intro2img1 "+bmp)
+        bmp = R.drawable.intro2img2
+        Log.d("teste", "o valor de intro2img2 "+bmp)
 
         //codigos
-        //intro1img1 2131165353
-        //intro1img2 2131165354
-        //intro1img3 2131165355
+        //intro1img1 2131165356
+        //intro1img2 2131165357
+        //intro1img3 2131165358
+        //intro2img1 2131165359
+        //intro2img2 2131165360
 
 
     }
@@ -344,9 +350,9 @@ class IndexActivityNew : AppCompatActivity() {
         // layInicial.visibility = View.GONE
         lay_problema.visibility = View.VISIBLE
 
-        when(objectQuestions.id_intro) {
-            1 -> Sound = MediaPlayer.create(this, R.raw.question1)
-            2 -> Sound = MediaPlayer.create(this, R.raw.question1)
+        when(objectQuestions.id) {
+            0 -> Sound = MediaPlayer.create(this, R.raw.question1)
+            1 -> Sound = MediaPlayer.create(this, R.raw.question2)
             else -> Sound = MediaPlayer.create(this, R.raw.question1)
         }
         Sound.start()
