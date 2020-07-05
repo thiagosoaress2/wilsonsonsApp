@@ -66,13 +66,10 @@ class perfilActivity : AppCompatActivity() {
         setContentView(R.layout.activity_perfil)
 
         perfilController.loadData()
-
     }
 
     override fun onStart() {
         super.onStart()
-
-        //objectsUser = ObjectUser()
 
         //pede priemiro a camera e depois vai pedindo um por um
         CameraPermissions.checkPermission(this, CAMERA_PERMISSION_CODE)
@@ -125,8 +122,6 @@ class perfilActivity : AppCompatActivity() {
         Log.d("teste", "valor de foto é "+perfilController.objectsUser.photo)
         Glide.with(this).load(perfilController.objectsUser.photo).into(imageView)
 
-
-
         if (perfilController.objectsUser.name != null){
             etNome.setText(perfilController.objectsUser.name)
 
@@ -159,10 +154,7 @@ class perfilActivity : AppCompatActivity() {
         } else {
             etContato.visibility = View.INVISIBLE
         }
-
-
     }
-
 
     fun openEditLay(){
 
@@ -348,7 +340,6 @@ class perfilActivity : AppCompatActivity() {
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int)
             {
-                //changed=false
                 editText.setSelection(p0.toString().length)
             }
 
@@ -389,16 +380,11 @@ class perfilActivity : AppCompatActivity() {
                         str = str.substring(0, str.length - 1)
                         editText.setText(str)
                         editText.setSelection(str.length)
-
                     }
-
-
                 }
-
             }
         })
     }
-
 
     fun takePictureFromCamera() {
         val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
@@ -413,7 +399,6 @@ class perfilActivity : AppCompatActivity() {
         intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true)
         startActivityForResult(Intent.createChooser(intent, "Selecione a foto"), 101)
     }
-
 
     fun openPopUp (titulo: String, texto:String, exibeBtnOpcoes:Boolean, btnSim: String, btnNao: String) {
         //exibeBtnOpcoes - se for não, vai exibir apenas o botão com OK, sem opção. Senão, exibe dois botões e pega os textos deles de btnSim e btnNao
@@ -449,9 +434,7 @@ class perfilActivity : AppCompatActivity() {
             val slideOut = Slide()
             slideOut.slideEdge = Gravity.RIGHT
             popupWindow.exitTransition = slideOut
-
         }
-
 
         // Get the widgets reference from custom view
         val buttonPopupN = view.findViewById<Button>(R.id.popupBtnNao)
@@ -492,12 +475,10 @@ class perfilActivity : AppCompatActivity() {
             buttonPopupN.visibility = View.GONE
             buttonPopupS.visibility = View.GONE
 
-
             buttonPopupOk.setOnClickListener{
                 // Dismiss the popup window
                 popupWindow.dismiss()
             }
-
         }
 
         txtTitulo.text = titulo
@@ -520,7 +501,6 @@ class perfilActivity : AppCompatActivity() {
             0, // X offset
             0 // Y offset
         )
-
     }
 
     //retorno da imagem
@@ -534,7 +514,6 @@ class perfilActivity : AppCompatActivity() {
 
                 val photo: Bitmap = data?.extras?.get("data") as Bitmap
                 compressImage(photo)
-
             }
 
         } else {
@@ -546,8 +525,6 @@ class perfilActivity : AppCompatActivity() {
                 filePath = data.getData()!!
                 var bitmap: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 compressImage(bitmap)
-
-
             }
         }
     }
@@ -653,7 +630,6 @@ class perfilActivity : AppCompatActivity() {
 
         val newBitmap = Bitmap.createScaledBitmap(image, adaptedWidh, adaptedHeight, false)
         return newBitmap
-
     }
 
     // Method to save an bitmap to a file
@@ -687,10 +663,6 @@ class perfilActivity : AppCompatActivity() {
         return Uri.parse(path)
     }
 
-
-    //envio da foto
-    //existe uma opção especial aqui para o caso de ser alvará
-
     fun uploadImage(){
 
         mFireBaseStorage = FirebaseStorage.getInstance()
@@ -715,32 +687,6 @@ class perfilActivity : AppCompatActivity() {
         val ref = storageRef
         uploadTask = ref.putFile(filePath)
 
-        /*
-        var progress : Double
-        val progressbar = ProgressBar(this,
-            android.R.attr.progressBarStyleHorizontal)
-        progressbar.layoutParams = LinearLayout.LayoutParams(IndexControllers.calculateTheScreenSizeW(this)-100, 100)
-        progressbar.x = 0f //setting margin from left
-        progressbar.y = 600f //setting margin from top
-        val layEditInfo: ConstraintLayout = findViewById(R.id.layEditInfo)
-        layEditInfo.addView(progressbar)
-
-        // Listen for state changes, errors, and completion of the upload.
-        uploadTask.addOnProgressListener { taskSnapshot ->
-            progress = (100.0 * taskSnapshot.bytesTransferred) / taskSnapshot.totalByteCount
-            progressbar.progress= progress.toInt()
-        }.addOnPausedListener {
-
-        }.addOnFailureListener {
-            // Handle unsuccessful uploads
-        }.addOnSuccessListener {
-            // Handle successful uploads on complete
-            progressbar.visibility = View.GONE
-            // ...
-        }
-
-         */
-
         val urlTask = uploadTask.continueWithTask { task ->
             if (!task.isSuccessful) {
                 task.exception?.let {
@@ -764,67 +710,7 @@ class perfilActivity : AppCompatActivity() {
                 // ...
             }
         }
-
-
-
-
     }
-
-    /*
-    fun uploadImage(){
-
-        mFireBaseStorage = FirebaseStorage.getInstance()
-        mphotoStorageReference = mFireBaseStorage.reference
-
-        //mphotoStorageReference =mFireBaseStorage.getReference().child(ControllersUniversais.getDate()+ControllersUniversais.rand(0, 1000))
-        //mphotoStorageReference =mFireBaseStorage.getReference().child(ControllersUniversais.getDate().toString()).child(ControllersUniversais.rand(1, 1000).toString())
-        val teste = ControllersUniversais.getHour()
-        mphotoStorageReference = mFireBaseStorage.reference.child("usuarios").child(teste)
-
-        val bmp: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath)
-        val baos: ByteArrayOutputStream = ByteArrayOutputStream()
-        bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos)
-
-        //get the uri from the bitmap
-        val tempUri: Uri = getImageUri(this, bmp)
-        //transform the new compressed bmp in filepath uri
-        filePath = tempUri
-
-        //var file = Uri.fromFile(bitmap)
-        var uploadTask = mphotoStorageReference.putFile(filePath)
-
-        val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
-                    EncerraDialog()
-
-                }
-            }
-            return@Continuation mphotoStorageReference.downloadUrl
-        }).addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val downloadUri = task.result
-                urifinal = downloadUri.toString()
-                //se quiser salvar, é o urifinal que é o link
-                //pra salvar no bd e carregar com glide.
-                databaseReference.child("usuarios").child(IndexModels.userBd).child("img").setValue(urifinal)
-                EncerraDialog()
-
-
-            } else {
-                val teste = task.exception
-                Log.d("teste", "deu erro na foto"+ teste)
-                EncerraDialog()
-                // ...
-            }
-
-        }
-
-
-
-         }
-     */
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 
@@ -861,6 +747,4 @@ class perfilActivity : AppCompatActivity() {
         spinner.visibility = View.GONE
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE) //libera os clicks
     }
-
-
 }
