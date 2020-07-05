@@ -40,10 +40,6 @@ class MainActivity : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
     lateinit var databaseReference: DatabaseReference
 
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -53,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         loadComponents()
 
         metodosIniciais()
-
     }
 
     fun loadComponents() {
@@ -61,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         telainicial = findViewById<ConstraintLayout>(R.id.layInicial)
         telaDeVerificacao = findViewById<ConstraintLayout>(R.id.layLoginWithMail_VerificationMail)
         telaLoginMailNew = findViewById<ConstraintLayout>(R.id.layLoginWithEmail_newUser)
-
     }
 
     fun metodosIniciais() {
@@ -81,7 +75,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, IndexActivityNew::class.java)
             intent.putExtra("email", "semLogin")
             startActivity(intent)
-
         }
 
         //entrou na reforma - nao obsoleto
@@ -102,7 +95,6 @@ class MainActivity : AppCompatActivity() {
         loginFaceVisivel.setOnClickListener {
 
             Toast.makeText(this, "Em breve", Toast.LENGTH_SHORT).show()
-
         }
 
 
@@ -110,7 +102,6 @@ class MainActivity : AppCompatActivity() {
         btnLoginGoogle.setOnClickListener {
             Toast.makeText(this, "Em breve", Toast.LENGTH_SHORT).show()
         }
-
     }
 
     override fun onStart() {
@@ -132,7 +123,6 @@ class MainActivity : AppCompatActivity() {
         if (!validateForm("MailNew")) {
             return
         }
-
 
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -159,7 +149,6 @@ class MainActivity : AppCompatActivity() {
                 //hideProgressDialog()
                 // [END_EXCLUDE]
             }
-
     }
 
     private fun sendEmailVerification() {
@@ -188,7 +177,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 // [END_EXCLUDE]
             }
-
     }
 
     private fun validateForm(tipo: String): Boolean {
@@ -317,15 +305,12 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "Algo deu errado", Toast.LENGTH_SHORT).show()
                     EncerraDialog()
                 }
-
             }
     }
 
     private fun updateUI(user: FirebaseUser?, tipoLogin: String) {
 
         EncerraDialog()
-
-        //val layNovoUser = findViewById<ConstraintLayout>(R.id.layLoginWithEmail_newUser)
 
         if (tipoLogin.equals("mail")) {
 
@@ -350,9 +335,7 @@ class MainActivity : AppCompatActivity() {
                     telaLoginMailNew.visibility = View.GONE
                     trocaTela(telainicial, telaDeVerificacao)
                     EncerraDialog()
-
                 }
-
             } else {
 
                 trocaTela(telainicial, telaLoginMailNew)
@@ -374,11 +357,6 @@ class MainActivity : AppCompatActivity() {
                         emailVerificationCheckMeth() //libera o clique do botão para verificar se o e-mail foi enviado
                         sendEmailVerification()
 
-                        //layNovoUser.visibility = View.GONE
-                        //layLoginMail.visibility = View.GONE
-                        //laygenericoOutCenterToLeft(layLoginMail)
-                        //laygenericoOutCenterToLeft(layLoginMail)
-
                     } else {
                         val user: FirebaseUser? = auth.currentUser
                         val emailAddress = user?.email
@@ -391,7 +369,6 @@ class MainActivity : AppCompatActivity() {
                         telaLoginMailNew.visibility = View.GONE
                         telainicial.visibility = View.VISIBLE
                         EncerraDialog()
-
                     }
                 }
 
@@ -406,7 +383,6 @@ class MainActivity : AppCompatActivity() {
                 telaLoginMailNew.visibility = View.GONE
                 telainicial.visibility = View.VISIBLE
                 EncerraDialog()
-
             }
 
         } else if (tipoLogin.equals("facebook")) {
@@ -428,8 +404,6 @@ class MainActivity : AppCompatActivity() {
             telainicial.visibility = View.VISIBLE
             EncerraDialog()
         }
-
-
     }
 
     fun getLoginType(user: FirebaseUser?, n: Int): String {
@@ -498,9 +472,7 @@ class MainActivity : AppCompatActivity() {
             val slideOut = Slide()
             slideOut.slideEdge = Gravity.RIGHT
             popupWindow.exitTransition = slideOut
-
         }
-
 
         // Get the widgets reference from custom view
         val buttonPopupN = view.findViewById<Button>(R.id.popupBtnNao)
@@ -521,7 +493,6 @@ class MainActivity : AppCompatActivity() {
                 // Dismiss the popup window
                 popupWindow.dismiss()
             }
-
         } else {
 
             //vai esconder os botões com textos e exibir o btn ok
@@ -530,17 +501,14 @@ class MainActivity : AppCompatActivity() {
             buttonPopupN.visibility = View.GONE
             buttonPopupS.visibility = View.GONE
 
-
             buttonPopupOk.setOnClickListener {
                 // Dismiss the popup window
                 popupWindow.dismiss()
             }
-
         }
 
         txtTitulo.text = titulo
         txtTexto.text = texto
-
 
         // Set a dismiss listener for popup window
         popupWindow.setOnDismissListener {
@@ -587,12 +555,6 @@ class MainActivity : AppCompatActivity() {
                 popupWindow.dismiss()
             }
         }
-        /*else if (call.equals("confirmaNovaSenha")){
-            //nada a fazer
-        }
-
-         */
-
     }
 
     fun LoginWithEmail() {
@@ -643,7 +605,6 @@ class MainActivity : AppCompatActivity() {
                         );
                     }
                 }
-
             }
             )
 
@@ -685,9 +646,7 @@ class MainActivity : AppCompatActivity() {
                         );
                     }
                 }
-
-            }
-            )
+            })
 
             val fieldPasswordConfirmation_newUser: EditText =
                 findViewById(R.id.fieldPasswordConfirmation_newUser)
@@ -730,9 +689,7 @@ class MainActivity : AppCompatActivity() {
                         );
                     }
                 }
-
-            }
-            )
+            })
 
             val btnVoltar: Button = findViewById(R.id.createWithEmail_btnCancel)
             btnVoltar.setOnClickListener {
@@ -744,7 +701,6 @@ class MainActivity : AppCompatActivity() {
                 fieldPassword_newUser.addTextChangedListener(null)
                 fieldPasswordConfirmation_newUser.addTextChangedListener(null)
             }
-
         }
 
         val btnNovoUser2 = findViewById<TextView>(R.id.layInicial_tvNovoUsuario)
@@ -759,7 +715,6 @@ class MainActivity : AppCompatActivity() {
 
             signIn(etEmail.text.toString(), etPassword.text.toString())
             hideKeyboard()
-
         }
 
         val emailCreateAccountBtn =
@@ -773,7 +728,6 @@ class MainActivity : AppCompatActivity() {
                 etEmail.text.toString(),
                 etPassword.text.toString()
             ) //a verificação é feita dentro de validateForm
-
         }
 
         val emailVerifyCheck =
@@ -802,11 +756,6 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "O e-mail ainda não foi verificado.", Toast.LENGTH_SHORT)
                 } else {
                     updateUI(user, "mail")
-                    /*
-                        val intent = Intent(this, index::class.java)
-                        //intent.putExtra("key", value)
-                        startActivity(intent)
-                         */
                 }
             }
         }
@@ -833,7 +782,6 @@ class MainActivity : AppCompatActivity() {
                 )
             }
         }
-
     }
 
     fun emailVerificationCheckMeth() {
@@ -849,11 +797,6 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this, "O e-mail ainda não foi verificado.", Toast.LENGTH_SHORT)
                 } else {
                     updateUI(user, "mail")
-                    /*
-                    val intent = Intent(this, index::class.java)
-                    //intent.putExtra("key", value)
-                    startActivity(intent)
-                     */
                 }
             }
         }
@@ -918,7 +861,6 @@ class MainActivity : AppCompatActivity() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
     }
 
     fun trocaTela(layoutSai: ConstraintLayout, layoutEntra: ConstraintLayout) {
@@ -930,5 +872,4 @@ class MainActivity : AppCompatActivity() {
         layoutEntra.startAnimation(entrando)
         layoutSai.visibility = View.GONE
     }
-
 }

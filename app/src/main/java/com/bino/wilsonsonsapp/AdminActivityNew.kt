@@ -56,7 +56,6 @@ class AdminActivityNew : AppCompatActivity() {
         setContentView(R.layout.activity_admin_new)
 
         loadComponents()
-
     }
 
     override fun onStart() {
@@ -73,8 +72,6 @@ class AdminActivityNew : AppCompatActivity() {
         btnFecharActivity.setOnClickListener {
             finish()
         }
-
-
     }
 
     fun loadComponents(){
@@ -109,7 +106,6 @@ class AdminActivityNew : AppCompatActivity() {
         }
 
         queryInicialCertVencendo()
-
     }
 
     fun queryInicialCertVencendo(){
@@ -124,9 +120,7 @@ class AdminActivityNew : AppCompatActivity() {
 
                         for (querySnapshot in dataSnapshot.children) {
 
-
                             var values: String = "nao"
-
                             val bd = querySnapshot.key.toString()
 
                             values = querySnapshot.child("nome").value.toString()
@@ -159,15 +153,11 @@ class AdminActivityNew : AppCompatActivity() {
 
                                 cont++
                             }
-
-
                         }
-
                     }
 
                     EncerraDialog()
                     montaRecyclerListaCertifsVencendo()
-
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
@@ -176,7 +166,6 @@ class AdminActivityNew : AppCompatActivity() {
                     // ...
                 }
             })
-
     }
 
     fun montaRecyclerListaCertifsVencendo (){
@@ -198,8 +187,6 @@ class AdminActivityNew : AppCompatActivity() {
 
             }
         }))
-
-
     }
 
     fun openPopUp (titulo: String, texto:String, exibeBtnOpcoes:Boolean, btnSim: String, btnNao: String, call: String, whatsapp: String) {
@@ -208,10 +195,8 @@ class AdminActivityNew : AppCompatActivity() {
         //EXIBIR POPUP
         // Initialize a new layout inflater instance
         val inflater: LayoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
         // Inflate a custom view using layout inflater
         val view = inflater.inflate(R.layout.popup_model,null)
-
         // Initialize a new instance of popup window
         val popupWindow = PopupWindow(
             view, // Custom view to show in popup window
@@ -236,9 +221,7 @@ class AdminActivityNew : AppCompatActivity() {
             val slideOut = Slide()
             slideOut.slideEdge = Gravity.RIGHT
             popupWindow.exitTransition = slideOut
-
         }
-
 
         // Get the widgets reference from custom view
         val buttonPopupN = view.findViewById<Button>(R.id.popupBtnNao)
@@ -251,7 +234,6 @@ class AdminActivityNew : AppCompatActivity() {
         background.setOnClickListener {
             popupWindow.dismiss()
         }
-
 
         if (exibeBtnOpcoes){
             //vai exibir os botões com textos e esconder o btn ok
@@ -280,17 +262,14 @@ class AdminActivityNew : AppCompatActivity() {
             buttonPopupN.visibility = View.GONE
             buttonPopupS.visibility = View.GONE
 
-
             buttonPopupOk.setOnClickListener{
                 // Dismiss the popup window
                 popupWindow.dismiss()
             }
-
         }
 
         txtTitulo.text = titulo
         txtTexto.text = texto
-
 
         // Set a dismiss listener for popup window
         popupWindow.setOnDismissListener {
@@ -309,8 +288,6 @@ class AdminActivityNew : AppCompatActivity() {
             0, // X offset
             0 // Y offset
         )
-
-
     }
 
     fun paginaColabAptos(){
@@ -328,7 +305,6 @@ class AdminActivityNew : AppCompatActivity() {
             paginaIndex.visibility = View.VISIBLE
             paginaColabAptos.visibility = View.GONE
         }
-
 
         AdminModels.openCloseLay(paginaIndex, paginaColabAptos)
 
@@ -369,12 +345,9 @@ class AdminActivityNew : AppCompatActivity() {
         val spinnerEstado: Spinner = findViewById(R.id.spinner)
         spinnerEstado.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_of_items)
         spinnerEstado.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
 
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?,  position: Int, id: Long
-            ) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?,  position: Int, id: Long) {
                 estadoSelecionado = list_of_items[position]
                 AdminModels.estado = estadoSelecionado
             }
@@ -391,7 +364,6 @@ class AdminActivityNew : AppCompatActivity() {
                 } else {
                     queryFindMyWorkers(estadoSelecionado, true, editFiltro.text.toString())
                 }
-
             }
         }
 
@@ -491,15 +463,9 @@ class AdminActivityNew : AppCompatActivity() {
                                     values = querySnapshot.child("skilltec").value.toString()
                                     AdminModels.skillTec.add(values)
                                 }
-
                                 cont++
                             }
-
-
-
-
                         }
-
                     } else {
                         EncerraDialog()
                         ControllersUniversais.makeToast(this@AdminActivityNew, "Nenhum colaborador encontrado")
@@ -511,12 +477,9 @@ class AdminActivityNew : AppCompatActivity() {
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
-                    // Getting Post failed, log a message
                     EncerraDialog()
-                    // ...
                 }
             })
-
     }
 
     fun montaRecyclerListaPorEstado (){
@@ -535,12 +498,7 @@ class AdminActivityNew : AppCompatActivity() {
                 openInfoWindow(position)
             }
 
-            override fun onLongClick(view: View?, position: Int) {
-
-            }
-        }))
-
-
+            override fun onLongClick(view: View?, position: Int) {} }))
     }
 
     fun openInfoWindow(position: Int){
@@ -581,10 +539,8 @@ class AdminActivityNew : AppCompatActivity() {
             cont++
         }
 
-
         cont=0
         while (cont<indexes.size){
-
 
             val tokens = StringTokenizer(AdminModels.certificados.get(indexes.get(cont)).toString(), "!*!??#") //”*” este é delim
             val desc = tokens.nextToken() // descartar
@@ -614,7 +570,6 @@ class AdminActivityNew : AppCompatActivity() {
                             indexes.get(cont)
                         )
                 }
-
             }
             cont++
         }
@@ -626,10 +581,6 @@ class AdminActivityNew : AppCompatActivity() {
             //openWhatsApp(adminModels.whats.get(position), "Olá. Queremos você na próxima embaracação")
             convocation(position)
         }
-
-
-
-
     }
 
     fun mountChart(position: Int){
@@ -661,7 +612,6 @@ class AdminActivityNew : AppCompatActivity() {
         pieChart.highlightValues(null)
         pieChart.invalidate()
         pieChart.animateXY(1000, 1000)
-
     }
 
     fun convocation(position: Int){
@@ -674,14 +624,10 @@ class AdminActivityNew : AppCompatActivity() {
         val spinnerEstado: Spinner = findViewById(R.id.spinnerEmbarcacao)
         spinnerEstado.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, list_of_items)
         spinnerEstado.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onNothingSelected(p0: AdapterView<*>?) {
+            override fun onNothingSelected(p0: AdapterView<*>?) {}
 
-            }
-
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?,  position: Int, id: Long
-            ) {
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?,  position: Int, id: Long) {
                 embarcacaoSelecionada = list_of_items[position]
-
             }
         }
 
@@ -707,7 +653,6 @@ class AdminActivityNew : AppCompatActivity() {
                 ControllersUniversais.makeToast(this, "Um alerta foi criado")
             }
         }
-
     }
 
     fun openWhatsApp(number: String, message: String) {
@@ -734,7 +679,7 @@ class AdminActivityNew : AppCompatActivity() {
             )
                 .show();
         } catch (e: Exception) {
-
+            println(e)
         }
     }
 
@@ -797,7 +742,4 @@ class AdminActivityNew : AppCompatActivity() {
 
         }
     }
-
-
-
 }

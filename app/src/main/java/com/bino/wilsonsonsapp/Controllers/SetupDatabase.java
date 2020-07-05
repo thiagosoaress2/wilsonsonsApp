@@ -60,11 +60,7 @@ public class SetupDatabase extends SQLiteOpenHelper {
     private static final String SQL_INSERT_STATE26 = "INSERT INTO state (id, name) VALUES (26, 'SE');";
     private static final String SQL_INSERT_STATE27 = "INSERT INTO state (id, name) VALUES (27, 'TO');";
 
-    //1 - multipla  //2 - clicavel //3 - AB        //intro1img1 2131165356
-    //        //intro1img2 2131165357
-    //        //intro1img3 2131165358
-    //        //intro2img1 2131165359
-    //        //intro2img2 2131165360
+
     private static final String SQL_INSERT_INTO_QUESTIONS1 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
             " item1X, item1Y, largura, altura, msgfinal, movie, moviesugest, totalpontos, respondida)" +
             "VALUES ( 0, 1, 2, 1, 'a', 2131165392, 75, 925, 400, 400, 'O correto é cortar a corda com um machado, pois é a única ferramenta que tem capacidade para cortar uma corda de reboque, assim como cordar a corda é o mais seguro a se fazer para que se evite o emborcamento do barco. Veja o material para mais informações.', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
@@ -81,25 +77,6 @@ public class SetupDatabase extends SQLiteOpenHelper {
 
     private static final String SQL_INSERT_INTO_2_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'Cenário 1', 'Você está mais uma vez trabalhando embarcado.', 2131165359, 0);";
     private static final String SQL_INSERT_INTO_2_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'Cenário 2', 'Marinheiro, vamos rebocar um barco passando pela abertura dos corais, se prepare e fique perto do gato a espera.', 2131165360, 1);";
-
-
-    private static final String SQL_INSERT_INTO_QUESTIONS3 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
-            " multiplaa, multiplab, multiplac, multiplad, multiplae, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 1, 3,'a',2131165344,'a','a','a','a','a', 400, 400, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
-
-    private static final String SQL_INSERT_INTO_3_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo intro 3', 'drescription intro 3', 2131165344, 0);";
-    private static final String SQL_INSERT_INTO_3_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo intro 3', 'drescription intro 3', 2131165344, 1);";
-    private static final String SQL_INSERT_INTO_3_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (3, 'tituloooo intro 3', 'drescription intro 3', 2131165344, 2);";
-
-
-    private static final String SQL_INSERT_INTO_QUESTIONS4 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
-            "multiplaa, multiplab, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 3, 4, 'a',2131165344,'a','a', 400, 400,'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
-
-
-    private static final String SQL_INSERT_INTO_4_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (4, 'tituloooo intro 4', 'drescription intro 4', 2131165344, 0);";
-    private static final String SQL_INSERT_INTO_4_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (4, 'tituloooo intro 4', 'drescription intro 4', 2131165344, 1);";
-    private static final String SQL_INSERT_INTO_4_3 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (4, 'tituloooo intro 4', 'drescription intro 4', 2131165344, 2);";
 
     public SetupDatabase(AppCompatActivity activityRef) {
         super(activityRef, Constants.DATABASE_NAME, null, 1);
@@ -163,32 +140,8 @@ public class SetupDatabase extends SQLiteOpenHelper {
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_1);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_2);
 
-
-/*        this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
-        this.currentDatabase.execSQL(SQL_INSERT_INTO_3_1);
-        this.currentDatabase.execSQL(SQL_INSERT_INTO_3_2);
-        this.currentDatabase.execSQL(SQL_INSERT_INTO_3_3);
-
-        this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS4);
-        this.currentDatabase.execSQL(SQL_INSERT_INTO_4_1);
-        this.currentDatabase.execSQL(SQL_INSERT_INTO_4_2);
-        this.currentDatabase.execSQL(SQL_INSERT_INTO_4_3);*/
-
         this.currentDatabase.close();
         new mySharedPrefs(activityRef).setCopyDatabase();
-
-      /*
-      this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
-      this.currentDatabase.execSQL(SQL_INSERT_INTO_1_1);
-
-      this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS4);
-      this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL1);
-      this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL2);
-      this.currentDatabase.this.currentDatabase.execSQL(SQL_INSERT_INTO_SKILL3);
-        */
-
     }
 
     @Override

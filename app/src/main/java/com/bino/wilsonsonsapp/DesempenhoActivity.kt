@@ -33,18 +33,14 @@ class DesempenhoActivity  : AppCompatActivity()  {
         setContentView(R.layout.activity_desempenho)
 
         objectStatusUser = ObjectStatusUser()
-
         perfilController.loadData()
-
         mountChart()
 
         val btnVoltar: Button = findViewById(R.id.desempenho_btnVoltar)
         btnVoltar.setOnClickListener {
             finish()
         }
-
     }
-
 
     fun mountChart(){
 
@@ -98,7 +94,6 @@ class DesempenhoActivity  : AppCompatActivity()  {
         pieChart.invalidate()
         pieChart.animateXY(2000, 2000)
 
-
         pieChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
             override fun onNothingSelected() {}
 
@@ -123,10 +118,7 @@ class DesempenhoActivity  : AppCompatActivity()  {
                     desempenho_txCat.setText(label)
                     desempenho_txExplicacao.setText(DESC_RELACIONAMENTO)
                 }
-
             }
         })
-
     }
-
 }

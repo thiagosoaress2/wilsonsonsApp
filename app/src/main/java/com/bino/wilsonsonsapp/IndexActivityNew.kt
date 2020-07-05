@@ -34,8 +34,6 @@ import com.google.firebase.database.*
 
 class IndexActivityNew : AppCompatActivity() {
 
-    val LOGD : String = "teste"
-
     lateinit var toolbar: Toolbar
     lateinit var drawer: DrawerLayout
     lateinit var navigationView: NavigationView
@@ -44,7 +42,6 @@ class IndexActivityNew : AppCompatActivity() {
     lateinit var lay_problema: ConstraintLayout
     lateinit var layListas: ConstraintLayout
     lateinit var btnteste: Button
-    lateinit var btnTesteProblema: Button
     lateinit var userAvatar: ImageView
 
     lateinit var btnMenu: Button
@@ -64,16 +61,14 @@ class IndexActivityNew : AppCompatActivity() {
         setContentView(R.layout.activity_menu)
         toolbar = findViewById(R.id.toolbar)
         toolbar.visibility = View.GONE
-
         objectQuestions = ObjectQuestions()
-
         auth = FirebaseAuth.getInstance()
 
         if (!IndexModels.checkCadInfo()){
             openPopUpCadInfo("Completar", "Fazer depois")
         }
 
-        // como pegar o int das imagens
+        // int das images
         var bmp = R.drawable.intro1img1
         Log.d("teste", "o valor de intro1img1 "+bmp)
         bmp = R.drawable.intro1img2
@@ -88,15 +83,6 @@ class IndexActivityNew : AppCompatActivity() {
         Log.d("teste", "o valor de ibackground question "+bmp)
         bmp = R.drawable.question2
         Log.d("teste", "o valor de ibackground question "+bmp)
-
-        //codigos
-        //intro1img1 2131165356
-        //intro1img2 2131165357
-        //intro1img3 2131165358
-        //intro2img1 2131165359
-        //intro2img2 2131165360
-
-
     }
 
     override fun onStart() {
@@ -111,7 +97,6 @@ class IndexActivityNew : AppCompatActivity() {
         }
 
         if (!IndexModels.isverified){ //para carregar uma unica vez
-
             IndexModels.isverified=true
 
             if (IndexControllers.isNetworkAvailable(this) && situacao.equals("semLogin")){
@@ -130,14 +115,11 @@ class IndexActivityNew : AppCompatActivity() {
                 verificaAlertaTreinamento()
                 updateCertificatesOffLine()
             }
-
         }
 
         btnteste.setOnClickListener {
             IndexModels.moveThePlayer(userAvatar, IndexModels.posicaoUser)
-
         }
-
 
         IndexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
         placePlayButtonInitialy(findViewById(R.id.layIndex))
@@ -164,16 +146,6 @@ class IndexActivityNew : AppCompatActivity() {
                 drawer.closeDrawer(GravityCompat.START);
             }
         }
-
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-      /*  if (Sound.isPlaying()) {
-            Sound.stop();
-        }
-        stopSoundIntro()*/
     }
 
     fun loadComponents(){
@@ -328,9 +300,7 @@ var objectUser: ObjectUser =  ObjectUser()
     }
 
     fun updateCertificatesOffLine(){
-
-        mySharedPrefs.loadCertificates() //carrega os dados nos arrays
-        //showListedItems("cert")
+        mySharedPrefs.loadCertificates()
     }
 
 
@@ -351,7 +321,6 @@ var objectUser: ObjectUser =  ObjectUser()
             objectQuestionsList = ConsultsQuestionsModel.selectQuestionsRespondidas()
 
             if(objectQuestionsList.size > 0) {
-                //objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(objectQuestionsList.get(objectQuestionsList.size-1).id
                 objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(objectQuestionsList.get(IndexModels.posicaoUser).id)
             }else{
                 objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(0)
@@ -382,7 +351,6 @@ var objectUser: ObjectUser =  ObjectUser()
     fun openProblema(objectQuestions: ObjectQuestions){
         stopSoundIntro()
         layIntroQuest.visibility = View.GONE
-        // layInicial.visibility = View.GONE
         lay_problema.visibility = View.VISIBLE
 
         when(objectQuestions.id) {
@@ -464,8 +432,8 @@ var objectUser: ObjectUser =  ObjectUser()
 
         } else if (objectQuestions.type == 2){
 
-            val altura = 160 // isto vai vir do bd
-            val largura = 160 //vai vir do bd
+            val altura = 160
+            val largura = 160
 
 
             val layProblema: ConstraintLayout = findViewById(R.id.lay_problema)
@@ -489,55 +457,6 @@ var objectUser: ObjectUser =  ObjectUser()
                 afterProblem(false, objectQuestions.id)
                 Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
             }
-
-            /*
-            if (objectQuestions.itemClicavel1.equals("sim")){
-
-                val imageView = ImageView(this)
-                // setting height and width of imageview
-                imageView.layoutParams = LinearLayout.LayoutParams(200, 200)
-                imageView.x = objectQuestions.item1X.toFloat() //setting margin from left
-                imageView.y = objectQuestions.item1Y.toFloat() //setting margin from top
-                //imageView.elevation=10f
-
-                layProblema.addView(imageView) //adding image to the layout
-                Glide.with(this).load(R.drawable.navio).into(imageView)
-                //a imagem pode vir dentro de opção A
-
-                imageView.setOnClickListener {
-                    if (objectQuestions.alternativacorreta.equals("a")){
-                        afterProblem(true, id)
-                        Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    } else {
-                        afterProblem(false, id)
-                        Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-
-            if (objectQuestions.itemClicavel2.equals("sim")){
-
-                val imageView = ImageView(this)
-                // setting height and width of imageview
-                imageView.layoutParams = LinearLayout.LayoutParams(150, 150)
-                imageView.x = objectQuestions.item2X.toFloat() //setting margin from left
-                imageView.y = objectQuestions.item2Y.toFloat() //setting margin from top
-                //imageView2.elevation=10f
-
-                layProblema.addView(imageView) //adding image to the layout
-                Glide.with(this).load(R.drawable.navio).into(imageView)
-
-
-                imageView.setOnClickListener {
-                    if (objectQuestions.alternativacorreta.equals("b")){
-                        afterProblem(true, id)
-                        Toast.makeText(this, "Acertou", Toast.LENGTH_SHORT).show()
-                    } else {
-                        afterProblem(false, id)
-                        Toast.makeText(this, "Errou", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }*/
 
         } else {
             //codigo AB
@@ -615,10 +534,7 @@ var objectUser: ObjectUser =  ObjectUser()
 
         val cad_youtubelink: ImageView = findViewById(R.id.cad_youtubelink)
 
-            //cad_youtubelink.visibility = View.VISIBLE
-
             cad_youtubelink.setOnClickListener {
-                //ControllersUniversais.makeToast(this, "Em breve")
                 val webIntent = Intent(
                     Intent.ACTION_VIEW,
                     Uri.parse("https://www.youtube.com/watch?v=F-YJrrsW2-Q")
@@ -628,14 +544,9 @@ var objectUser: ObjectUser =  ObjectUser()
                 } catch (ex: ActivityNotFoundException) {
                 }
             }
-            //IndexModels.moveThePlayer(userAvatar)
-
-
     }
 
     fun queryConvocacoes(){
-
-        //databaseReference.child("convocacoes").child(adminModels.bd.get(position)).child("userBd")
 
         val rootRef = databaseReference.child("convocacoes").child(IndexModels.userBd)
         rootRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -668,7 +579,6 @@ var objectUser: ObjectUser =  ObjectUser()
                             rootRef.child("recebido").setValue("sim")
 
                             mySharedPrefs.setAlertInfo(IndexModels.alertaDataEmbarque, IndexModels.alertaEmbarcacao)
-
                         }
                         verificaAlertaTreinamento()
                     }
@@ -807,42 +717,6 @@ var objectUser: ObjectUser =  ObjectUser()
         spinner.visibility = View.GONE
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE) //libera os clicks
     }
-
-    /*
-    fun updateUsersInfo() {
-
-        var objectStatusUser: ObjectStatusUser = ObjectStatusUser()
-        objectStatusUser = ConsultsUserModel.selectPoints(this)
-
-        var objectsUser : ObjectUser =  ConsultsUserModel.selectUser()
-
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("skillrel").setValue(objectStatusUser.skill1_points.toString())
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("skillseg").setValue(objectStatusUser.skill2_points.toString())
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("skilltec").setValue(objectStatusUser.skill3_points.toString())
-
-        val statePosition = objectsUser.state
-
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("Estado").setValue(IndexModels.loadArrayStates(statePosition))
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("contato").setValue(objectUser.number.toString())
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("funcao").setValue(objectUser.cargo.toString())
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("img").setValue(objectUser.photo.toString())
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("nome").setValue(objectUser.name.toString())
-
-        var cont=0
-        while (cont<IndexModels.arrayCertificados.size){
-
-            cont++
-            var field = "certificado"+cont.toString()
-            databaseReference.child("funcionarios").child(IndexModels.userBd).child(field).setValue(IndexModels.arrayCertificados.get(cont-1))
-            field = "valcert"+cont.toString()
-            databaseReference.child("funcionarios").child(IndexModels.userBd).child(field).setValue(IndexModels.arrayCertificadosValidade.get(cont-1))
-            databaseReference.child("funcionarios").child(IndexModels.userBd).child("certificados").setValue(IndexModels.arrayCertificados.size)
-
-        }
-        Log.d("teste", "Valores atualizados no banco de dados")
-
-    }
-     */
 
     //click listener da primeira recycleview
     interface ClickListener {
