@@ -8,7 +8,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
@@ -20,23 +19,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.WindowManager
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.perfilController
-import com.bino.wilsonsonsapp.Controllers.perfilController.objectsUser
-import com.bino.wilsonsonsapp.Models.*
-import com.bino.wilsonsonsapp.Utils.*
+import com.bino.wilsonsonsapp.Models.ConsultsUserModel
+import com.bino.wilsonsonsapp.Models.IndexModels
+import com.bino.wilsonsonsapp.Utils.CameraPermissions
+import com.bino.wilsonsonsapp.Utils.CircleTransform
+import com.bino.wilsonsonsapp.Utils.readFilesPermissions
+import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageException
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import kotlinx.android.synthetic.main.activity_perfil.*
 import java.io.*
-import java.lang.ref.WeakReference
 import java.util.*
 
 class perfilActivity : AppCompatActivity() {
@@ -723,6 +725,7 @@ class perfilActivity : AppCompatActivity() {
             } else {
                 // Handle failures
                 Toast.makeText(this, "um erro ocorreu.", Toast.LENGTH_SHORT).show()
+               
                 // ...
             }
         }

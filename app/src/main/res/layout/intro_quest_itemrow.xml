@@ -20,9 +20,9 @@
             android:id="@+id/tipo1_img"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:scaleType="centerCrop"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="70dp"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/constraintLayout"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,11 +52,9 @@
             android:id="@+id/constraintLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/dialog_holo_light_frame"
+            android:background="@drawable/rounded_border_transparent_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <TextView
                 android:id="@+id/tipo1_txTexto"
@@ -118,11 +116,9 @@
             android:id="@+id/constraintLayout3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:drawable/dialog_holo_light_frame"
+            android:background="@drawable/rounded_border_transparent_bg"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent">
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView">
 
             <TextView
                 android:id="@+id/tipo2_txTexto"

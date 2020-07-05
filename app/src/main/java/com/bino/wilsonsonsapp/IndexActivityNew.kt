@@ -49,6 +49,8 @@ class IndexActivityNew : AppCompatActivity() {
     lateinit var btnTesteProblema: Button
     lateinit var userAvatar: ImageView
 
+    lateinit var btnMenu: Button
+
     lateinit var auth: FirebaseAuth
     lateinit var databaseReference: DatabaseReference
 
@@ -63,6 +65,8 @@ class IndexActivityNew : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_index_new)
         setContentView(R.layout.activity_menu)
+        toolbar = findViewById(R.id.toolbar)
+        toolbar.visibility = View.GONE
 
         objectQuestions = ObjectQuestions()
 
@@ -142,12 +146,21 @@ class IndexActivityNew : AppCompatActivity() {
 
         //verificar a fase do user e coloca no lugar certo
         IndexModels.checkUserCheckpoint(userAvatar)
+
+
+        btnMenu.setOnClickListener {
+            if (!drawer.isDrawerOpen(GravityCompat.START)) {
+                drawer.openDrawer(GravityCompat.START);
+            } else {
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        }
+
     }
 
     fun loadComponents(){
 
         drawer = findViewById(R.id.drawer_layout)
-        toolbar = findViewById(R.id.toolbar)
         navigationView = findViewById(R.id.nav_view)
         layInicial = findViewById(R.id.layoutPrincipal)
         layIntroQuest = findViewById(R.id.LayQuestion_intro)
@@ -156,6 +169,7 @@ class IndexActivityNew : AppCompatActivity() {
         btnTesteProblema = findViewById(R.id.btnTesteProblema)
         layListas = findViewById(R.id.lay_listas)
         userAvatar = findViewById(R.id.playerAvatar)
+        btnMenu = findViewById(R.id.btnMenu)
 
         //apaguei no merge
         databaseReference = FirebaseDatabase.getInstance().reference

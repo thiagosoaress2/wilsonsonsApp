@@ -27,10 +27,6 @@ class IntroQuestAdapter(private var context: Context, private var listObjectIntr
 
         if (position % 2 == 0){
 
-            Log.d("teste", "O valor de arrayTitulo é " + listObjectIntro.get(position).title)
-            Log.d("teste", "O valor de arrayTexto é " + listObjectIntro.get(position).text)
-            Log.d("teste", "O valor de arrayImg é " + listObjectIntro.get(position).img)
-
             holder.layout.visibility = View.VISIBLE
             if (!(listObjectIntro.get(position).title.equals("")) || listObjectIntro.get(position).title == null){
                 holder.textViewTit.visibility = View.VISIBLE
