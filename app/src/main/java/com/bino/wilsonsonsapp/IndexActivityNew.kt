@@ -286,7 +286,7 @@ class IndexActivityNew : AppCompatActivity() {
 
             if(objectQuestionsList.size > 0) {
                 objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(
-                    objectQuestionsList.get(objectQuestionsList.size).id
+                    objectQuestionsList.get(objectQuestionsList.size-1).id
                 )
             }else{
                 objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(0)
