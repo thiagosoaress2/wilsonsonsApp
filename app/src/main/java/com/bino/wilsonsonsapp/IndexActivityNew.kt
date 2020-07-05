@@ -1,9 +1,11 @@
 package com.bino.wilsonsonsapp
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.GestureDetector
@@ -133,6 +135,7 @@ class IndexActivityNew : AppCompatActivity() {
 
         btnteste.setOnClickListener {
             IndexModels.moveThePlayer(userAvatar)
+
         }
 
 
@@ -576,17 +579,24 @@ class IndexActivityNew : AppCompatActivity() {
             IndexModels.moveThePlayer(userAvatar)
         }
 
-        /*
-        if ("tem video ".equals("tem video")){//pegar do banco de dados
-            val cad_youtubelink: ImageView = findViewById(R.id.cad_youtubelink)
-            cad_youtubelink.visibility = View.VISIBLE
-            cad_tvTemLink.visibility = View.VISIBLE
+        val cad_youtubelink: ImageView = findViewById(R.id.cad_youtubelink)
+
+            //cad_youtubelink.visibility = View.VISIBLE
+
             cad_youtubelink.setOnClickListener {
-                ControllersUniversais.makeToast(this, "Em breve")
+                //ControllersUniversais.makeToast(this, "Em breve")
+                val webIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://www.youtube.com/watch?v=F-YJrrsW2-Q")
+                )
+                try {
+                    this.startActivity(webIntent)
+                } catch (ex: ActivityNotFoundException) {
+                }
             }
             IndexModels.moveThePlayer(userAvatar)
-        }
-         */
+
+
     }
 
     fun queryConvocacoes(){

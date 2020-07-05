@@ -122,21 +122,40 @@ class perfilActivity : AppCompatActivity() {
 
         val imageView: ImageView = findViewById(R.id.perfil_iv)
         println("perfilController.objectsUser.photo" + perfilController.objectsUser.photo)
+        Log.d("teste", "valor de foto é "+perfilController.objectsUser.photo)
         Glide.with(this).load(perfilController.objectsUser.photo).into(imageView)
+
+
 
         if (perfilController.objectsUser.name != null){
             etNome.setText(perfilController.objectsUser.name)
+
+            if (etNome.text.equals("null")){
+                etNome.visibility = View.GONE
+            }else {
+                etNome  .visibility = View.VISIBLE
+            }
         } else {
             etNome.visibility = View.INVISIBLE
         }
         if (perfilController.objectsUser.cargo != 0) {
             etFuncao.setText(perfilController.getfunction(perfilController.objectsUser.cargo))
 
+            if (etFuncao.text.equals("null")){
+                etFuncao.visibility = View.GONE
+            } else{
+                etFuncao.visibility = View.VISIBLE
+            }
         } else {
             etFuncao.visibility = View.INVISIBLE
         }
         if (perfilController.objectsUser.number != null){
             etContato.setText(perfilController.objectsUser.number)
+            if (etContato.text.equals("null")){
+                etContato.visibility = View.GONE
+            } else {
+                etContato.visibility = View.VISIBLE
+            }
         } else {
             etContato.visibility = View.INVISIBLE
         }
@@ -303,6 +322,7 @@ class perfilActivity : AppCompatActivity() {
                 etContato.visibility = View.INVISIBLE
             }
             ControllersUniversais.makeToast(this, "As informações foram salvas.")
+            finish()
         }
 
 

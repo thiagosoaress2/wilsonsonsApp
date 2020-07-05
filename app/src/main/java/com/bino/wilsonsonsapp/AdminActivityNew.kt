@@ -1,12 +1,12 @@
 package com.bino.wilsonsonsapp
 
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
 import android.transition.Slide
@@ -14,16 +14,18 @@ import android.transition.TransitionManager
 import android.util.Log
 import android.view.*
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bino.wilsonsonsapp.Controllers.AdminControllers
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
-import com.bino.wilsonsonsapp.Controllers.IndexControllers
 import com.bino.wilsonsonsapp.Models.AdminModels
 import com.bino.wilsonsonsapp.Models.IndexModels
 import com.bino.wilsonsonsapp.Models.ObjectUser
-import com.bino.wilsonsonsapp.Utils.*
+import com.bino.wilsonsonsapp.Utils.CircleTransform
+import com.bino.wilsonsonsapp.Utils.ListFuncComCertVencendoAdapter
+import com.bino.wilsonsonsapp.Utils.ListFuncPorEstadoAdapter
 import com.bumptech.glide.Glide
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.PieData
@@ -71,6 +73,7 @@ class AdminActivityNew : AppCompatActivity() {
         btnFecharActivity.setOnClickListener {
             finish()
         }
+
 
     }
 

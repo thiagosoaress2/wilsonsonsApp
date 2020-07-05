@@ -38,6 +38,12 @@
             app:layout_constraintTop_toBottomOf="@+id/btnteste" />
 
 
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
         <ImageView
             android:id="@+id/backgroundPlaceHolder"
             android:layout_width="0dp"
@@ -387,7 +393,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="0dp"
