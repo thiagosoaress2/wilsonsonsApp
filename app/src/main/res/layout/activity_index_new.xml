@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
 
         <Button
@@ -62,10 +62,21 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/faseShow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:rotation="90"
+            app:layout_constraintBottom_toTopOf="@+id/playerAvatar"
+            app:layout_constraintEnd_toEndOf="@+id/playerAvatar"
+            app:layout_constraintStart_toStartOf="@+id/playerAvatar"
+            app:srcCompat="@drawable/ic_baseline_double_arrow_24" />
+
+        <ImageView
             android:id="@+id/playerAvatar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:elevation="5dp"
+            android:elevation="50dp"
             app:srcCompat="@drawable/barquinho"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="366dp" />

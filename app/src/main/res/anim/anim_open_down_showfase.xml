@@ -1,0 +1,21 @@
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <translate
+        android:duration="20000"
+        android:fromXDelta="0"
+        android:toXDelta="0"
+        android:fromYDelta="0"
+        android:toYDelta="50"
+        />
+
+    <translate
+        android:duration="20000"
+        android:fromXDelta="0"
+        android:startOffset="200"
+        android:toXDelta="0"
+        android:fromYDelta="50"
+        android:toYDelta="0"
+        />
+
+
+</set>

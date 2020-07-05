@@ -93,7 +93,6 @@ class IndexActivityNew : AppCompatActivity() {
 
         loadComponents()
 
-
         val situacao = intent.getStringExtra("email")
         if (!situacao.equals("semLogin")){
             //IndexModels.uId = auth.currentUser!!.uid.toString()
@@ -129,6 +128,9 @@ class IndexActivityNew : AppCompatActivity() {
 
         IndexModels.placeBackGroundAsMap(findViewById(R.id.backgroundPlaceHolder), this, 5, findViewById(R.id.layIndex), findViewById(R.id.playerAvatar))
         placePlayButtonInitialy(findViewById(R.id.layIndex))
+
+        val anim = AnimationUtils.loadAnimation(this, R.anim.anim_open_down_showfase)
+        IndexModels.placeArrow(anim, findViewById(R.id.faseShow))
 
         setupMenu()
 
