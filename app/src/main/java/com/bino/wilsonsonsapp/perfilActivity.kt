@@ -40,6 +40,8 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageException
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+import kotlinx.android.synthetic.main.activity_index_new.*
+import kotlinx.android.synthetic.main.nav_header_main.*
 import java.io.*
 import java.util.*
 
@@ -63,7 +65,6 @@ class perfilActivity : AppCompatActivity() {
         setContentView(R.layout.activity_perfil)
 
         perfilController.loadData()
-
 
     }
 
@@ -250,7 +251,7 @@ class perfilActivity : AppCompatActivity() {
         val btnSalvar: Button = findViewById(R.id.cad_btnSalvar)
         btnSalvar.setOnClickListener {
 
-            if (!urifinal.equals("nao")){
+            if (urifinal.equals("nao")){
                 perfilController.savePhoto(urifinal)
             }
             if (!editNascimento.text.isEmpty()){
@@ -266,7 +267,7 @@ class perfilActivity : AppCompatActivity() {
                 perfilController.saveEstado(estadoSelecionado)
             }
             if (funcaoSelecionada!=0){
-                perfilController.saveFuncao(estadoSelecionado)
+                perfilController.saveFuncao(funcaoSelecionada)
                 //var objectOccupation: ObjectOccupation = ObjectOccupation()
                 //val teste = ConsultsOccupationModel.selectOccupationPerId(funcaoSelecionada)
             }
@@ -275,6 +276,10 @@ class perfilActivity : AppCompatActivity() {
             ConsultsUserModel.insertUser(perfilController.objectsUser.key, perfilController.objectsUser.name, perfilController.objectsUser.number, perfilController.objectsUser.cargo, perfilController.objectsUser.datenascimento, perfilController.objectsUser.photo)
             //aqui atualiza a pagina anterior
             perfilController.loadData()
+
+            val imageView: ImageView = findViewById(R.id.perfil_iv)
+            Glide.with(this).load(perfilController.objectsUser.photo).into(imageView)
+
             if (perfilController.objectsUser.name != null){
                 etNome.setText(perfilController.objectsUser.name)
             } else {
