@@ -25,24 +25,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="Move the player"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
-        <Button
-            android:id="@+id/btnTesteProblema"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pergunta"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnteste" />
-
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Button" />
 
         <ImageView
             android:id="@+id/backgroundPlaceHolder"
@@ -65,18 +53,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/faseShow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:rotation="90"
-            android:elevation="30dp"
-            app:layout_constraintBottom_toTopOf="@+id/playerAvatar"
-            app:layout_constraintEnd_toEndOf="@+id/playerAvatar"
-            app:layout_constraintStart_toStartOf="@+id/playerAvatar"
-            app:srcCompat="@drawable/ic_baseline_double_arrow_24" />
 
         <ImageView
             android:id="@+id/playerAvatar"
@@ -166,7 +142,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <ImageView
             android:id="@+id/problema_image"
@@ -188,6 +164,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btntesteclicks"
+            android:layout_width="80dp"
+            android:layout_height="80dp" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/lay_tipoSimNao"

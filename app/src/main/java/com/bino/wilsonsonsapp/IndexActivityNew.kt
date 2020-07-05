@@ -134,7 +134,7 @@ class IndexActivityNew : AppCompatActivity() {
         }
 
         btnteste.setOnClickListener {
-            IndexModels.moveThePlayer(userAvatar)
+            IndexModels.moveThePlayer(userAvatar, IndexModels.posicaoUser)
 
         }
 
@@ -184,7 +184,6 @@ class IndexActivityNew : AppCompatActivity() {
         layIntroQuest = findViewById(R.id.LayQuestion_intro)
         lay_problema = findViewById(R.id.lay_problema)
         btnteste = findViewById(R.id.btnteste)
-        btnTesteProblema = findViewById(R.id.btnTesteProblema)
         layListas = findViewById(R.id.lay_listas)
         userAvatar = findViewById(R.id.playerAvatar)
         btnMenu = findViewById(R.id.btnMenu)
@@ -352,9 +351,8 @@ var objectUser: ObjectUser =  ObjectUser()
             objectQuestionsList = ConsultsQuestionsModel.selectQuestionsRespondidas()
 
             if(objectQuestionsList.size > 0) {
-                objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(
-                    objectQuestionsList.get(objectQuestionsList.size-1).id
-                )
+                //objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(objectQuestionsList.get(objectQuestionsList.size-1).id
+                objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(objectQuestionsList.get(IndexModels.posicaoUser).id)
             }else{
                 objectQuestions = ConsultsQuestionsModel.selectQuestionPerId(0)
             }
@@ -466,8 +464,13 @@ var objectUser: ObjectUser =  ObjectUser()
 
         } else if (objectQuestions.type == 2){
 
-            val altura = 80 // isto vai vir do bd
-            val largura = 80 //vai vir do bd
+            val altura = 160 // isto vai vir do bd
+            val largura = 160 //vai vir do bd
+
+            val btntesteclick :Button = findViewById(R.id.btntesteclicks)
+
+            btntesteclick.x = 75f
+            btntesteclick.y = 925f
 
             val layProblema: ConstraintLayout = findViewById(R.id.lay_problema)
 
@@ -591,7 +594,9 @@ var objectUser: ObjectUser =  ObjectUser()
 
         btnProxima.setOnClickListener {
             //andar com o player
-            IndexModels.moveThePlayer(userAvatar)
+            layResultado.visibility = View.GONE
+            layInicial.visibility = View.VISIBLE
+            IndexModels.moveThePlayer(userAvatar, IndexModels.posicaoUser)
         }
 
         layProblema.visibility = View.GONE
@@ -609,7 +614,7 @@ var objectUser: ObjectUser =  ObjectUser()
             Glide.with(this).load(R.drawable.errosimbol).into(imgAcertoErro)
             ConsultsQuestionsModel.somaQuestions1(false, id)
             IndexModels.setTheResultInMap(this, layInicial, true)
-            IndexModels.moveThePlayer(userAvatar)
+            //IndexModels.moveThePlayer(userAvatar)
         }
 
         val cad_youtubelink: ImageView = findViewById(R.id.cad_youtubelink)
@@ -627,7 +632,7 @@ var objectUser: ObjectUser =  ObjectUser()
                 } catch (ex: ActivityNotFoundException) {
                 }
             }
-            IndexModels.moveThePlayer(userAvatar)
+            //IndexModels.moveThePlayer(userAvatar)
 
 
     }
