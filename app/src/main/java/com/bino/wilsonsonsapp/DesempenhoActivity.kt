@@ -50,7 +50,7 @@ class DesempenhoActivity  : AppCompatActivity()  {
 
         //aqui seta os valores no gráfico
         var objectStatusUser: ObjectStatusUser = ObjectStatusUser()
-        objectStatusUser = ConsultsUserModel.selectPoints(this);
+        objectStatusUser = ConsultsUserModel.selectPoints(this)
        //assim pega os valores -> objectStatusUser.skill1_points
 
         val desempenho_txPorcent: TextView = findViewById(R.id.desempenho_txPorcent)

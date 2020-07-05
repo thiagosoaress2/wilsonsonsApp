@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
 
         <Button
@@ -66,6 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:rotation="90"
+            android:elevation="30dp"
             app:layout_constraintBottom_toTopOf="@+id/playerAvatar"
             app:layout_constraintEnd_toEndOf="@+id/playerAvatar"
             app:layout_constraintStart_toStartOf="@+id/playerAvatar"
