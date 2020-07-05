@@ -117,6 +117,11 @@ class perfilActivity : AppCompatActivity() {
 
         //perfilController.setBasicInfos(etNome, etFuncao, etContato)
         //aqui atualiza a pagina anterior
+
+        val imageView: ImageView = findViewById(R.id.perfil_iv)
+        println("perfilController.objectsUser.photo" + perfilController.objectsUser.photo)
+        Glide.with(this).load(perfilController.objectsUser.photo).into(imageView)
+
         if (perfilController.objectsUser.name != null){
             etNome.setText(perfilController.objectsUser.name)
         } else {
@@ -713,6 +718,7 @@ class perfilActivity : AppCompatActivity() {
                 val downloadUri = task.result
                 Log.d("teste", "funcionou "+downloadUri)
                 urifinal = downloadUri.toString()
+                perfilController.savePhoto(urifinal)
                 databaseReference.child("usuarios").child(IndexModels.userBd).child("img").setValue(urifinal)
                 EncerraDialog()
 
