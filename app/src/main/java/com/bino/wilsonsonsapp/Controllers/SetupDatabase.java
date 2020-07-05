@@ -20,7 +20,7 @@ public class SetupDatabase extends SQLiteOpenHelper {
     private static final String SQL_CREATE_STATE_TABLE = "CREATE TABLE IF NOT EXISTS state (id integer, name text)";
     private static final String SQL_CREATE_CERTIFICADO_TABLE = "CREATE TABLE IF NOT EXISTS certificate (firebase_key_user text, id integer, name text, validade text)";
     private static final String SQL_CREATE_QUESTIONS_TABLE = "CREATE TABLE IF NOT EXISTS questions (id integer, id_skills integer, type integer, id_intro integer, multiplaa text, multiplab text, multiplac text, multiplad text, multiplae text, alternativacorreta text," +
-            " imagem integer, acertos text, erros text, item1X text, item1Y text, item2X text, item2Y text, item3X text, item3Y text, item4X text, item4Y text, item5X text, item5Y text," +
+            " imagem integer, acertos text, erros text, msgfinal text,item1X text, item1Y text, item2X text, item2Y text, item3X text, item3Y text, item4X text, item4Y text, item5X text, item5Y text," +
             "largura text, altura text,movie text, moviesugest text, pontos text, totalpontos text, respondida boolean)";
     private static final String SQL_CREATE_INTRO_TABLE = "CREATE TABLE IF NOT EXISTS intro (id_intro, title text, texto text, img integer, ordem integer)";
 
@@ -62,8 +62,8 @@ public class SetupDatabase extends SQLiteOpenHelper {
 
     //1 - multipla  //2 - clicavel //3 - AB
     private static final String SQL_INSERT_INTO_QUESTIONS1 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
-            " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 2, 1, 'a', 2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 400, 400, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
+            " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, msgfinal, movie, moviesugest, totalpontos, respondida)" +
+            "VALUES ( 0, 1, 2, 1, 'a', 2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 400, 400, 'O correto é cortar a corda com um machado, pois é a única ferramenta que tem capacidade para cortar uma corda de reboque, assim como cordar a corda é o mais seguro a se fazer para que se evite o emborcamento do barco. Veja o material para mais informações.', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
     private static final String SQL_INSERT_INTO_1_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'Um navio cargueiro está sendo rebocado e você está no rebocador.', 2131165355, 0);";
     private static final String SQL_INSERT_INTO_1_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'tituloooo intro 1', 'A corrente está oscilando, fazendo a corda do rebocador tensionar em alguns momentos.', 2131165356, 1);";
@@ -71,8 +71,8 @@ public class SetupDatabase extends SQLiteOpenHelper {
 
 
     private static final String SQL_INSERT_INTO_QUESTIONS2 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
-            " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 1, 1, 2, 2, 'a', 2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 400, 400, 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
+            " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura,msgfinal, movie, moviesugest, totalpontos, respondida)" +
+            "VALUES ( 1, 1, 2, 2, 'a', 2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 400, 400, 'Os EPI necessários são Capacete de Aba Total, Luva de Couro e Botas Antiderrapantes para que você fique protegido ao manusear as cordas e equipamentos, evitando prováveis acidentes ou contusões. Veja o material para mais informações', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
 
     private static final String SQL_INSERT_INTO_2_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'tituloooo intro 2', 'drescription intro 2', 2131165344, 0);";
@@ -161,7 +161,7 @@ public class SetupDatabase extends SQLiteOpenHelper {
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_2);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_2_3);
 
-        this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
+/*        this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS3);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_3_1);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_3_2);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_3_3);
@@ -169,7 +169,7 @@ public class SetupDatabase extends SQLiteOpenHelper {
         this.currentDatabase.execSQL(SQL_INSERT_INTO_QUESTIONS4);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_4_1);
         this.currentDatabase.execSQL(SQL_INSERT_INTO_4_2);
-        this.currentDatabase.execSQL(SQL_INSERT_INTO_4_3);
+        this.currentDatabase.execSQL(SQL_INSERT_INTO_4_3);*/
 
         this.currentDatabase.close();
         new mySharedPrefs(activityRef).setCopyDatabase();

@@ -17,6 +17,7 @@ public class ObjectQuestions {
     private int erros;
     private String largura;
     private String altura;
+    private String msgFinal;
     private String movie;
     private String moviesSugest;
     private String item1X;
@@ -150,6 +151,14 @@ public class ObjectQuestions {
 
     public void setAltura(String altura) {
         this.altura = altura;
+    }
+
+    public String getMsgFinal() {
+        return msgFinal;
+    }
+
+    public void setMsgFinal(String msgFinal) {
+        this.msgFinal = msgFinal;
     }
 
     public String getMovie() {
