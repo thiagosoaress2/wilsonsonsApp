@@ -119,7 +119,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="gone">
+        tools:visibility="visible">
 
         <ScrollView
             android:id="@+id/scrollView3"
@@ -235,11 +235,10 @@
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginTop="16dp"
-                    android:layout_marginEnd="42dp"
                     android:background="@drawable/rounded_edittext"
                     android:ems="10"
                     android:hint="Data de nasc."
-                    android:inputType="textPersonName"
+                    android:inputType="date"
                     android:paddingStart="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintStart_toStartOf="@+id/cad_etNome"
@@ -252,7 +251,7 @@
                     android:layout_marginStart="16dp"
                     app:layout_constraintBottom_toBottomOf="@+id/cad_etNascimento"
                     app:layout_constraintEnd_toEndOf="@+id/cad_etNome"
-                    app:layout_constraintStart_toEndOf="@+id/cad_etNascimento"
+                    app:layout_constraintStart_toStartOf="@+id/guideline4"
                     app:layout_constraintTop_toTopOf="@+id/cad_etNascimento" />
 
                 <EditText
@@ -263,7 +262,7 @@
                     android:background="@drawable/rounded_edittext"
                     android:ems="10"
                     android:hint="Número celular"
-                    android:inputType="textPersonName"
+                    android:inputType="phone"
                     android:paddingStart="14dp"
                     app:layout_constraintEnd_toStartOf="@+id/guideline4"
                     app:layout_constraintStart_toStartOf="@+id/cad_etNascimento"

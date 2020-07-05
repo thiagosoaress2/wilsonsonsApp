@@ -27,7 +27,7 @@ object IndexControllers {
         return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting
     }
 
-    fun calculateTheScreenSizeH(activity: Activity, imageView: ImageView) : Int {
+    fun calculateTheScreenSizeH(activity: Activity) : Int {
 
         //pegando o tamanho da tela do celular
         val display = activity.windowManager.defaultDisplay
@@ -39,7 +39,7 @@ object IndexControllers {
 
     }
 
-    fun calculateTheScreenSizeW(activity: Activity, imageView: ImageView) : Int {
+    fun calculateTheScreenSizeW(activity: Activity) : Int {
 
         //pegando o tamanho da tela do celular
         val display = activity.windowManager.defaultDisplay

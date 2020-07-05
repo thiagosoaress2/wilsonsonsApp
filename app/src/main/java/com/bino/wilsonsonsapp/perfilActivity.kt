@@ -1,6 +1,7 @@
 package com.bino.wilsonsonsapp
 
 import android.annotation.SuppressLint
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.ContextWrapper
 import android.content.Intent
@@ -24,6 +25,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
+import com.bino.wilsonsonsapp.Controllers.IndexControllers
 import com.bino.wilsonsonsapp.Controllers.perfilController
 import com.bino.wilsonsonsapp.Models.ConsultsUserModel
 import com.bino.wilsonsonsapp.Models.IndexModels
@@ -688,18 +690,31 @@ class perfilActivity : AppCompatActivity() {
         val ref = storageRef
         uploadTask = ref.putFile(filePath)
 
+        /*
+        var progress : Double
+        val progressbar = ProgressBar(this,
+            android.R.attr.progressBarStyleHorizontal)
+        progressbar.layoutParams = LinearLayout.LayoutParams(IndexControllers.calculateTheScreenSizeW(this)-100, 100)
+        progressbar.x = 0f //setting margin from left
+        progressbar.y = 600f //setting margin from top
+        val layEditInfo: ConstraintLayout = findViewById(R.id.layEditInfo)
+        layEditInfo.addView(progressbar)
+
         // Listen for state changes, errors, and completion of the upload.
         uploadTask.addOnProgressListener { taskSnapshot ->
-            val progress = (100.0 * taskSnapshot.bytesTransferred) / taskSnapshot.totalByteCount
-            println("Upload está com $progress% feita")
+            progress = (100.0 * taskSnapshot.bytesTransferred) / taskSnapshot.totalByteCount
+            progressbar.progress= progress.toInt()
         }.addOnPausedListener {
-            println("Upload está parado")
+
         }.addOnFailureListener {
             // Handle unsuccessful uploads
         }.addOnSuccessListener {
             // Handle successful uploads on complete
+            progressbar.visibility = View.GONE
             // ...
         }
+
+         */
 
         val urlTask = uploadTask.continueWithTask { task ->
             if (!task.isSuccessful) {
