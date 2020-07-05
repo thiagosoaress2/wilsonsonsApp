@@ -22,14 +22,6 @@ public class ObjectQuestions {
     private String moviesSugest;
     private String item1X;
     private String item1Y;
-    private String item2X;
-    private String item2Y;
-    private String item3X;
-    private String item3Y;
-    private String item4X;
-    private String item4Y;
-    private String item5X;
-    private String item5Y;
     private int pontos;
     private int totalpontos;
 
@@ -191,70 +183,6 @@ public class ObjectQuestions {
 
     public void setItem1Y(String item1Y) {
         this.item1Y = item1Y;
-    }
-
-    public String getItem2X() {
-        return item2X;
-    }
-
-    public void setItem2X(String item2X) {
-        this.item2X = item2X;
-    }
-
-    public String getItem2Y() {
-        return item2Y;
-    }
-
-    public void setItem2Y(String item2Y) {
-        this.item2Y = item2Y;
-    }
-
-    public String getItem3X() {
-        return item3X;
-    }
-
-    public void setItem3X(String item3X) {
-        this.item3X = item3X;
-    }
-
-    public String getItem3Y() {
-        return item3Y;
-    }
-
-    public void setItem3Y(String item3Y) {
-        this.item3Y = item3Y;
-    }
-
-    public String getItem4X() {
-        return item4X;
-    }
-
-    public void setItem4X(String item4X) {
-        this.item4X = item4X;
-    }
-
-    public String getItem4Y() {
-        return item4Y;
-    }
-
-    public void setItem4Y(String item4Y) {
-        this.item4Y = item4Y;
-    }
-
-    public String getItem5X() {
-        return item5X;
-    }
-
-    public void setItem5X(String item5X) {
-        this.item5X = item5X;
-    }
-
-    public String getItem5Y() {
-        return item5Y;
-    }
-
-    public void setItem5Y(String item5Y) {
-        this.item5Y = item5Y;
     }
 
     public int getPontos() {

@@ -22,9 +22,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bino.wilsonsonsapp.Controllers.AdminControllers
-import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
-import com.bino.wilsonsonsapp.Controllers.IndexControllers
+import com.bino.wilsonsonsapp.Controllers.*
 import com.bino.wilsonsonsapp.Models.*
 import com.bino.wilsonsonsapp.Models.IndexModels.stopSoundIntro
 import com.bino.wilsonsonsapp.Utils.ListCursosAdapter
@@ -171,13 +169,11 @@ class IndexActivityNew : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        /*
-        if (Sound.isPlaying()) {
+
+      /*  if (Sound.isPlaying()) {
             Sound.stop();
         }
-        stopSoundIntro()
-
-         */
+        stopSoundIntro()*/
     }
 
     fun loadComponents(){
@@ -258,6 +254,41 @@ class IndexActivityNew : AppCompatActivity() {
                     true
                 }
                 else -> false
+            }
+        }
+
+var objectUser: ObjectUser =  ObjectUser()
+        objectUser = ConsultsUserModel.selectUser()
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val navUsername = headerView.findViewById(R.id.drawer_name) as TextView
+        val navUserfunction = headerView.findViewById(R.id.drawer_function) as TextView
+
+        if(objectUser != null ) {
+            if (objectUser.name != null) {
+                if (!objectUser.name.equals("")) {
+                    navUsername.text = objectUser.name
+                }
+            }
+
+            if (objectUser.cargo != null && objectUser.name != null) {
+                if (!objectUser.cargo.equals("") && !objectUser.name.equals("")) {
+                    navUserfunction.text = perfilController.getfunction(objectUser.cargo)
+                }
+            }
+
+            val navPhoto = headerView.findViewById(R.id.imageView) as ImageView
+
+            if (objectUser.photo != null) {
+                if (!objectUser.photo.equals("")) {
+                    Glide.with(applicationContext)  //2
+                        .load(objectUser.photo) //3
+                        .centerCrop() //4
+                        .placeholder(R.drawable.avatar) //5
+                        .error(R.drawable.avatar) //6
+                        .fallback(R.drawable.avatar) //7
+                        .into(navPhoto)
+                }
             }
         }
     }
