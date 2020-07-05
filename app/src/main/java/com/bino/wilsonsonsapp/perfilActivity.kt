@@ -6,6 +6,7 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -32,15 +33,13 @@ import com.bino.wilsonsonsapp.Utils.readFilesPermissions
 import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Continuation
-import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageException
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
-import kotlinx.android.synthetic.main.activity_index_new.*
 import kotlinx.android.synthetic.main.nav_header_main.*
 import java.io.*
 import java.util.*
@@ -664,29 +663,94 @@ class perfilActivity : AppCompatActivity() {
 
     //envio da foto
     //existe uma opção especial aqui para o caso de ser alvará
+
     fun uploadImage(){
 
         mFireBaseStorage = FirebaseStorage.getInstance()
         mphotoStorageReference = mFireBaseStorage.reference
 
-        mphotoStorageReference =mFireBaseStorage.getReference().child(ControllersUniversais.getDate()+ControllersUniversais.getHour())
-
+        val storageRef = mphotoStorageReference.child("usuarios_img")  //path no firebase
 
         val bmp: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath)
         val baos: ByteArrayOutputStream = ByteArrayOutputStream()
         bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos)
 
-//get the uri from the bitmap
+        //get the uri from the bitmap
         val tempUri: Uri = getImageUri(this, bmp)
-//transform the new compressed bmp in filepath uri
+        //transform the new compressed bmp in filepath uri
         filePath = tempUri
 
-//var file = Uri.fromFile(bitmap)
-        var uploadTask = mphotoStorageReference.putFile(filePath)
 
-        uploadTask.addOnFailureListener {
+        //Define aqui o nome do arquivo
+        var uploadTask = storageRef.child(ControllersUniversais.getDate().toString()+ControllersUniversais.getHour().toString()).putFile(filePath)
 
+        // [START upload_get_download_url]
+        val ref = storageRef
+        uploadTask = ref.putFile(filePath)
+
+        // Listen for state changes, errors, and completion of the upload.
+        uploadTask.addOnProgressListener { taskSnapshot ->
+            val progress = (100.0 * taskSnapshot.bytesTransferred) / taskSnapshot.totalByteCount
+            println("Upload está com $progress% feita")
+        }.addOnPausedListener {
+            println("Upload está parado")
+        }.addOnFailureListener {
+            // Handle unsuccessful uploads
+        }.addOnSuccessListener {
+            // Handle successful uploads on complete
+            // ...
         }
+
+        val urlTask = uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            ref.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUri = task.result
+                Log.d("teste", "funcionou "+downloadUri)
+                urifinal = downloadUri.toString()
+                databaseReference.child("usuarios").child(IndexModels.userBd).child("img").setValue(urifinal)
+                EncerraDialog()
+
+            } else {
+                // Handle failures
+                Log.d("teste", "erro outravez")
+                EncerraDialog()
+                // ...
+            }
+        }
+
+
+
+
+    }
+
+    /*
+    fun uploadImage(){
+
+        mFireBaseStorage = FirebaseStorage.getInstance()
+        mphotoStorageReference = mFireBaseStorage.reference
+
+        //mphotoStorageReference =mFireBaseStorage.getReference().child(ControllersUniversais.getDate()+ControllersUniversais.rand(0, 1000))
+        //mphotoStorageReference =mFireBaseStorage.getReference().child(ControllersUniversais.getDate().toString()).child(ControllersUniversais.rand(1, 1000).toString())
+        val teste = ControllersUniversais.getHour()
+        mphotoStorageReference = mFireBaseStorage.reference.child("usuarios").child(teste)
+
+        val bmp: Bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath)
+        val baos: ByteArrayOutputStream = ByteArrayOutputStream()
+        bmp.compress(Bitmap.CompressFormat.JPEG, 25, baos)
+
+        //get the uri from the bitmap
+        val tempUri: Uri = getImageUri(this, bmp)
+        //transform the new compressed bmp in filepath uri
+        filePath = tempUri
+
+        //var file = Uri.fromFile(bitmap)
+        var uploadTask = mphotoStorageReference.putFile(filePath)
 
         val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
             if (!task.isSuccessful) {
@@ -708,12 +772,18 @@ class perfilActivity : AppCompatActivity() {
 
 
             } else {
+                val teste = task.exception
+                Log.d("teste", "deu erro na foto"+ teste)
                 EncerraDialog()
                 // ...
             }
+
         }
 
-    }
+
+
+         }
+     */
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
 

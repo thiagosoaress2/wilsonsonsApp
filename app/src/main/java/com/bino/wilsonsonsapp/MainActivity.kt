@@ -7,6 +7,7 @@ import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.transition.Slide
@@ -22,6 +23,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.bino.wilsonsonsapp.Controllers.SetupDatabase
+import com.bino.wilsonsonsapp.Models.AdminModels
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -596,10 +598,9 @@ class MainActivity : AppCompatActivity() {
     fun LoginWithEmail() {
 
         val btnNovoUser = findViewById<TextView>(R.id.layInicial_tvNovoUsuario)
-        val btnNovoUserfake = findViewById<TextView>(R.id.textView15)
-        btnNovoUserfake.setOnClickListener {
-            btnNovoUser.performClick()
-        }
+        val txtBtnNovoUser = " <font color='#FFFFFF'> Ainda não está cadastrado? <u><b>Cadastre-se!</u></b></font>"
+        btnNovoUser.setText(Html.fromHtml(txtBtnNovoUser))
+
         btnNovoUser.setOnClickListener {
 
             trocaTela(telaLoginMailNew, telainicial)

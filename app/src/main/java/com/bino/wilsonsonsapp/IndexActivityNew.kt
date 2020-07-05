@@ -113,7 +113,7 @@ class IndexActivityNew : AppCompatActivity() {
                 //primeiro pega alerta no bd se tiver
                 queryConvocacoes()
                 updateCertificatesOnLine()
-                updateUsersInfo()
+                //updateUsersInfo()
 
             } else {
                 //verifica se tem algo no sharedPrefs de alerta
@@ -290,39 +290,6 @@ class IndexActivityNew : AppCompatActivity() {
         //showListedItems("cert")
     }
 
-    fun updateUsersInfo() {
-
-        var objectStatusUser: ObjectStatusUser = ObjectStatusUser()
-        objectStatusUser = ConsultsUserModel.selectPoints(this)
-
-        var objectsUser : ObjectUser =  ConsultsUserModel.selectUser()
-
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("skillrel").setValue(objectStatusUser.skill1_points.toString())
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("skillseg").setValue(objectStatusUser.skill2_points.toString())
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("skilltec").setValue(objectStatusUser.skill3_points.toString())
-
-        val statePosition = objectsUser.state
-
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("Estado").setValue(IndexModels.loadArrayStates(statePosition))
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("contato").setValue(objectUser.number.toString())
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("funcao").setValue(objectUser.cargo.toString())
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("img").setValue(objectUser.photo.toString())
-        databaseReference.child("funcionarios").child(IndexModels.userBd).child("nome").setValue(objectUser.name.toString())
-
-        var cont=0
-        while (cont<IndexModels.arrayCertificados.size){
-
-            cont++
-            var field = "certificado"+cont.toString()
-            databaseReference.child("funcionarios").child(IndexModels.userBd).child(field).setValue(IndexModels.arrayCertificados.get(cont-1))
-            field = "valcert"+cont.toString()
-            databaseReference.child("funcionarios").child(IndexModels.userBd).child(field).setValue(IndexModels.arrayCertificadosValidade.get(cont-1))
-
-            databaseReference.child("funcionarios").child(IndexModels.userBd).child("certificados").setValue(IndexModels.arrayCertificados.size)
-        }
-        Log.d("teste", "Valores atualizados no banco de dados")
-
-    }
 
     private fun placePlayButtonInitialy (layout: ConstraintLayout){
 
@@ -788,6 +755,42 @@ class IndexActivityNew : AppCompatActivity() {
         spinner.visibility = View.GONE
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE) //libera os clicks
     }
+
+    /*
+    fun updateUsersInfo() {
+
+        var objectStatusUser: ObjectStatusUser = ObjectStatusUser()
+        objectStatusUser = ConsultsUserModel.selectPoints(this)
+
+        var objectsUser : ObjectUser =  ConsultsUserModel.selectUser()
+
+        databaseReference.child("funcionarios").child(IndexModels.userBd).child("skillrel").setValue(objectStatusUser.skill1_points.toString())
+        databaseReference.child("funcionarios").child(IndexModels.userBd).child("skillseg").setValue(objectStatusUser.skill2_points.toString())
+        databaseReference.child("funcionarios").child(IndexModels.userBd).child("skilltec").setValue(objectStatusUser.skill3_points.toString())
+
+        val statePosition = objectsUser.state
+
+        databaseReference.child("funcionarios").child(IndexModels.userBd).child("Estado").setValue(IndexModels.loadArrayStates(statePosition))
+        databaseReference.child("funcionarios").child(IndexModels.userBd).child("contato").setValue(objectUser.number.toString())
+        databaseReference.child("funcionarios").child(IndexModels.userBd).child("funcao").setValue(objectUser.cargo.toString())
+        databaseReference.child("funcionarios").child(IndexModels.userBd).child("img").setValue(objectUser.photo.toString())
+        databaseReference.child("funcionarios").child(IndexModels.userBd).child("nome").setValue(objectUser.name.toString())
+
+        var cont=0
+        while (cont<IndexModels.arrayCertificados.size){
+
+            cont++
+            var field = "certificado"+cont.toString()
+            databaseReference.child("funcionarios").child(IndexModels.userBd).child(field).setValue(IndexModels.arrayCertificados.get(cont-1))
+            field = "valcert"+cont.toString()
+            databaseReference.child("funcionarios").child(IndexModels.userBd).child(field).setValue(IndexModels.arrayCertificadosValidade.get(cont-1))
+            databaseReference.child("funcionarios").child(IndexModels.userBd).child("certificados").setValue(IndexModels.arrayCertificados.size)
+
+        }
+        Log.d("teste", "Valores atualizados no banco de dados")
+
+    }
+     */
 
     //click listener da primeira recycleview
     interface ClickListener {

@@ -261,23 +261,9 @@
                         android:text="@string/main_layInicial_txt_cadestrese"
                         android:textColor="@color/white"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-                        app:layout_constraintStart_toStartOf="@+id/guideline8"
-                        app:layout_constraintTop_toBottomOf="@+id/btnLoginDepois" />
-
-                    <TextView
-                        android:id="@+id/textView15"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:text="@string/main_layInicial_txt_cadestrese2"
-                        android:textColor="@color/white"
-
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toBottomOf="@+id/layInicial_tvNovoUsuario"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/layInicial_tvNovoUsuario"
-                        app:layout_constraintTop_toTopOf="@+id/layInicial_tvNovoUsuario" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/btnLoginDepois" />
 
                     <TextView
                         android:id="@+id/tvPerdeuSenha"
