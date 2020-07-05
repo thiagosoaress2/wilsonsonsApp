@@ -31,6 +31,7 @@ import com.bino.wilsonsonsapp.Utils.readFilesPermissions
 import com.bino.wilsonsonsapp.Utils.writeFilesPermissions
 import com.bumptech.glide.Glide
 import com.google.android.gms.tasks.Continuation
+import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -703,6 +704,10 @@ class perfilActivity : AppCompatActivity() {
 //var file = Uri.fromFile(bitmap)
         var uploadTask = mphotoStorageReference.putFile(filePath)
 
+        uploadTask.addOnFailureListener {
+
+        }
+
         val urlTask = uploadTask.continueWithTask(Continuation<UploadTask.TaskSnapshot, Task<Uri>> { task ->
             if (!task.isSuccessful) {
                 task.exception?.let {
@@ -725,7 +730,7 @@ class perfilActivity : AppCompatActivity() {
             } else {
                 // Handle failures
                 Toast.makeText(this, "um erro ocorreu.", Toast.LENGTH_SHORT).show()
-               
+
                 // ...
             }
         }
@@ -767,5 +772,16 @@ class perfilActivity : AppCompatActivity() {
         spinner.visibility = View.GONE
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE) //libera os clicks
     }
+
+    // [START storage_custom_failure_listener]
+    internal inner class MyFailureListener : OnFailureListener {
+        override fun onFailure(exception: Exception) {
+            val errorCode = (exception as StorageException).errorCode
+            val errorMessage = exception.message
+            // test the errorCode and errorMessage, and handle accordingly
+        }
+    }
+    // [END storage_custom_failure_listener]
+
 
 }
