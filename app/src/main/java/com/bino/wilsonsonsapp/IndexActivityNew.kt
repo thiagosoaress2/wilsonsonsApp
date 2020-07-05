@@ -3,6 +3,7 @@ package com.bino.wilsonsonsapp
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.util.Log
 import android.view.GestureDetector
@@ -24,11 +25,11 @@ import com.bino.wilsonsonsapp.Controllers.ControllersUniversais
 import com.bino.wilsonsonsapp.Controllers.IndexControllers
 import com.bino.wilsonsonsapp.Models.ConsultsQuestionsModel
 import com.bino.wilsonsonsapp.Models.IndexModels
+import com.bino.wilsonsonsapp.Models.IndexModels.stopSoundIntro
 import com.bino.wilsonsonsapp.Models.ObjectQuestions
 import com.bino.wilsonsonsapp.Models.ObjectUser
 import com.bino.wilsonsonsapp.Utils.ListCursosAdapter
 import com.bino.wilsonsonsapp.Utils.mySharedPrefs
-import com.bino.wilsonsonsapp.Utils.startSound
 import com.bumptech.glide.Glide
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -55,9 +56,8 @@ class IndexActivityNew : AppCompatActivity() {
     lateinit var mySharedPrefs: mySharedPrefs
     lateinit var objectUser: ObjectUser
 
-    lateinit var objectQuestionsList: List<ObjectQuestions>
     lateinit var objectQuestions: ObjectQuestions
-
+    lateinit var Sound: MediaPlayer;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -142,6 +142,14 @@ class IndexActivityNew : AppCompatActivity() {
 
         //verificar a fase do user e coloca no lugar certo
         IndexModels.checkUserCheckpoint(userAvatar)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (Sound.isPlaying()) {
+            Sound.stop();
+        }
+        stopSoundIntro()
     }
 
     fun loadComponents(){
@@ -314,16 +322,17 @@ class IndexActivityNew : AppCompatActivity() {
     }
 
     fun openProblema(objectQuestions: ObjectQuestions){
-
+        stopSoundIntro()
         layIntroQuest.visibility = View.GONE
         // layInicial.visibility = View.GONE
         lay_problema.visibility = View.VISIBLE
 
         when(objectQuestions.id_intro) {
-            1 -> startSound(this, R.raw.question1)
-            2 -> startSound(this, R.raw.question1)
-            else -> startSound(this, R.raw.question1)
+            1 -> Sound = MediaPlayer.create(this, R.raw.question1)
+            2 -> Sound = MediaPlayer.create(this, R.raw.question1)
+            else -> Sound = MediaPlayer.create(this, R.raw.question1)
         }
+        Sound.start()
 
         val layRespostas: ConstraintLayout = findViewById(R.id.lay_respostaMultipla)
 
