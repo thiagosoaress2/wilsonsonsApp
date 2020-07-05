@@ -67,7 +67,7 @@ public class SetupDatabase extends SQLiteOpenHelper {
     //        //intro2img2 2131165360
     private static final String SQL_INSERT_INTO_QUESTIONS1 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
             " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura, msgfinal, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 0, 1, 2, 1, 'a', 2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 400, 400, 'O correto é cortar a corda com um machado, pois é a única ferramenta que tem capacidade para cortar uma corda de reboque, assim como cordar a corda é o mais seguro a se fazer para que se evite o emborcamento do barco. Veja o material para mais informações.', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
+            "VALUES ( 0, 1, 2, 1, 'a', 2131165284, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 400, 400, 'O correto é cortar a corda com um machado, pois é a única ferramenta que tem capacidade para cortar uma corda de reboque, assim como cordar a corda é o mais seguro a se fazer para que se evite o emborcamento do barco. Veja o material para mais informações.', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
     private static final String SQL_INSERT_INTO_1_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'Cenário 1', 'Um navio cargueiro está sendo rebocado e você está no rebocador.', 2131165356, 0);";
     private static final String SQL_INSERT_INTO_1_2 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (1, 'Cenário 2', 'A corrente está oscilando, fazendo a corda do rebocador tensionar em alguns momentos.', 2131165357, 1);";
@@ -76,7 +76,7 @@ public class SetupDatabase extends SQLiteOpenHelper {
 
     private static final String SQL_INSERT_INTO_QUESTIONS2 = "INSERT INTO questions (id, id_skills, type, id_intro, alternativacorreta, imagem," +
             " item1X, item1Y, item2X, item2Y, item3X, item3Y, item4X, item4Y, item5X, item5Y, largura, altura,msgfinal, movie, moviesugest, totalpontos, respondida)" +
-            "VALUES ( 1, 1, 2, 2, 'a', 2131165344, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 400, 400, 'Os EPI necessários são Capacete de Aba Total, Luva de Couro e Botas Antiderrapantes para que você fique protegido ao manusear as cordas e equipamentos, evitando prováveis acidentes ou contusões. Veja o material para mais informações', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
+            "VALUES ( 1, 1, 2, 2, 'a', 2131165284, 50, 50, 100, 100, 150, 150, 200, 200, 250, 250, 400, 400, 'Os EPI necessários são Capacete de Aba Total, Luva de Couro e Botas Antiderrapantes para que você fique protegido ao manusear as cordas e equipamentos, evitando prováveis acidentes ou contusões. Veja o material para mais informações', 'https://www.youtube.com/watch?v=_Awvrochhvk', 'https://www.youtube.com/watch?v=_Awvrochhvk', 100, 'false');";
 
 
     private static final String SQL_INSERT_INTO_2_1 = "INSERT INTO intro (id_intro, title, texto, img, ordem) VALUES (2, 'Cenário 1', 'Você está mais uma vez trabalhando embarcado.', 2131165359, 0);";

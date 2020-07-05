@@ -87,6 +87,8 @@ class IndexActivityNew : AppCompatActivity() {
         Log.d("teste", "o valor de intro2img1 "+bmp)
         bmp = R.drawable.intro2img2
         Log.d("teste", "o valor de intro2img2 "+bmp)
+        bmp = R.drawable.background_end_question
+        Log.d("teste", "o valor de ibackground question "+bmp)
 
         //codigos
         //intro1img1 2131165356
